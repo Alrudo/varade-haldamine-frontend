@@ -11,6 +11,7 @@
 html,
 body {
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   margin: 0;
   height: 100%;
