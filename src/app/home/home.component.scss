@@ -37,3 +37,21 @@ th {
   padding: 8px;
   background-color: #eee;
 }
+
+a {
+  padding: 0.2em 0.4em 0.2em 0.4em;
+  text-decoration: none;
+  color: black;
+  background-color: whitesmoke;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+a:hover {
+  padding: 0.2em 0.4em 0.2em 0.4em;
+  text-decoration: none;
+  color: black;
+  background-color: grey;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
