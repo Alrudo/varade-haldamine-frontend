@@ -3,7 +3,8 @@ import { finalize } from 'rxjs/operators';
 
 import { QuoteService } from './quote.service';
 
-import { PROPERTIES } from '@app/home/mock_properties';
+import { Property } from '@app/home/property';
+import { PropertyService } from '@app/property.service';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +15,9 @@ export class HomeComponent implements OnInit {
   quote: string | undefined;
   isLoading = false;
 
-  properties = PROPERTIES;
+  properties: Property[];
 
-  constructor(private quoteService: QuoteService) {}
+  constructor(private quoteService: QuoteService, private propertyService: PropertyService) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -30,5 +31,10 @@ export class HomeComponent implements OnInit {
       .subscribe((quote: string) => {
         this.quote = quote;
       });
+    this.getProperties();
+  }
+
+  getProperties(): void {
+    this.propertyService.getProperties().subscribe((properties) => (this.properties = properties));
   }
 }
