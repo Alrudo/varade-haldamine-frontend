@@ -1,4 +1,6 @@
 .container {
+  display: flex;
+  flex-flow: column;
   text-align: center;
   padding: 1em;
 }
@@ -11,4 +13,27 @@
 q {
   font-style: italic;
   quotes: "« " " »";
+}
+
+.none {
+  border: white;
+  background-color: #f9f9f9;
+}
+
+.buttons {
+  text-align: left;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  align-self: center;
+  width: 75%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  background-color: #eee;
 }

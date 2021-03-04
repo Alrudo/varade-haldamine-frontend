@@ -12,3 +12,34 @@
     </mat-card-content>
   </mat-card>
 </div>
+
+<div class="container">
+  <h2>Varad</h2>
+  <table>
+    <tr>
+      <th class="none" id="checkBox"></th>
+      <th id="id">ID</th>
+      <th id="name">Nimitus</th>
+      <th id="lastCheck">Last check</th>
+      <th id="room">Tuba</th>
+      <th id="state">Seisukord</th>
+      <th id="status">Status</th>
+      <th id="tehingud" class="buttons">Tehingud</th>
+    </tr>
+    <tr *ngFor="let property of properties">
+      <td><input type="checkbox" /></td>
+      <td>{{ property.id }}</td>
+      <td>{{ property.name }}</td>
+      <td>{{ property.last_check.toDateString() }}</td>
+      <td>{{ property.room }}</td>
+      <td>{{ property.state }}</td>
+      <td>{{ property.status }}</td>
+      <td class="buttons">
+        <button>Info</button>
+        <button>Kommenteeri</button>
+        <button>On kohal</button>
+        <button>Ei ole kohal</button>
+      </td>
+    </tr>
+  </table>
+</div>

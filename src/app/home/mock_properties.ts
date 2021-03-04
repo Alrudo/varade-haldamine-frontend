@@ -1,0 +1,78 @@
+import { Property } from './property';
+import { STATUS } from './property';
+import { STATE } from './property';
+
+export const PROPERTIES: Property[] = [
+  {
+    id: 1,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+  {
+    id: 2,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+  {
+    id: 3,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+  {
+    id: 4,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+  {
+    id: 5,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+  {
+    id: 6,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+  {
+    id: 7,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+  {
+    id: 8,
+    name: 'XXX',
+    last_check: new Date(),
+    room: 'U03-304',
+    status: STATUS.checked,
+    state: STATE.inuse,
+    description: 'xxx',
+  },
+];
