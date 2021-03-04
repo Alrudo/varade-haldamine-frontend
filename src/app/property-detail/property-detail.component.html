@@ -1,4 +1,23 @@
 <div class="container">
   <h2>{{ property.name }}</h2>
-  <button (click)="goBack()">go back</button>
+  <br />
+  <p>Viimati controllitud: {{ property.last_check.toDateString() }}</p>
+  <br />
+  <p>Tuba: {{ property.room }}</p>
+  <br />
+  <p>Staatus: {{ property.status }}</p>
+  <br />
+  <p>Seisukord: {{ property.state }}</p>
+  <br />
+  <p>Kirjeldus: {{ property.description }}</p>
+  <br />
+  <h3>Kommentaarid:</h3>
+  <div></div>
+  <label
+    >Lisa kommentaar:
+    <br />
+    <textarea #comment class="comment_area"></textarea>
+  </label>
+  <button>Lisa</button>
 </div>
+<button class="backButt" (click)="goBack()">go back</button>

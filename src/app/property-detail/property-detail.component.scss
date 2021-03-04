@@ -1,6 +1,11 @@
 .container {
+  margin: 2em;
   display: flex;
   flex-flow: column;
-  text-align: center;
+  text-align: left;
   padding: 1em;
+}
+
+.backButt {
+  margin: 1em;
 }
