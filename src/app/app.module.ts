@@ -33,5 +33,6 @@ import { PropertyDetailComponent } from './property-detail/property-detail.compo
   declarations: [AppComponent, PropertyDetailComponent],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}
