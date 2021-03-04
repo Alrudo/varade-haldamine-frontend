@@ -3,6 +3,8 @@ import { finalize } from 'rxjs/operators';
 
 import { QuoteService } from './quote.service';
 
+import { PROPERTIES } from '@app/home/mock_properties';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,6 +13,8 @@ import { QuoteService } from './quote.service';
 export class HomeComponent implements OnInit {
   quote: string | undefined;
   isLoading = false;
+
+  properties = PROPERTIES;
 
   constructor(private quoteService: QuoteService) {}
 
