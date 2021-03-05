@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Property } from '@app/home/property';
-import { PROPERTIES } from '@app/home/mock_properties';
+import { Property } from '@app/property/property';
+import { PROPERTIES } from '@app/property/mock_properties';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

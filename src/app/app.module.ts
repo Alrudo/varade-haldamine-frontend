@@ -14,6 +14,10 @@ import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PropertyDetailComponent } from './property-detail/property-detail.component';
+import { PropertyComponent } from './property/property.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   imports: [
@@ -28,6 +32,8 @@ import { PropertyDetailComponent } from './property-detail/property-detail.compo
     ShellModule,
     HomeModule,
     AuthModule,
+    MatSortModule,
+    MatTableModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent, PropertyDetailComponent],

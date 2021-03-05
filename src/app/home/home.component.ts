@@ -3,8 +3,8 @@ import { finalize } from 'rxjs/operators';
 
 import { QuoteService } from './quote.service';
 
-import { Property } from '@app/home/property';
-import { PropertyService } from '@app/property.service';
+import { Property } from '@app/property/property';
+import { PropertyService } from '@app/property/property.service';
 
 @Component({
   selector: 'app-home',

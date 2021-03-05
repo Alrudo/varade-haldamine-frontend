@@ -5,7 +5,7 @@ import { STATE } from './property';
 export const PROPERTIES: Property[] = [
   {
     id: 1,
-    name: 'XXX',
+    name: 'Dell Arvuti',
     last_check: new Date(),
     room: 'U03-304',
     status: STATUS.checked,
