@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PropertyService } from './property.service';
 import { Property } from './property';
-import { BehaviorSubject } from 'rxjs';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-property',
@@ -14,6 +14,23 @@ export class PropertyComponent implements OnInit, AfterViewInit {
   properties: Property[] = [];
   datasource: MatTableDataSource<Property>;
 
+  idFilter = new FormControl('');
+  nameFilter = new FormControl('');
+  last_checkFilter = new FormControl('');
+  roomFilter = new FormControl('');
+  statusFilter = new FormControl('');
+  stateFilter = new FormControl('');
+
+  columnsToDisplay = ['name', 'id', 'favouriteColour', 'pet'];
+  filterValues = {
+    id: '',
+    name: '',
+    last_check: '',
+    room: '',
+    status: '',
+    state: '',
+  };
+
   displayedColumns: string[] = ['checkboxes', 'id', 'name', 'last_check', 'room', 'status', 'state', 'actions'];
 
   constructor(private itemService: PropertyService) {}
@@ -21,7 +38,33 @@ export class PropertyComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.itemService.getProperties().subscribe((properties) => {
       this.properties = properties;
-      this.datasource = new MatTableDataSource(properties);
+    });
+    this.datasource = new MatTableDataSource(this.properties);
+    this.datasource.filterPredicate = this.createFilter();
+    this.idFilter.valueChanges.subscribe((id) => {
+      this.filterValues.id = id.toString().toLowerCase();
+      this.datasource.filter = JSON.stringify(this.filterValues);
+    });
+    this.nameFilter.valueChanges.subscribe((name) => {
+      this.filterValues.name = name.toString().toLowerCase();
+      this.datasource.filter = JSON.stringify(this.filterValues);
+    });
+    this.last_checkFilter.valueChanges.subscribe((last_check) => {
+      this.filterValues.last_check = last_check.toString().toLowerCase();
+      this.datasource.filter = JSON.stringify(this.filterValues);
+    });
+    this.roomFilter.valueChanges.subscribe((room) => {
+      this.filterValues.room = room.toString().toLowerCase();
+      this.datasource.filter = JSON.stringify(this.filterValues);
+    });
+    this.statusFilter.valueChanges.subscribe((status) => {
+      this.filterValues.status = status.toString().toLowerCase();
+      this.datasource.filter = JSON.stringify(this.filterValues);
+    });
+    this.stateFilter.valueChanges.subscribe((state) => {
+      this.filterValues.state = state.toString().toLowerCase();
+      this.datasource.filter = JSON.stringify(this.filterValues);
+      console.log(JSON.stringify(this.filterValues));
     });
   }
 
@@ -31,14 +74,18 @@ export class PropertyComponent implements OnInit, AfterViewInit {
     this.datasource.sort = this.sort;
   }
 
-  // filterKeyValues = this.tableHeader.map(({ key } => ({key, value: ""}));
-
-  // filterSubject$ = new BehaviorSubject(this.filterKeyValues);
-
-  // filter$ = this.filterSubject$.asObservable();
-
-  // public inputChange(event: any, key) {
-  //   this.filterKeyValues.find(({key: testKey}) => testKey == key).value =
-  //   event.target.value;
-  //   this.filterSubject$.next(this.filterKeyValues);
+  createFilter(): (data: any, filter: string) => boolean {
+    let filterFunction = function (data: any, filter: any): boolean {
+      let searchTerms = JSON.parse(filter);
+      return (
+        data.id.toString().toLowerCase().indexOf(searchTerms.id) !== -1 &&
+        data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
+        data.last_check.toString().toLowerCase().indexOf(searchTerms.last_check) !== -1 &&
+        data.room.toLowerCase().indexOf(searchTerms.room) !== -1 &&
+        data.status.toLowerCase().indexOf(searchTerms.status) !== -1 &&
+        data.state.toLowerCase().indexOf(searchTerms.state) !== -1
+      );
+    };
+    return filterFunction;
+  }
 }
