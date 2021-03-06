@@ -7,10 +7,21 @@ import { MaterialModule } from '@app/material.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { PropertyComponent } from '@app/property/property.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  imports: [CommonModule, TranslateModule, SharedModule, FlexLayoutModule, MaterialModule, HomeRoutingModule],
-  declarations: [HomeComponent, SearchBarComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    SharedModule,
+    FlexLayoutModule,
+    MaterialModule,
+    HomeRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  declarations: [HomeComponent, PropertyComponent, SearchBarComponent],
 })
 export class HomeModule {}

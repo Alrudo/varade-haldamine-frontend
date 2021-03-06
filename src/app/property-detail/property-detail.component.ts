@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Property } from '@app/home/property';
+import { Property } from '@app/property/property';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { PropertyService } from '@app/property.service';
+import { PropertyService } from '@app/property/property.service';
 
 @Component({
   selector: 'app-property-detail',
