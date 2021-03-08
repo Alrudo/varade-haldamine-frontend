@@ -18,6 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent, PropertyDetailComponent],
+  declarations: [AppComponent, PropertyDetailComponent, CommentComponent],
   providers: [],
   bootstrap: [AppComponent],
   exports: [],
