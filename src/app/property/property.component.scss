@@ -61,3 +61,7 @@ a:hover {
 th.mat-header-cell {
   text-align: center;
 }
+
+::ng-deep .mat-sort-header-arrow {
+  color: #a11aac;
+}
