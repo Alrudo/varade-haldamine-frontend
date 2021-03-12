@@ -9,7 +9,7 @@ import { Vara } from '@app/property/vara';
   providedIn: 'root',
 })
 export class PropertyService {
-  private url = '/Vara/asset';
+  private url = '/vara/user';
 
   constructor(private http: HttpClient) {}
 
