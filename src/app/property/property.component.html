@@ -10,7 +10,7 @@
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-form-field>
-          <input matInput (keydown.space)="$event.stopPropagation()" [formControl]="idFilter" placeholder="ID" />
+          <input matInput (click)="$event.stopPropagation()" [formControl]="idFilter" placeholder="ID" />
         </mat-form-field>
       </th>
       <td mat-cell *matCellDef="let property">{{ property.id }}</td>
@@ -19,7 +19,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-form-field>
-          <input (keydown.space)="$event.stopPropagation()" matInput [formControl]="nameFilter" placeholder="Nimi" />
+          <input (click)="$event.stopPropagation()" matInput [formControl]="nameFilter" placeholder="Nimi" />
         </mat-form-field>
       </th>
       <td mat-cell *matCellDef="let property">{{ property.name }}</td>
@@ -29,7 +29,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-form-field>
           <input
-            (keydown.space)="$event.stopPropagation()"
+            (click)="$event.stopPropagation()"
             matInput
             [formControl]="last_checkFilter"
             placeholder="Viimane kontroll"
@@ -42,7 +42,7 @@
     <ng-container matColumnDef="room">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-form-field>
-          <input (keydown.space)="$event.stopPropagation()" matInput [formControl]="roomFilter" placeholder="Ruum" />
+          <input (click)="$event.stopPropagation()" matInput [formControl]="roomFilter" placeholder="Ruum" />
         </mat-form-field>
       </th>
       <td mat-cell *matCellDef="let property">{{ property.room }}</td>
@@ -51,12 +51,7 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-form-field>
-          <input
-            (keydown.space)="$event.stopPropagation()"
-            matInput
-            [formControl]="statusFilter"
-            placeholder="Staatus"
-          />
+          <input (click)="$event.stopPropagation()" matInput [formControl]="statusFilter" placeholder="Staatus" />
         </mat-form-field>
       </th>
       <td
@@ -71,7 +66,7 @@
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-form-field>
-          <input (keydown.space)="$event.stopPropagation()" matInput [formControl]="stateFilter" placeholder="Olek" />
+          <input (click)="$event.stopPropagation()" matInput [formControl]="stateFilter" placeholder="Olek" />
         </mat-form-field>
       </th>
       <td mat-cell *matCellDef="let property">{{ property.state }}</td>
