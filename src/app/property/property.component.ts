@@ -4,6 +4,7 @@ import { Property } from './property';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
+import { Vara } from '@app/property/vara';
 
 @Component({
   selector: 'app-property',
@@ -12,6 +13,7 @@ import { FormControl } from '@angular/forms';
 })
 export class PropertyComponent implements OnInit, AfterViewInit {
   properties: Property[] = [];
+  vara: Vara[] = [];
   datasource: MatTableDataSource<Property>;
 
   idFilter = new FormControl('');
@@ -87,5 +89,9 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       );
     };
     return filterFunction;
+  }
+
+  getVara(): void {
+    this.itemService.getVara().subscribe((vara) => (this.vara = vara));
   }
 }
