@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PropertyService } from './property.service';
-import { Property } from './property';
+import { Asset } from '@app/asset';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
-import { Vara } from '@app/property/vara';
 
 @Component({
   selector: 'app-property',
@@ -12,33 +11,34 @@ import { Vara } from '@app/property/vara';
   styleUrls: ['./property.component.scss'],
 })
 export class PropertyComponent implements OnInit, AfterViewInit {
-  properties: Property[] = [];
-  vara: Vara[] = [];
-  datasource: MatTableDataSource<Property>;
+  properties: Asset[] = [];
+  datasource: MatTableDataSource<Asset>;
 
   idFilter = new FormControl('');
   nameFilter = new FormControl('');
   last_checkFilter = new FormControl('');
-  roomFilter = new FormControl('');
+  addressFilter = new FormControl('');
   statusFilter = new FormControl('');
-  stateFilter = new FormControl('');
+  userFilter = new FormControl('');
 
   columnsToDisplay = ['name', 'id', 'favouriteColour', 'pet'];
   filterValues = {
     id: '',
     name: '',
     last_check: '',
-    room: '',
+    address: '',
     status: '',
-    state: '',
+    user: '',
   };
 
-  displayedColumns: string[] = ['checkboxes', 'id', 'name', 'last_check', 'room', 'status', 'state', 'actions'];
+  displayedColumns: string[] = ['checkboxes', 'id', 'name', 'last_check', 'address', 'status', 'user', 'actions'];
+
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private itemService: PropertyService) {}
 
   ngOnInit(): void {
-    this.itemService.getProperties().subscribe((properties) => {
+    this.itemService.getAssets().subscribe((properties) => {
       this.properties = properties;
     });
     this.datasource = new MatTableDataSource(this.properties);
@@ -55,30 +55,28 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       this.filterValues.last_check = last_check.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
-    this.roomFilter.valueChanges.subscribe((room) => {
-      this.filterValues.room = room.toString().toLowerCase();
+    this.addressFilter.valueChanges.subscribe((room) => {
+      this.filterValues.address = room.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.statusFilter.valueChanges.subscribe((status) => {
       this.filterValues.status = status.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
-    this.stateFilter.valueChanges.subscribe((state) => {
-      this.filterValues.state = state.toString().toLowerCase();
+    this.userFilter.valueChanges.subscribe((user) => {
+      this.filterValues.user = user.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
       console.log(JSON.stringify(this.filterValues));
     });
   }
-
-  @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
     this.datasource.sort = this.sort;
   }
 
   createFilter(): (data: any, filter: string) => boolean {
-    let filterFunction = function (data: any, filter: any): boolean {
-      let searchTerms = JSON.parse(filter);
+    const filterFunction = function (data: any, filter: any): boolean {
+      const searchTerms = JSON.parse(filter);
       return (
         data.id.toString().toLowerCase().indexOf(searchTerms.id) !== -1 &&
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
@@ -91,7 +89,7 @@ export class PropertyComponent implements OnInit, AfterViewInit {
     return filterFunction;
   }
 
-  getVara(): void {
-    this.itemService.getVara().subscribe((vara) => (this.vara = vara));
+  getAssets(): void {
+    this.itemService.getAssets().subscribe((asset) => (this.properties = asset));
   }
 }
