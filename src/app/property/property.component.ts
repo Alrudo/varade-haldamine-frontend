@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./property.component.scss'],
 })
 export class PropertyComponent implements OnInit, AfterViewInit {
-  properties: Asset[] = [];
+  assets: Asset[];
   datasource: MatTableDataSource<Asset>;
 
   idFilter = new FormControl('');
@@ -25,23 +25,21 @@ export class PropertyComponent implements OnInit, AfterViewInit {
   filterValues = {
     id: '',
     name: '',
-    last_check: '',
+    modified_at: '',
     address: '',
-    status: '',
+    active: '',
     user: '',
   };
 
-  displayedColumns: string[] = ['checkboxes', 'id', 'name', 'last_check', 'address', 'status', 'user', 'actions'];
+  displayedColumns: string[] = ['checkboxes', 'id', 'name', 'modified_at', 'address', 'active', 'user', 'actions'];
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private itemService: PropertyService) {}
 
   ngOnInit(): void {
-    this.itemService.getAssets().subscribe((properties) => {
-      this.properties = properties;
-    });
-    this.datasource = new MatTableDataSource(this.properties);
+    this.itemService.getAssets().subscribe((asset) => (this.assets = asset));
+    this.datasource = new MatTableDataSource(this.assets);
     this.datasource.filterPredicate = this.createFilter();
     this.idFilter.valueChanges.subscribe((id) => {
       this.filterValues.id = id.toString().toLowerCase();
@@ -52,7 +50,7 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.last_checkFilter.valueChanges.subscribe((last_check) => {
-      this.filterValues.last_check = last_check.toString().toLowerCase();
+      this.filterValues.modified_at = last_check.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.addressFilter.valueChanges.subscribe((room) => {
@@ -60,7 +58,7 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.statusFilter.valueChanges.subscribe((status) => {
-      this.filterValues.status = status.toString().toLowerCase();
+      this.filterValues.active = status.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.userFilter.valueChanges.subscribe((user) => {
@@ -80,16 +78,12 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       return (
         data.id.toString().toLowerCase().indexOf(searchTerms.id) !== -1 &&
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
-        data.last_check.toString().toLowerCase().indexOf(searchTerms.last_check) !== -1 &&
+        data.modified_at.toString().toLowerCase().indexOf(searchTerms.last_check) !== -1 &&
         data.room.toLowerCase().indexOf(searchTerms.room) !== -1 &&
         data.status.toLowerCase().indexOf(searchTerms.status) !== -1 &&
         data.state.toLowerCase().indexOf(searchTerms.state) !== -1
       );
     };
     return filterFunction;
-  }
-
-  getAssets(): void {
-    this.itemService.getAssets().subscribe((asset) => (this.properties = asset));
   }
 }
