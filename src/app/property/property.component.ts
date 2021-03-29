@@ -25,20 +25,33 @@ export class PropertyComponent implements OnInit, AfterViewInit {
   filterValues = {
     id: '',
     name: '',
-    modified_at: '',
-    address: '',
+    modifiedAt: '',
+    buildingAbbreviationPlusRoom: '',
     active: '',
-    user: '',
+    personName: '',
   };
 
-  displayedColumns: string[] = ['checkboxes', 'id', 'name', 'modified_at', 'address', 'active', 'user', 'actions'];
+  displayedColumns: string[] = [
+    'checkboxes',
+    'id',
+    'name',
+    'modifiedAt',
+    'buildingAbbreviationPlusRoom',
+    'active',
+    'personName',
+    'actions',
+  ];
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private itemService: PropertyService) {}
 
   ngOnInit(): void {
-    this.itemService.getAssets().subscribe((asset) => (this.assets = asset));
+    this.itemService.getAssets().subscribe((asset) => {
+      this.assets = asset;
+      console.log(this.assets);
+      while (this.assets.length == 0) {}
+    });
     this.datasource = new MatTableDataSource(this.assets);
     this.datasource.filterPredicate = this.createFilter();
     this.idFilter.valueChanges.subscribe((id) => {
@@ -50,11 +63,11 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.last_checkFilter.valueChanges.subscribe((last_check) => {
-      this.filterValues.modified_at = last_check.toString().toLowerCase();
+      this.filterValues.modifiedAt = last_check.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.addressFilter.valueChanges.subscribe((room) => {
-      this.filterValues.address = room.toString().toLowerCase();
+      this.filterValues.buildingAbbreviationPlusRoom = room.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.statusFilter.valueChanges.subscribe((status) => {
@@ -62,7 +75,7 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       this.datasource.filter = JSON.stringify(this.filterValues);
     });
     this.userFilter.valueChanges.subscribe((user) => {
-      this.filterValues.user = user.toString().toLowerCase();
+      this.filterValues.personName = user.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
       console.log(JSON.stringify(this.filterValues));
     });
