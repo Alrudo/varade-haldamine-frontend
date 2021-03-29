@@ -7,7 +7,7 @@ import { Asset } from '@app/asset';
   providedIn: 'root',
 })
 export class PropertyService {
-  private url = '/asset';
+  private url = 'asset';
 
   constructor(private http: HttpClient) {}
 
