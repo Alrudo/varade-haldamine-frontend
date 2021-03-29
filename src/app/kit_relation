@@ -1,4 +1,0 @@
-export interface Kit_relation {
-  component_asset_id: string;
-  major_asset_id: string;
-}
