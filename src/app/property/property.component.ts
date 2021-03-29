@@ -49,11 +49,12 @@ export class PropertyComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.itemService.getAssets().subscribe((asset) => {
       this.assets = asset;
+      this.datasource = new MatTableDataSource(this.assets);
+      this.datasource.filterPredicate = this.createFilter();
       console.log(this.assets);
-      while (this.assets.length == 0) {}
+      this.datasource.sort = this.sort;
     });
-    this.datasource = new MatTableDataSource(this.assets);
-    this.datasource.filterPredicate = this.createFilter();
+
     this.idFilter.valueChanges.subscribe((id) => {
       this.filterValues.id = id.toString().toLowerCase();
       this.datasource.filter = JSON.stringify(this.filterValues);
@@ -81,9 +82,7 @@ export class PropertyComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.datasource.sort = this.sort;
-  }
+  ngAfterViewInit() {}
 
   createFilter(): (data: any, filter: string) => boolean {
     const filterFunction = function (data: any, filter: any): boolean {
@@ -91,10 +90,10 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       return (
         data.id.toString().toLowerCase().indexOf(searchTerms.id) !== -1 &&
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
-        data.modified_at.toString().toLowerCase().indexOf(searchTerms.last_check) !== -1 &&
-        data.room.toLowerCase().indexOf(searchTerms.room) !== -1 &&
-        data.status.toLowerCase().indexOf(searchTerms.status) !== -1 &&
-        data.state.toLowerCase().indexOf(searchTerms.state) !== -1
+        data.modifiedAt.toString().toLowerCase().indexOf(searchTerms.modifiedAt) !== -1 &&
+        data.buildingAbbreviationPlusRoom.toLowerCase().indexOf(searchTerms.buildingAbbreviationPlusRoom) !== -1 &&
+        data.active.toLowerCase().indexOf(searchTerms.active) !== -1 &&
+        data.personName.toLowerCase().indexOf(searchTerms.personName) !== -1
       );
     };
     return filterFunction;

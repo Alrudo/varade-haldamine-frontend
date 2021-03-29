@@ -36,7 +36,7 @@
           />
         </mat-form-field>
       </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.modified_at.toDateString() }}</td>
+      <td mat-cell *matCellDef="let asset">{{ asset.modifiedAt }}</td>
     </ng-container>
 
     <ng-container matColumnDef="buildingAbbreviationPlusRoom">
@@ -45,7 +45,7 @@
           <input (click)="$event.stopPropagation()" matInput [formControl]="addressFilter" placeholder="Ruum" />
         </mat-form-field>
       </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.address }}</td>
+      <td mat-cell *matCellDef="let asset">{{ asset.buildingAbbreviationPlusRoom }}</td>
     </ng-container>
 
     <ng-container matColumnDef="active">
@@ -54,7 +54,7 @@
           <input (click)="$event.stopPropagation()" matInput [formControl]="statusFilter" placeholder="Staatus" />
         </mat-form-field>
       </th>
-      <td [ngStyle]="{ color: asset.status.toString() === 'UNCHECKED' ? 'red' : ' ' }" mat-cell *matCellDef="let asset">
+      <td [ngStyle]="{ color: 'red' }" mat-cell *matCellDef="let asset">
         {{ asset.active }}
       </td>
     </ng-container>
@@ -65,7 +65,7 @@
           <input (click)="$event.stopPropagation()" matInput [formControl]="userFilter" placeholder="User" />
         </mat-form-field>
       </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.user }}</td>
+      <td mat-cell *matCellDef="let asset">{{ asset.personName }}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
