@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Asset } from '@app/asset';
 import { AssetInfo } from '@app/assetInfo';
 
@@ -8,6 +8,9 @@ import { AssetInfo } from '@app/assetInfo';
   providedIn: 'root',
 })
 export class PropertyService {
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
   private url = 'asset';
 
   constructor(private http: HttpClient) {}
