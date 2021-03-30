@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
-
 import { QuoteService } from './quote.service';
-
-import { Property } from '@app/property/property';
+import { Asset } from '@app/asset';
 import { PropertyService } from '@app/property/property.service';
 
 @Component({
@@ -14,8 +12,7 @@ import { PropertyService } from '@app/property/property.service';
 export class HomeComponent implements OnInit {
   quote: string | undefined;
   isLoading = false;
-
-  properties: Property[];
+  assets: Asset[];
 
   constructor(private quoteService: QuoteService, private propertyService: PropertyService) {}
 
@@ -31,10 +28,10 @@ export class HomeComponent implements OnInit {
       .subscribe((quote: string) => {
         this.quote = quote;
       });
-    this.getProperties();
+    this.getAssets();
   }
 
-  getProperties(): void {
-    this.propertyService.getProperties().subscribe((properties) => (this.properties = properties));
+  getAssets(): void {
+    this.propertyService.getAssets().subscribe((assets) => (this.assets = assets));
   }
 }

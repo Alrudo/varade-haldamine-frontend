@@ -1,10 +1,4 @@
 <div class="container">
-  <h2>{{ property.name }}</h2>
-  <p>Viimati kontrollitud: {{ property.last_check.toDateString() }}</p>
-  <p>Tuba: {{ property.room }}</p>
-  <p>Staatus: {{ property.status }}</p>
-  <p>Seisukord: {{ property.state }}</p>
-  <p>Kirjeldus: {{ property.description }}</p>
   <button (click)="goBack()">go back</button>
   <app-comment></app-comment>
 </div>
