@@ -1,4 +1,92 @@
-<div class="container">
+<app-header></app-header>
+<br />
+<br />
+<br />
+<br />
+<div class="container2">
   <button (click)="goBack()">go back</button>
+  <h2>{{ asset.name }}</h2>
+</div>
+<div class="info">
+  <table>
+    <tr>
+      <td>Nr.:</td>
+      <td>{{ asset.id }}</td>
+    </tr>
+    <tr>
+      <td>PV konteerimise kuupäev:</td>
+      <td>{{ asset.createdAt }}</td>
+    </tr>
+    <tr>
+      <td>Soetusmaksumus:</td>
+      <td>{{ asset.price }}</td>
+    </tr>
+    <tr>
+      <td>Jääkväärtus:</td>
+      <td>{{ asset.residualPrice }}</td>
+    </tr>
+    <tr>
+      <td>Kirjeldus :</td>
+      <td>{{ asset.descriptionText }}</td>
+    </tr>
+    <tr>
+      <td>Peavara komponent:</td>
+      <td>{{ asset.majorAssetId }}</td>
+    </tr>
+    <tr>
+      <td>PV klassi tähis:</td>
+      <td>{{ asset.mainClass }}</td>
+    </tr>
+    <tr>
+      <td>PV alamklassi tähis:</td>
+      <td>{{ asset.subclass }}</td>
+    </tr>
+    <tr>
+      <td>Aktiivne:</td>
+      <td>{{ asset.active }}</td>
+    </tr>
+    <tr>
+      <td>Töökohtade aadressi tähis:</td>
+      <td>{{ asset.buildingAbbreviation }}</td>
+    </tr>
+    <tr>
+      <td>Tööruumi nr.:</td>
+      <td>{{ asset.room }}</td>
+    </tr>
+    <tr>
+      <td>PV kasutaja nr.:</td>
+      <td>{{ asset.userId }}</td>
+    </tr>
+    <tr>
+      <td>PV kasutaja nimi:</td>
+      <td>{{ asset.firstname }} {{ asset.lastname }}</td>
+    </tr>
+    <tr>
+      <td>Soetatud:</td>
+      <td>{{ asset.isPurchased }}</td>
+    </tr>
+    <tr>
+      <td>Peavara/osis:</td>
+      <td>{{ asset.kitPartName }}</td>
+    </tr>
+    <tr>
+      <td>Instituut/Osakond nr.:</td>
+      <td>{{ asset.institute }}</td>
+    </tr>
+    <tr>
+      <td>Allüksus nr.:</td>
+      <td>{{ asset.division }}</td>
+    </tr>
+    <tr>
+      <td>Eluea Jääk:</td>
+      <td>{{ asset.lifeMonthsLeft }}</td>
+    </tr>
+    <tr>
+      <td>Delikaatse sisuga:</td>
+      <td>{{ asset.delicateCondition }}</td>
+    </tr>
+  </table>
+</div>
+<div class="container">
   <app-comment></app-comment>
 </div>

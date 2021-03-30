@@ -50,7 +50,6 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       this.assets = asset;
       this.datasource = new MatTableDataSource(this.assets);
       this.datasource.filterPredicate = this.createFilter();
-      console.log(this.assets);
       this.datasource.sort = this.sort;
     });
 

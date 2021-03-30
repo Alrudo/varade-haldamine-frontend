@@ -1,5 +1,5 @@
 export interface Comment {
-  id: number;
-  asset_id: string;
+  assetId: string;
   text: string;
+  createdAt: number;
 }
