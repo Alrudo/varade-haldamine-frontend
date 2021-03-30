@@ -19,7 +19,8 @@ export class PropertyService {
     return this.http.get<Asset[]>(this.url);
   }
 
-  sendAsset(asset: AssetInfo): Observable<AssetInfo> {
-    return this.http.post<AssetInfo>(this.url, asset, this.httpOptions);
+  getAssetById(id: string): Observable<AssetInfo> {
+    const url = `${this.url}/${id}`;
+    return this.http.get<AssetInfo>(url);
   }
 }

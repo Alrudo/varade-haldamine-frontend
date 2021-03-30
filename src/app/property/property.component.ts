@@ -21,7 +21,6 @@ export class PropertyComponent implements OnInit, AfterViewInit {
   statusFilter = new FormControl('');
   userFilter = new FormControl('');
 
-  columnsToDisplay = ['name', 'id', 'favouriteColour', 'pet'];
   filterValues = {
     id: '',
     name: '',
@@ -51,7 +50,6 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       this.assets = asset;
       this.datasource = new MatTableDataSource(this.assets);
       this.datasource.filterPredicate = this.createFilter();
-      console.log(this.assets);
       this.datasource.sort = this.sort;
     });
 
@@ -89,11 +87,12 @@ export class PropertyComponent implements OnInit, AfterViewInit {
       const searchTerms = JSON.parse(filter);
       return (
         data.id.toString().toLowerCase().indexOf(searchTerms.id) !== -1 &&
-        data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
+        data.name.toString().toLowerCase().indexOf(searchTerms.name) !== -1 &&
         data.modifiedAt.toString().toLowerCase().indexOf(searchTerms.modifiedAt) !== -1 &&
-        data.buildingAbbreviationPlusRoom.toLowerCase().indexOf(searchTerms.buildingAbbreviationPlusRoom) !== -1 &&
-        data.active.toLowerCase().indexOf(searchTerms.active) !== -1 &&
-        data.personName.toLowerCase().indexOf(searchTerms.personName) !== -1
+        data.buildingAbbreviationPlusRoom.toString().toLowerCase().indexOf(searchTerms.buildingAbbreviationPlusRoom) !==
+          -1 &&
+        data.active.toString().toLowerCase().indexOf(searchTerms.active) !== -1 &&
+        data.personName.toString().toLowerCase().indexOf(searchTerms.personName) !== -1
       );
     };
     return filterFunction;

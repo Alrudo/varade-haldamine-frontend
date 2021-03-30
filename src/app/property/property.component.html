@@ -54,9 +54,7 @@
           <input (click)="$event.stopPropagation()" matInput [formControl]="statusFilter" placeholder="Staatus" />
         </mat-form-field>
       </th>
-      <td [ngStyle]="{ color: 'red' }" mat-cell *matCellDef="let asset">
-        {{ asset.active }}
-      </td>
+      <td [ngStyle]="{ color: 'red' }" mat-cell *matCellDef="let asset">{{ asset.active }}</td>
     </ng-container>
 
     <ng-container matColumnDef="personName">

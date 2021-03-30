@@ -1,12 +1,12 @@
 <h3>Kommentaarid:</h3>
 <ul>
   <li *ngFor="let comment of comments">
-    {{ comment.firstName }} {{ comment.lastName }}:<br />{{ comment.comment }}
-    <p class="time">{{ comment.time.toDateString() }}</p>
+    {{ comment.text }}
+    <p class="time">{{ comment.createdAt | date }}</p>
   </li>
 </ul>
 <div class="leaveComment">
   <label>Lisa kommentaar:</label>
   <textarea #comment class="comment_area"></textarea>
-  <button>Lisa</button>
+  <button (click)="addComment(comment.value); comment.value = ''">Lisa</button>
 </div>
