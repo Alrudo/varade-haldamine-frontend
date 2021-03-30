@@ -1,0 +1,116 @@
+<div style="display: block">
+  <div class="container">
+    <app-header></app-header>
+  </div>
+  <div class="container">
+    <br />
+    <label>ID:*</label>
+    <textarea #id class="comment_area"></textarea>
+    <label>Name:*</label>
+    <textarea #name class="comment_area"></textarea>
+    <label>PossessorId:*</label>
+    <textarea #possesor class="comment_area"></textarea>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a expiration date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="pickerFilter" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>DelicateCondition*</mat-label>
+      <mat-select [(value)]="modeselect">
+        <mat-option *ngFor="let delicate of delicates" [value]="delicate.value">
+          {{ delicate.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <label>Price*:</label>
+    <textarea #price class="comment_area"></textarea>
+    <label>ResidualPrice:</label>
+    <textarea #residualPrice class="comment_area"></textarea>
+    <br />
+    <div class="complect">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose main classification</mat-label>
+        <mat-select [(value)]="selectClassification">
+          <mat-option *ngFor="let mainClassification of mainClassifications" [value]="mainClassification.value">
+            {{ mainClassification.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button>Add Main Classification</button>
+    </div>
+    <br />
+    <div class="complect">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose sub classification</mat-label>
+        <mat-select [(value)]="selectSubClassification">
+          <mat-option *ngFor="let subClassification of subClassifications" [value]="subClassification.value">
+            {{ subClassification.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button>Add Sub Classification</button>
+    </div>
+    <br />
+    <br />
+    <div class="complect">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose complect</mat-label>
+        <mat-select [(value)]="selectForComplect">
+          <mat-option *ngFor="let complect of complects" [value]="complect.value">
+            {{ complect.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <textarea #complect class="comment_area"></textarea>
+    </div>
+    <br />
+    <label>Address*:</label>
+    <textarea #address class="comment_area"></textarea>
+    <label>room:</label>
+    <textarea #room class="comment_area"></textarea>
+    <br />
+    <label>DescriptionText:</label>
+    <textarea #description class="comment_area"></textarea>
+    <br />
+    <div class="complect">
+      <mat-form-field appearance="fill">
+        <mat-label>Location</mat-label>
+        <mat-select [(value)]="selectLocation">
+          <mat-option *ngFor="let location of locations" [value]="location.value">
+            {{ location.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <textarea #location class="comment_area"></textarea>
+    </div>
+    <label>Subdivision:</label>
+    <textarea #subdivision class="comment_area"></textarea>
+    <button
+      (click)="
+        adding(
+          id.value,
+          name.value,
+          possesor.value,
+          pickerFilter,
+          modeselect,
+          price.value,
+          selectSubClassification,
+          selectClassification,
+          residualPrice.value,
+          selectForComplect,
+          complect.value,
+          address.value,
+          room.value,
+          description.value,
+          selectLocation,
+          location.value,
+          subdivision.value
+        )
+      "
+    >
+      Lisa
+    </button>
+  </div>
+</div>
