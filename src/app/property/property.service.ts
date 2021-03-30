@@ -23,4 +23,8 @@ export class PropertyService {
     const url = `${this.url}/${id}`;
     return this.http.get<AssetInfo>(url);
   }
+
+  sendAsset(asset: AssetInfo): Observable<AssetInfo> {
+    return this.http.post<AssetInfo>(this.url, asset, this.httpOptions);
+  }
 }
