@@ -97,7 +97,7 @@ export class AddAssetComponent implements OnInit {
     selectLocation: string,
     location: string,
     subdivision: string
-  ): Asset {
+  ): void {
     if (selectForComplect === 'componentAssetId') {
       if (selectLocation === 'institute') {
         const asset: AssetInfo = {
