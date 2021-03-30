@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Property } from '@app/property/property';
+
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { PropertyService } from '@app/property/property.service';
+import { AssetInfo } from '@app/assetInfo';
 
 @Component({
   selector: 'app-property-detail',
@@ -11,20 +12,22 @@ import { PropertyService } from '@app/property/property.service';
   styleUrls: ['./property-detail.component.scss'],
 })
 export class PropertyDetailComponent implements OnInit {
-  property: Property;
+  asset: AssetInfo;
 
   constructor(private route: ActivatedRoute, private propertyService: PropertyService, private location: Location) {}
 
   ngOnInit(): void {
-    this.getProperty();
-  }
-
-  getProperty(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.propertyService.getProperty(id).subscribe((property) => (this.property = property));
+    this.getAsset();
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  getAsset(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.propertyService.getAssetById(id).subscribe((asset) => {
+      this.asset = asset;
+    });
   }
 }

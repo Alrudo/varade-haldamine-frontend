@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommentComponent } from './comment/comment.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { AddAssetComponent } from './add-asset/add-asset.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     MatInputModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent, PropertyDetailComponent, CommentComponent],
+  declarations: [AppComponent, PropertyDetailComponent, CommentComponent, AddAssetComponent],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   exports: [],

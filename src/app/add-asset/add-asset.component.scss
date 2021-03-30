@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  justify-content: center;
+  padding: 1em;
+}
+.center {
+  position: absolute;
+  top: 50%;
+  transform: translate(50%, -50%);
+  border: 5px solid #ffff00;
+  padding: 10px;
+}
+
+.complect {
+  border: ridge #a11aac;
+  display: flex;
+  flex-flow: column wrap;
+}

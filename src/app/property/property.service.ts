@@ -1,27 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Property } from '@app/property/property';
-import { PROPERTIES } from '@app/property/mock_properties';
-import { Observable, of } from 'rxjs';
-import { Vara } from '@app/property/vara';
-import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Asset } from '@app/asset';
+import { AssetInfo } from '@app/assetInfo';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PropertyService {
-  private url = '/asset';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+  private url = 'asset';
 
   constructor(private http: HttpClient) {}
 
-  getProperties(): Observable<Property[]> {
-    return of(PROPERTIES);
+  getAssets(): Observable<Asset[]> {
+    return this.http.get<Asset[]>(this.url);
   }
 
-  getProperty(id: number): Observable<Property> {
-    return of(PROPERTIES.find((property) => property.id === id));
-  }
-
-  getVara(): Observable<Vara[]> {
-    return this.http.get<Vara[]>(this.url);
+  getAssetById(id: string): Observable<AssetInfo> {
+    const url = `${this.url}/${id}`;
+    return this.http.get<AssetInfo>(url);
   }
 }
