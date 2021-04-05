@@ -13,12 +13,10 @@ import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PropertyDetailComponent } from './property-detail/property-detail.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CommentComponent } from './comment/comment.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 
@@ -42,7 +40,7 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     MatInputModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent, PropertyDetailComponent, CommentComponent, AddAssetComponent],
+  declarations: [AppComponent, AddAssetComponent],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
   exports: [],

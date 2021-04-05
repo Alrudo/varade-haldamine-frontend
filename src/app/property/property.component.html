@@ -8,14 +8,13 @@
     <tbody>
       <tr *ngFor="let el of assets; let i = index">
         <td><input type="checkbox" /></td>
-        <th scope="row">{{ el.id }}</th>
-        <td>{{ el.name }}</td>
-        <td>{{ el.modifiedAt | date: 'medium' }}</td>
-        <td>{{ el.buildingAbbreviationPlusRoom }}</td>
-        <td>{{ el.active }}</td>
-        <td>{{ el.personName }}</td>
+        <th scope="row" routerLink="/property_detail/{{ el.id }}">{{ el.id }}</th>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.name }}</td>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.modifiedAt | date: 'medium' }}</td>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.buildingAbbreviationPlusRoom }}</td>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.active }}</td>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.personName }}</td>
         <td class="buttons">
-          <a routerLink="/property_detail/{{ el.id }}">Info</a>
           <button>On kohal</button>
           <button>Ei ole kohal</button>
         </td>

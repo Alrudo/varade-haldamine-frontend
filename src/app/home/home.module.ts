@@ -22,7 +22,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { PropertyDetailComponent } from '@app/property-detail/property-detail.component';
+import { CommentComponent } from '@app/comment/comment.component';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -50,8 +51,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     InputTextModule,
     ProgressBarModule,
     NgxPaginationModule,
-    MDBBootstrapModule,
   ],
-  declarations: [HomeComponent, PropertyComponent, SearchBarComponent],
+  declarations: [HomeComponent, PropertyComponent, PropertyDetailComponent, SearchBarComponent, CommentComponent],
 })
 export class HomeModule {}

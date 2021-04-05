@@ -12,7 +12,36 @@ import { AssetInfo } from '@app/assetInfo';
   styleUrls: ['./property-detail.component.scss'],
 })
 export class PropertyDetailComponent implements OnInit {
-  asset: AssetInfo;
+  asset: AssetInfo = {
+    id: null,
+    name: null,
+    active: null,
+    userId: null,
+    possessorId: null,
+    expirationDate: null,
+    lifeMonthsLeft: null,
+    delicateCondition: null,
+    createdAt: null,
+    modifiedAT: null,
+    price: null,
+    residualPrice: null,
+    purchaseDate: null,
+    isPurchased: null,
+    subclass: null,
+    mainClass: null,
+    componentAssetId: null,
+    majorAssetId: null,
+    kitPartName: null,
+    buildingAbbreviation: null,
+    room: null,
+    descriptionText: null,
+    commentText: null,
+    firstname: null,
+    lastname: null,
+    institute: null,
+    division: null,
+    subdivision: null,
+  };
 
   constructor(private route: ActivatedRoute, private propertyService: PropertyService, private location: Location) {}
 
