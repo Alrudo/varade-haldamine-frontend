@@ -28,4 +28,8 @@ export class PropertyService {
   sendAsset(asset: AssetInfo): Observable<AssetInfo> {
     return this.http.post<AssetInfo>(this.url, asset, this.httpOptions);
   }
+
+  fullBack(): Observable<Asset[]> {
+    return;
+  }
 }

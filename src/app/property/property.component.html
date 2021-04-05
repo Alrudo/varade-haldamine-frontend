@@ -1,5 +1,5 @@
 <div class="container">
-  <table class="z-depth-1">
+  <table class="styled-table">
     <thead>
       <tr>
         <th *ngFor="let head of headElements; let i = index" scope="col">{{ head }}</th>
@@ -10,7 +10,7 @@
         <td><input type="checkbox" /></td>
         <th scope="row">{{ el.id }}</th>
         <td>{{ el.name }}</td>
-        <td>{{ el.modifiedAt }}</td>
+        <td>{{ el.modifiedAt | date: 'medium' }}</td>
         <td>{{ el.buildingAbbreviationPlusRoom }}</td>
         <td>{{ el.active }}</td>
         <td>{{ el.personName }}</td>
@@ -24,7 +24,10 @@
     <tfoot class="grey lighten-5 w-100">
       <tr>
         <td colspan="4">
-          <!--        knopki-->
+          <button (click)="fullBack()"><<</button>
+          <button (click)="backward()"><</button>
+          <button (click)="forward()">></button>
+          <button (click)="fullForward()">>></button>
         </td>
       </tr>
     </tfoot>

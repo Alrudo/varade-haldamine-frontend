@@ -28,7 +28,14 @@ export class PropertyComponent implements OnInit {
     this.propertyService.getAssets().subscribe((asset) => {
       this.assets = asset['content'];
       this.currentPage = asset['pageable']['pageNumber'];
-      console.log(this.currentPage);
     });
   }
+
+  fullBack(): void {}
+
+  backward(): void {}
+
+  forward(): void {}
+
+  fullForward(): void {}
 }
