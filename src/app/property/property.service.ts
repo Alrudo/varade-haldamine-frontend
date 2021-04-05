@@ -15,8 +15,9 @@ export class PropertyService {
 
   constructor(private http: HttpClient) {}
 
-  getAssets(): Observable<Asset[]> {
-    return this.http.get<Asset[]>(this.url);
+  getAssets(): Observable<JSON> {
+    const url = `asset/filtered?order=ASC&page=0&sortBy=id`;
+    return this.http.get<JSON>(url);
   }
 
   getAssetById(id: string): Observable<AssetInfo> {
