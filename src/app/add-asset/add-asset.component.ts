@@ -47,7 +47,7 @@ export class AddAssetComponent implements OnInit {
     { value: 'VV_TELEFFON', viewValue: 'VV_TELEFFON' },
     { value: 'VV_MÖÖBEL', viewValue: 'VV_MÖÖBEL' },
     { value: 'PV_SEADMED', viewValue: 'PV_SEADMED' },
-    { value: 'BV_TÖÖRIIS', viewValue: 'BV_TÖÖRIIS' },
+    { value: 'BV_TÖÖRIIST', viewValue: 'BV_TÖÖRIIST' },
     { value: 'BV_ARVUTI', viewValue: 'BV_ARVUTI' },
     { value: 'BV_MONITOR', viewValue: 'BV_MONITOR' },
   ];

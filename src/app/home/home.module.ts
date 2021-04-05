@@ -22,6 +22,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -49,6 +50,7 @@ import { InputTextModule } from 'primeng/inputtext';
     ToastModule,
     InputTextModule,
     ProgressBarModule,
+    NgxPaginationModule,
   ],
   declarations: [HomeComponent, PropertyComponent, SearchBarComponent],
 })
