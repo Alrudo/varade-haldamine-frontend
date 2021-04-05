@@ -43,10 +43,6 @@ a:hover {
   border-radius: 4px;
 }
 
-th.mat-header-cell {
-  text-align: center;
-}
-
 ::ng-deep .mat-sort-header-arrow {
   color: #a11aac;
 }
@@ -83,7 +79,6 @@ th.mat-header-cell {
   border-bottom: 2px solid #a11aac;
 }
 
-.styled-table tbody tr.active-row {
-  font-weight: bold;
-  color: #a11aac;
+.styled-table tbody tr:hover {
+  background-color: darkgrey;
 }
