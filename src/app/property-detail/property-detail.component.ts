@@ -28,6 +28,7 @@ export class PropertyDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.propertyService.getAssetById(id).subscribe((asset) => {
       this.asset = asset;
+      console.log(asset);
     });
   }
 }

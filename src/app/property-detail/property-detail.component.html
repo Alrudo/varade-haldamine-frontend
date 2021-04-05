@@ -23,7 +23,10 @@
     </tr>
     <tr>
       <td>Kirjeldus :</td>
-      <td>{{ asset.descriptionText }}</td>
+      <div *ngIf="asset.descriptionText === null; else description"><td>-</td></div>
+      <ng-template #description
+        ><td>{{ asset.descriptionText }}</td></ng-template
+      >
     </tr>
     <tr>
       <td>Peavara komponent:</td>
@@ -39,7 +42,8 @@
     </tr>
     <tr>
       <td>Aktiivne:</td>
-      <td>{{ asset.active }}</td>
+      <div *ngIf="asset.active === true; else active"><td>Jah</td></div>
+      <ng-template #active><td>Ei</td></ng-template>
     </tr>
     <tr>
       <td>Töökohtade aadressi tähis:</td>
@@ -59,7 +63,8 @@
     </tr>
     <tr>
       <td>Soetatud:</td>
-      <td>{{ asset.isPurchased }}</td>
+      <div *ngIf="asset.isPurchased === true; else isPurchased"><td>Jah</td></div>
+      <ng-template #isPurchased><td>Ei</td></ng-template>
     </tr>
     <tr>
       <td>Peavara/osis:</td>
@@ -67,7 +72,10 @@
     </tr>
     <tr>
       <td>Instituut/Osakond nr.:</td>
-      <td>{{ asset.institute }}</td>
+      <div *ngIf="asset.institute === null; else institute"><td>-</td></div>
+      <ng-template #institute
+        ><td>{{ asset.institute }}</td></ng-template
+      >
     </tr>
     <tr>
       <td>Allüksus nr.:</td>
@@ -79,7 +87,8 @@
     </tr>
     <tr>
       <td>Delikaatse sisuga:</td>
-      <td>{{ asset.delicateCondition }}</td>
+      <div *ngIf="asset.delicateCondition === true; else delicateCondition"><td>Jah</td></div>
+      <ng-template #delicateCondition><td>Ei</td></ng-template>
     </tr>
   </table>
 </div>
