@@ -24,6 +24,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PropertyDetailComponent } from '@app/property-detail/property-detail.component';
 import { CommentComponent } from '@app/comment/comment.component';
+import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -52,6 +53,13 @@ import { CommentComponent } from '@app/comment/comment.component';
     ProgressBarModule,
     NgxPaginationModule,
   ],
-  declarations: [HomeComponent, PropertyComponent, PropertyDetailComponent, SearchBarComponent, CommentComponent],
+  declarations: [
+    HomeComponent,
+    PropertyComponent,
+    PropertyDetailComponent,
+    SearchBarComponent,
+    CommentComponent,
+    AddAssetComponent,
+  ],
 })
 export class HomeModule {}
