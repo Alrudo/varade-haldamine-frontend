@@ -6,12 +6,8 @@
     <textarea #name class="comment_area"></textarea>
     <label>PossessorId:*</label>
     <textarea #possesor class="comment_area"></textarea>
-    <mat-form-field appearance="fill">
-      <mat-label>Choose a expiration date</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="pickerFilter" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <label>Experation:*</label>
+    <textarea #pickerFilter class="comment_area"></textarea>
     <mat-form-field appearance="fill">
       <mat-label>DelicateCondition*</mat-label>
       <mat-select [(value)]="modeselect">

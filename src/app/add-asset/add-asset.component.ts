@@ -12,10 +12,6 @@ interface Delicate {
   viewValue: string;
 }
 
-interface Location {
-  value: string;
-  viewValue: string;
-}
 interface MainClassification {
   value: string;
   viewValue: string;
@@ -45,6 +41,7 @@ export class AddAssetComponent implements OnInit {
     { value: 'VV_ARVUTI', viewValue: 'VV_ARVUTI' },
     { value: 'VV_TELEFFON', viewValue: 'VV_TELEFFON' },
     { value: 'VV_MÖÖBEL', viewValue: 'VV_MÖÖBEL' },
+    { value: 'VV_ARVUTIKOMPLEKT', viewValue: 'VV_ARVUTIKOMPLEKT' },
     { value: 'PV_SEADMED', viewValue: 'PV_SEADMED' },
     { value: 'BV_TÖÖRIIST', viewValue: 'BV_TÖÖRIIST' },
     { value: 'BV_ARVUTI', viewValue: 'BV_ARVUTI' },
@@ -52,7 +49,7 @@ export class AddAssetComponent implements OnInit {
   ];
 
   selectForComplect = 'none';
-  pickerFilter: Date;
+  pickerFilter: number;
   complects: Complect[] = [
     { value: 'majorAssetId', viewValue: 'Major asset' },
     { value: 'componentAssetId', viewValue: 'Component Asset' },
@@ -67,11 +64,6 @@ export class AddAssetComponent implements OnInit {
   ];
 
   selectLocation: string;
-
-  locations: Location[] = [
-    { value: 'institute', viewValue: 'Institute' },
-    { value: 'division', viewValue: 'Division' },
-  ];
 
   constructor(private propertyService: PropertyService) {}
 
