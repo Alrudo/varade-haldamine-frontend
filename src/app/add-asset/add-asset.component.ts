@@ -52,7 +52,7 @@ export class AddAssetComponent implements OnInit {
   ];
 
   selectForComplect = 'none';
-  pickerFilter: Date;
+  pickerFilter: number;
   complects: Complect[] = [
     { value: 'majorAssetId', viewValue: 'Major asset' },
     { value: 'componentAssetId', viewValue: 'Component Asset' },
