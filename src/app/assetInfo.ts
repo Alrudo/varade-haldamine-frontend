@@ -6,7 +6,7 @@ export interface AssetInfo {
   possessorId: number;
   lifeMonthsLeft: number;
   delicateCondition: boolean;
-  checked: boolean;
+  checked: boolean; // - null
   createdAt: Date; // - konteerimise kuupäev
   modifiedAT: Date;
 
