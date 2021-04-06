@@ -22,11 +22,18 @@
       <td>{{ asset.residualPrice }}</td>
     </tr>
     <tr>
+      <td>Kontrollitud:</td>
+      <td *ngIf="asset.checked === false; else checked">Ei</td>
+      <ng-template #checked>
+        <td>Jah</td>
+      </ng-template>
+    </tr>
+    <tr>
       <td>Kirjeldus :</td>
-      <div *ngIf="asset.descriptionText === null; else description"><td>-</td></div>
-      <ng-template #description
-        ><td>{{ asset.descriptionText }}</td></ng-template
-      >
+      <td *ngIf="asset.descriptionText === null; else description">-</td>
+      <ng-template #description>
+        <td>{{ asset.descriptionText }}</td>
+      </ng-template>
     </tr>
     <tr>
       <td>Peavara komponent:</td>
@@ -42,8 +49,10 @@
     </tr>
     <tr>
       <td>Aktiivne:</td>
-      <div *ngIf="asset.active === true; else active"><td>Jah</td></div>
-      <ng-template #active><td>Ei</td></ng-template>
+      <td *ngIf="asset.active === true; else active">Jah</td>
+      <ng-template #active>
+        <td>Ei</td>
+      </ng-template>
     </tr>
     <tr>
       <td>Töökohtade aadressi tähis:</td>
@@ -63,23 +72,28 @@
     </tr>
     <tr>
       <td>Soetatud:</td>
-      <div *ngIf="asset.isPurchased === true; else isPurchased"><td>Jah</td></div>
-      <ng-template #isPurchased><td>Ei</td></ng-template>
+      <td *ngIf="asset.isPurchased === true; else isPurchased">Jah</td>
+      <ng-template #isPurchased>
+        <td>Ei</td>
+      </ng-template>
     </tr>
     <tr>
       <td>Peavara/osis:</td>
       <td>{{ asset.kitPartName }}</td>
     </tr>
     <tr>
-      <td>Instituut/Osakond nr.:</td>
-      <div *ngIf="asset.institute === null; else institute"><td>-</td></div>
-      <ng-template #institute
-        ><td>{{ asset.institute }}</td></ng-template
-      >
+      <td>Instituut/Allüksus nr.:</td>
+      <td *ngIf="asset.structuralUnit === null; else institute">-</td>
+      <ng-template #institute>
+        <td>{{ asset.structuralUnit }}</td>
+      </ng-template>
     </tr>
     <tr>
-      <td>Allüksus nr.:</td>
-      <td>{{ asset.division }}</td>
+      <td>Osakond nr.:</td>
+      <td *ngIf="asset.subdivision === null; else subdivision"></td>
+      <ng-template #subdivision>
+        <td>{{ asset.subdivision }}</td>
+      </ng-template>
     </tr>
     <tr>
       <td>Eluea Jääk:</td>
@@ -87,8 +101,10 @@
     </tr>
     <tr>
       <td>Delikaatse sisuga:</td>
-      <div *ngIf="asset.delicateCondition === true; else delicateCondition"><td>Jah</td></div>
-      <ng-template #delicateCondition><td>Ei</td></ng-template>
+      <td *ngIf="asset.delicateCondition === true; else delicateCondition">Jah</td>
+      <ng-template #delicateCondition>
+        <td>Ei</td>
+      </ng-template>
     </tr>
   </table>
 </div>
