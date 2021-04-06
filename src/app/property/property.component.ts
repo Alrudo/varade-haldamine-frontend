@@ -9,7 +9,6 @@ import { Asset } from '@app/asset';
 })
 export class PropertyComponent implements OnInit {
   assets: Asset[] = [];
-  previous: any = [];
   currentPage: number;
   maxPage: number;
   forwardNumber: number;
