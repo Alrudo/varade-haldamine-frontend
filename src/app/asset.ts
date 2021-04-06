@@ -1,8 +1,9 @@
 export interface Asset {
   id: string;
   name: string;
-  modifiedAt: Date;
   buildingAbbreviationPlusRoom: string;
+  mainClassPlusSubclass: string;
   active: boolean;
-  personName: string;
+  lifeMonthsLeft: Date;
+  checked: boolean;
 }

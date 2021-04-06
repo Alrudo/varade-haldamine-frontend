@@ -82,3 +82,9 @@ a:hover {
 .styled-table tbody tr:hover {
   background-color: darkgrey;
 }
+
+.lowerDiv {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
