@@ -14,15 +14,15 @@ export class PropertyComponent implements OnInit {
   forwardNumber: number;
   backwardNumber: number;
   headElements: string[] = [
-    'checkboxes',
-    'id',
-    'name',
-    'buildingAbbreviationPlusRoom',
-    'mainClassPlusSubclass',
-    'active',
-    'lifeMonthsLeft',
-    'checked',
-    'actions',
+    '',
+    'ID',
+    'Nimi',
+    'Maja ja Tuba',
+    'PV klass ja alamklass',
+    'Active',
+    'Elujaak',
+    'Kontrollitud',
+    'Tegevused',
   ];
 
   constructor(private propertyService: PropertyService) {}
