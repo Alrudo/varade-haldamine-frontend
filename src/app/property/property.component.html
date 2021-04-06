@@ -33,11 +33,11 @@
       <tr>
         <td colspan="10">
           <div class="lowerDiv">
-            <button *ngIf="currentPage !== 0" (click)="getFirstAsset()"><<</button>
-            <button *ngIf="currentPage !== 0" (click)="backward()"><</button>
+            <button class="butt" *ngIf="currentPage !== 0" (click)="getFirstAsset()"><<</button>
+            <button class="butt" *ngIf="currentPage !== 0" (click)="backward()"><</button>
             <p>{{ currentPage + 1 }} : {{ maxPage }}</p>
-            <button *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
-            <button *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
+            <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
+            <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
           </div>
         </td>
       </tr>
