@@ -4,9 +4,9 @@ export interface AssetInfo {
   active: boolean;
   userId: number;
   possessorId: number;
-  expirationDate: Date;
   lifeMonthsLeft: number;
   delicateCondition: boolean;
+  checked: boolean;
   createdAt: Date; // - konteerimise kuupäev
   modifiedAT: Date;
 
@@ -40,7 +40,6 @@ export interface AssetInfo {
   lastname: string;
 
   // Possessor data
-  institute: number;
-  division: number;
+  structuralUnit: number;
   subdivision: number;
 }
