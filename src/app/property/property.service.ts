@@ -15,8 +15,9 @@ export class PropertyService {
 
   constructor(private http: HttpClient) {}
 
-  getAssets(): Observable<Asset[]> {
-    return this.http.get<Asset[]>(this.url);
+  getAssets(): Observable<JSON> {
+    const url = `asset/filtered?order=ASC&page=0&size=10&sortBy=id`;
+    return this.http.get<JSON>(url);
   }
 
   getAssetById(id: string): Observable<AssetInfo> {
@@ -26,5 +27,18 @@ export class PropertyService {
 
   sendAsset(asset: AssetInfo): Observable<AssetInfo> {
     return this.http.post<AssetInfo>(this.url, asset, this.httpOptions);
+  }
+  forward(nextPage: number): Observable<JSON> {
+    const url = `asset/filtered?order=ASC&page=${nextPage}&size=10&sortBy=id`;
+    return this.http.get<JSON>(url);
+  }
+  backward(previousPage: number): Observable<JSON> {
+    const url = `asset/filtered?order=ASC&page=${previousPage}&size=10&sortBy=id`;
+    return this.http.get<JSON>(url);
+  }
+
+  fullForward(lastPage: number): Observable<JSON> {
+    const url = `asset/filtered?order=ASC&page=${lastPage - 1}&size=10&sortBy=id`;
+    return this.http.get<JSON>(url);
   }
 }

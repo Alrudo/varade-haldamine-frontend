@@ -11,7 +11,6 @@ import { PropertyComponent } from '@app/property/property.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { SliderModule } from 'primeng/slider';
@@ -22,6 +21,10 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PropertyDetailComponent } from '@app/property-detail/property-detail.component';
+import { CommentComponent } from '@app/comment/comment.component';
+import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -39,7 +42,6 @@ import { InputTextModule } from 'primeng/inputtext';
     ButtonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    TableModule,
     CalendarModule,
     SliderModule,
     DialogModule,
@@ -49,7 +51,15 @@ import { InputTextModule } from 'primeng/inputtext';
     ToastModule,
     InputTextModule,
     ProgressBarModule,
+    NgxPaginationModule,
   ],
-  declarations: [HomeComponent, PropertyComponent, SearchBarComponent],
+  declarations: [
+    HomeComponent,
+    PropertyComponent,
+    PropertyDetailComponent,
+    SearchBarComponent,
+    CommentComponent,
+    AddAssetComponent,
+  ],
 })
 export class HomeModule {}

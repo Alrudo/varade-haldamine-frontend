@@ -1,81 +1,46 @@
 <div class="container">
-  <h1>Varad</h1>
-  <h2>Search:<app-search-bar></app-search-bar></h2>
-  <table mat-table [dataSource]="datasource" matSort class="mat-elevation-z8">
-    <ng-container matColumnDef="checkboxes">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="true"><input type="checkbox" /></th>
-      <td mat-cell *matCellDef="let property"><input type="checkbox" /></td>
-    </ng-container>
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        <mat-form-field>
-          <input matInput (click)="$event.stopPropagation()" [formControl]="idFilter" placeholder="ID" />
-        </mat-form-field>
-      </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.id }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        <mat-form-field>
-          <input (click)="$event.stopPropagation()" matInput [formControl]="nameFilter" placeholder="Nimi" />
-        </mat-form-field>
-      </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.name }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="modifiedAt">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        <mat-form-field>
-          <input
-            (click)="$event.stopPropagation()"
-            matInput
-            [formControl]="last_checkFilter"
-            placeholder="Viimane kontroll"
-          />
-        </mat-form-field>
-      </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.modifiedAt }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="buildingAbbreviationPlusRoom">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        <mat-form-field>
-          <input (click)="$event.stopPropagation()" matInput [formControl]="addressFilter" placeholder="Ruum" />
-        </mat-form-field>
-      </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.buildingAbbreviationPlusRoom }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="active">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        <mat-form-field>
-          <input (click)="$event.stopPropagation()" matInput [formControl]="statusFilter" placeholder="Staatus" />
-        </mat-form-field>
-      </th>
-      <td [ngStyle]="{ color: 'red' }" mat-cell *matCellDef="let asset">{{ asset.active }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="personName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        <mat-form-field>
-          <input (click)="$event.stopPropagation()" matInput [formControl]="userFilter" placeholder="User" />
-        </mat-form-field>
-      </th>
-      <td mat-cell *matCellDef="let asset">{{ asset.personName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="true">Tehingud</th>
-      <td mat-cell *matCellDef="let asset" class="buttons">
-        <a routerLink="/property_detail/{{ asset.id }}">Info</a>
-        <button>On kohal</button>
-        <button>Ei ole kohal</button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th *ngFor="let head of headElements; let i = index" scope="col">{{ head }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let el of assets; let i = index">
+        <td><input type="checkbox" /></td>
+        <th scope="row" routerLink="/property_detail/{{ el.id }}">{{ el.id }}</th>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.name }}</td>
+        <td *ngIf="el.buildingAbbreviationPlusRoom === null; else active" routerLink="/property_detail/{{ el.id }}">
+          -
+        </td>
+        <ng-template #active
+          ><td routerLink="/property_detail/{{ el.id }}">{{ el.buildingAbbreviationPlusRoom }}</td></ng-template
+        >
+        <td *ngIf="el.mainClassPlusSubclass === null; else active2" routerLink="/property_detail/{{ el.id }}">-</td>
+        <ng-template #active2
+          ><td routerLink="/property_detail/{{ el.id }}">{{ el.mainClassPlusSubclass }}</td></ng-template
+        >
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.active }}</td>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.lifeMonthsLeft }}</td>
+        <td routerLink="/property_detail/{{ el.id }}">{{ el.checked }}</td>
+        <td class="buttons">
+          <button>On kohal</button>
+          <button>Ei ole kohal</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="10">
+          <div class="lowerDiv">
+            <button class="butt" *ngIf="currentPage !== 0" (click)="getFirstAsset()"><<</button>
+            <button class="butt" *ngIf="currentPage !== 0" (click)="backward()"><</button>
+            <p>{{ currentPage + 1 }} : {{ maxPage }}</p>
+            <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
+            <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </div>

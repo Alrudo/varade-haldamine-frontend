@@ -6,9 +6,10 @@
   padding: 1em;
 }
 .center {
+  flex-flow: column;
   position: absolute;
   top: 50%;
-  transform: translate(50%, -50%);
+  transform: translate(0, -50%);
   border: 5px solid #ffff00;
   padding: 10px;
 }

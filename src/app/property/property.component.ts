@@ -1,100 +1,73 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PropertyService } from './property.service';
 import { Asset } from '@app/asset';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-property',
   templateUrl: './property.component.html',
   styleUrls: ['./property.component.scss'],
 })
-export class PropertyComponent implements OnInit, AfterViewInit {
-  assets: Asset[];
-  datasource: MatTableDataSource<Asset>;
-
-  idFilter = new FormControl('');
-  nameFilter = new FormControl('');
-  last_checkFilter = new FormControl('');
-  addressFilter = new FormControl('');
-  statusFilter = new FormControl('');
-  userFilter = new FormControl('');
-
-  filterValues = {
-    id: '',
-    name: '',
-    modifiedAt: '',
-    buildingAbbreviationPlusRoom: '',
-    active: '',
-    personName: '',
-  };
-
-  displayedColumns: string[] = [
+export class PropertyComponent implements OnInit {
+  assets: Asset[] = [];
+  currentPage: number;
+  maxPage: number;
+  forwardNumber: number;
+  backwardNumber: number;
+  headElements: string[] = [
     'checkboxes',
     'id',
     'name',
-    'modifiedAt',
     'buildingAbbreviationPlusRoom',
+    'mainClassPlusSubclass',
     'active',
-    'personName',
+    'lifeMonthsLeft',
+    'checked',
     'actions',
   ];
 
-  @ViewChild(MatSort) sort: MatSort;
+  constructor(private propertyService: PropertyService) {}
 
-  constructor(private itemService: PropertyService) {}
+  ngOnInit() {
+    this.getFirstAsset();
+  }
 
-  ngOnInit(): void {
-    this.itemService.getAssets().subscribe((asset) => {
-      this.assets = asset;
-      this.datasource = new MatTableDataSource(this.assets);
-      this.datasource.filterPredicate = this.createFilter();
-      this.datasource.sort = this.sort;
-    });
-
-    this.idFilter.valueChanges.subscribe((id) => {
-      this.filterValues.id = id.toString().toLowerCase();
-      this.datasource.filter = JSON.stringify(this.filterValues);
-    });
-    this.nameFilter.valueChanges.subscribe((name) => {
-      this.filterValues.name = name.toString().toLowerCase();
-      this.datasource.filter = JSON.stringify(this.filterValues);
-    });
-    this.last_checkFilter.valueChanges.subscribe((last_check) => {
-      this.filterValues.modifiedAt = last_check.toString().toLowerCase();
-      this.datasource.filter = JSON.stringify(this.filterValues);
-    });
-    this.addressFilter.valueChanges.subscribe((room) => {
-      this.filterValues.buildingAbbreviationPlusRoom = room.toString().toLowerCase();
-      this.datasource.filter = JSON.stringify(this.filterValues);
-    });
-    this.statusFilter.valueChanges.subscribe((status) => {
-      this.filterValues.active = status.toString().toLowerCase();
-      this.datasource.filter = JSON.stringify(this.filterValues);
-    });
-    this.userFilter.valueChanges.subscribe((user) => {
-      this.filterValues.personName = user.toString().toLowerCase();
-      this.datasource.filter = JSON.stringify(this.filterValues);
-      console.log(JSON.stringify(this.filterValues));
+  getFirstAsset(): void {
+    this.propertyService.getAssets().subscribe((asset) => {
+      this.updateAssets(asset);
     });
   }
 
-  ngAfterViewInit() {}
+  updateAssets(asset: JSON): void {
+    this.assets = asset['content'];
+    this.currentPage = asset['pageable']['pageNumber'];
+    this.maxPage = asset['totalPages'];
+    if (this.currentPage === this.maxPage) {
+      this.forwardNumber = this.maxPage;
+    } else {
+      this.forwardNumber = this.currentPage + 1;
+    }
+    if (this.currentPage === 0) {
+      this.backwardNumber = 0;
+    } else {
+      this.backwardNumber = this.currentPage - 1;
+    }
+  }
 
-  createFilter(): (data: any, filter: string) => boolean {
-    const filterFunction = function (data: any, filter: any): boolean {
-      const searchTerms = JSON.parse(filter);
-      return (
-        data.id.toString().toLowerCase().indexOf(searchTerms.id) !== -1 &&
-        data.name.toString().toLowerCase().indexOf(searchTerms.name) !== -1 &&
-        data.modifiedAt.toString().toLowerCase().indexOf(searchTerms.modifiedAt) !== -1 &&
-        data.buildingAbbreviationPlusRoom.toString().toLowerCase().indexOf(searchTerms.buildingAbbreviationPlusRoom) !==
-          -1 &&
-        data.active.toString().toLowerCase().indexOf(searchTerms.active) !== -1 &&
-        data.personName.toString().toLowerCase().indexOf(searchTerms.personName) !== -1
-      );
-    };
-    return filterFunction;
+  backward(): void {
+    this.propertyService.backward(this.backwardNumber).subscribe((asset) => {
+      this.updateAssets(asset);
+    });
+  }
+
+  forward(): void {
+    this.propertyService.forward(this.forwardNumber).subscribe((asset) => {
+      this.updateAssets(asset);
+    });
+  }
+
+  fullForward(): void {
+    this.propertyService.fullForward(this.maxPage).subscribe((asset) => {
+      this.updateAssets(asset);
+    });
   }
 }

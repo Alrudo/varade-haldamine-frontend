@@ -1,9 +1,5 @@
 <div style="display: block">
   <div class="container">
-    <app-header></app-header>
-  </div>
-  <div class="container">
-    <br />
     <label>ID:*</label>
     <textarea #id class="comment_area"></textarea>
     <label>Name:*</label>
@@ -74,17 +70,8 @@
     <label>DescriptionText:</label>
     <textarea #description class="comment_area"></textarea>
     <br />
-    <div class="complect">
-      <mat-form-field appearance="fill">
-        <mat-label>Location</mat-label>
-        <mat-select [(value)]="selectLocation">
-          <mat-option *ngFor="let location of locations" [value]="location.value">
-            {{ location.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <textarea #location class="comment_area"></textarea>
-    </div>
+    <label>StructuralUnit:</label>
+    <textarea #location class="comment_area"></textarea>
     <label>Subdivision:</label>
     <textarea #subdivision class="comment_area"></textarea>
     <button
