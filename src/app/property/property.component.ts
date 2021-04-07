@@ -47,9 +47,11 @@ export class PropertyComponent implements OnInit {
   }
 
   filter(): void {
-    this.propertyService.getFilteredAssets(this.filterForm.get('id').value).subscribe((asset) => {
-      this.updateAssets(asset);
-    });
+    this.propertyService
+      .getFilteredAssets(this.filterForm.get('id').value, this.filterForm.get('name').value)
+      .subscribe((asset) => {
+        this.updateAssets(asset);
+      });
   }
 
   getFirstAsset(): void {
