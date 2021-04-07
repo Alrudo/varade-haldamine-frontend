@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyService } from './property.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Asset } from '@app/asset';
 
 @Component({
@@ -8,6 +9,7 @@ import { Asset } from '@app/asset';
   styleUrls: ['./property.component.scss'],
 })
 export class PropertyComponent implements OnInit {
+  filterForm: FormGroup;
   assets: Asset[] = [];
   currentPage: number;
   maxPage: number;
@@ -25,10 +27,29 @@ export class PropertyComponent implements OnInit {
     'Tegevused',
   ];
 
-  constructor(private propertyService: PropertyService) {}
+  constructor(private propertyService: PropertyService, private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.initFilterForm();
     this.getFirstAsset();
+  }
+
+  private initFilterForm(): void {
+    this.filterForm = this.fb.group({
+      id: new FormControl(''),
+      name: new FormControl(''),
+      buildingAbbreviationPlusRoom: new FormControl(''),
+      mainClassPlusSubclass: new FormControl(''),
+      active: new FormControl(''),
+      lifeMonthsLeft: new FormControl(''),
+      checked: new FormControl(''),
+    });
+  }
+
+  filter(): void {
+    this.propertyService.getFilteredAssets(this.filterForm.get('id').value).subscribe((asset) => {
+      this.updateAssets(asset);
+    });
   }
 
   getFirstAsset(): void {

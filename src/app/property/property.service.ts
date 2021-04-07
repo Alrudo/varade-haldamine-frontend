@@ -20,6 +20,11 @@ export class PropertyService {
     return this.http.get<JSON>(url);
   }
 
+  getFilteredAssets(id: string): Observable<JSON> {
+    const url = `asset/filtered?id=${id}&order=ASC&page=0&size=10&sortBy=id`;
+    return this.http.get<JSON>(url);
+  }
+
   getAssetById(id: string): Observable<AssetInfo> {
     const url = `${this.url}/${id}`;
     return this.http.get<AssetInfo>(url);

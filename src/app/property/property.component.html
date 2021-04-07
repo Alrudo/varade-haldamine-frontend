@@ -6,6 +6,19 @@
       </tr>
     </thead>
     <tbody>
+      <tr class="input-row" [formGroup]="filterForm">
+        <td></td>
+        <td><input formControlName="id" type="text" placeholder="Filter" class="form-control" /></td>
+        <td><input formControlName="name" type="text" placeholder="Filter" class="form-control" /></td>
+        <td>
+          <input formControlName="buildingAbbreviationPlusRoom" type="text" placeholder="Filter" class="form-control" />
+        </td>
+        <td><input formControlName="mainClassPlusSubclass" type="text" placeholder="Filter" class="form-control" /></td>
+        <td><input formControlName="active" type="text" placeholder="Filter" class="form-control" /></td>
+        <td><input formControlName="lifeMonthsLeft" type="text" placeholder="Filter" class="form-control" /></td>
+        <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
+        <td><button type="button" (click)="filter()">Filtreeri</button></td>
+      </tr>
       <tr *ngFor="let el of assets; let i = index">
         <td><input type="checkbox" /></td>
         <th scope="row">{{ el.id }}</th>
