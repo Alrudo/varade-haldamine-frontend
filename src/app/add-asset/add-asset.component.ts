@@ -22,6 +22,16 @@ interface SubClassification {
   viewValue: string;
 }
 
+interface PossessorId {
+  value: string;
+  viewValue: string;
+}
+
+interface MajorAsset {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-add-asset',
   templateUrl: './add-asset.component.html',
@@ -29,27 +39,21 @@ interface SubClassification {
 })
 export class AddAssetComponent implements OnInit {
   selectClassification: string;
-  mainClassifications: MainClassification[] = [
-    { value: 'VV', viewValue: 'VV' },
-    { value: 'PV', viewValue: 'PV' },
-    { value: 'BV', viewValue: 'BV' },
-  ];
+
+  mainClassifications: MainClassification[] = [];
 
   selectSubClassification: string;
 
-  subClassifications: SubClassification[] = [
-    { value: 'VV_ARVUTI', viewValue: 'VV_ARVUTI' },
-    { value: 'VV_TELEFFON', viewValue: 'VV_TELEFFON' },
-    { value: 'VV_MÖÖBEL', viewValue: 'VV_MÖÖBEL' },
-    { value: 'VV_ARVUTIKOMPLEKT', viewValue: 'VV_ARVUTIKOMPLEKT' },
-    { value: 'PV_SEADMED', viewValue: 'PV_SEADMED' },
-    { value: 'BV_TÖÖRIIST', viewValue: 'BV_TÖÖRIIST' },
-    { value: 'BV_ARVUTI', viewValue: 'BV_ARVUTI' },
-    { value: 'BV_MONITOR', viewValue: 'BV_MONITOR' },
-  ];
+  subClassifications: SubClassification[] = [];
+
+  possessors: PossessorId[] = [];
+
+  majorAssets: MajorAsset[] = [];
 
   selectForComplect = 'none';
-  pickerFilter: number;
+
+  possessorSellect: string;
+
   complects: Complect[] = [
     { value: 'majorAssetId', viewValue: 'Major asset' },
     { value: 'componentAssetId', viewValue: 'Component Asset' },
@@ -57,6 +61,8 @@ export class AddAssetComponent implements OnInit {
   ];
 
   modeselect = false;
+
+  sellectAsset: string;
 
   delicates: Delicate[] = [
     { value: false, viewValue: 'No' },
@@ -67,9 +73,43 @@ export class AddAssetComponent implements OnInit {
 
   constructor(private propertyService: PropertyService) {}
 
-  ngOnInit(): void {}
-  // @ts-ignore
-  // tslint:disable-next-line:max-line-length
+  ngOnInit(): void {
+    this.getClassification();
+    this.getPossessor();
+    this.getMajorAssets();
+  }
+
+  getClassification(): void {
+    this.propertyService.getClassification().subscribe((classification) => {
+      classification.forEach((item, i) => {
+        this.mainClassifications.push({ value: item['mainClass'], viewValue: item['mainClass'] } as MainClassification);
+        this.subClassifications.push({ value: item['subClass'], viewValue: item['subClass'] } as SubClassification);
+      });
+    });
+  }
+
+  getPossessor(): void {
+    this.propertyService.getPossessor().subscribe((possessor) => {
+      possessor.forEach((item, i) => {
+        // tslint:disable-next-line:max-line-length
+        this.possessors.push({
+          value: item['id'],
+          viewValue: item['structuralUnit'] + ' ' + item['subdivision'],
+        } as PossessorId);
+      });
+    });
+  }
+
+  getMajorAssets(): void {
+    this.propertyService.getMajorAssets().subscribe((majorAssets) => {
+      majorAssets.forEach((item, i) => {
+        // tslint:disable-next-line:max-line-length
+        this.majorAssets.push({ value: item, viewValue: item } as PossessorId);
+        console.log();
+      });
+    });
+  }
+
   adding(
     id: string,
     name: string,
@@ -84,13 +124,10 @@ export class AddAssetComponent implements OnInit {
     complect: string,
     buildingAbbreviation: string,
     room: string,
-    descriptionText: string,
-    selectLocation: string,
-    location: string,
-    subdivision: string
+    descriptionText: string
   ): void {
     if (selectForComplect === 'componentAssetId') {
-      const asset: AssetInfo = {
+      const asset = {
         id,
         name,
         active: true,
@@ -107,7 +144,7 @@ export class AddAssetComponent implements OnInit {
         isPurchased: null,
         subclass,
         mainClass,
-        componentAssetId: id,
+        componentAssetId: null,
         majorAssetId: complect,
         kitPartName: null,
         buildingAbbreviation,
@@ -115,13 +152,12 @@ export class AddAssetComponent implements OnInit {
         descriptionText,
         commentText: null,
         firstname: null,
-        lastname: null,
-        structuralUnit: Number(location),
-        subdivision: Number(subdivision),
-      };
-      this.propertyService.sendAsset(asset as AssetInfo).subscribe();
+        structuralUnit: null,
+        subdivision: null,
+      } as AssetInfo;
+      this.propertyService.sendAsset(asset).subscribe();
     } else if (selectForComplect === 'majorAssetId') {
-      const asset: AssetInfo = {
+      const asset = {
         id,
         name,
         active: true,
@@ -138,7 +174,7 @@ export class AddAssetComponent implements OnInit {
         isPurchased: null,
         subclass,
         mainClass,
-        componentAssetId: id,
+        componentAssetId: null,
         majorAssetId: id,
         kitPartName: null,
         buildingAbbreviation,
@@ -146,13 +182,12 @@ export class AddAssetComponent implements OnInit {
         descriptionText,
         commentText: null,
         firstname: null,
-        lastname: null,
-        structuralUnit: Number(location),
-        subdivision: Number(subdivision),
-      };
-      this.propertyService.sendAsset(asset as AssetInfo).subscribe();
+        structuralUnit: null,
+        subdivision: null,
+      } as AssetInfo;
+      this.propertyService.sendAsset(asset).subscribe();
     } else {
-      const asset: AssetInfo = {
+      const asset = {
         id,
         name,
         active: true,
@@ -177,11 +212,10 @@ export class AddAssetComponent implements OnInit {
         descriptionText,
         commentText: null,
         firstname: null,
-        lastname: null,
-        structuralUnit: Number(location),
-        subdivision: Number(subdivision),
-      };
-      this.propertyService.sendAsset(asset as AssetInfo).subscribe();
+        structuralUnit: null,
+        subdivision: null,
+      } as AssetInfo;
+      this.propertyService.sendAsset(asset).subscribe();
     }
   }
 }
