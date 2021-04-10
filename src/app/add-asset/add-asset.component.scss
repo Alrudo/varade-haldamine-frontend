@@ -19,3 +19,29 @@
   display: flex;
   flex-flow: column wrap;
 }
+.parent {
+  display: flex;
+}
+
+.first {
+  display: flex;
+  flex-flow: column wrap;
+  padding-top: 5%;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.second {
+  display: flex;
+  flex-flow: column wrap;
+  padding-top: 5%;
+  padding-left: 20%;
+  padding-right: 15%;
+}
+.first * {
+  padding: 5px 10px;
+}
+
+.second * {
+  padding: 5px 10px;
+}

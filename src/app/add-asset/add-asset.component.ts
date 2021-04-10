@@ -105,7 +105,6 @@ export class AddAssetComponent implements OnInit {
       majorAssets.forEach((item, i) => {
         // tslint:disable-next-line:max-line-length
         this.majorAssets.push({ value: item, viewValue: item } as PossessorId);
-        console.log();
       });
     });
   }

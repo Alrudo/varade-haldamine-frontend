@@ -1,9 +1,21 @@
-<div style="display: block">
-  <div class="container">
+<div class="parent">
+  <div class="first">
     <label>Id:*</label>
     <textarea #id class="comment_area"></textarea>
     <label>Name:*</label>
     <textarea #name class="comment_area"></textarea>
+    <label>Price*:</label>
+    <input #price type="number" pattern="^[0-9]" />
+    <label>ResidualPrice:</label>
+    <input #residualPrice type="number" pattern="^[0-9]" />
+    <label>BuildingAbbreviation*:</label>
+    <textarea #address class="comment_area"></textarea>
+    <label>room:</label>
+    <textarea #room class="comment_area"></textarea>
+    <label>DescriptionText:</label>
+    <textarea #description class="comment_area"></textarea>
+  </div>
+  <div class="second">
     <mat-form-field appearance="fill">
       <mat-label>PossessorId*</mat-label>
       <mat-select [(value)]="possessorSellect">
@@ -19,7 +31,7 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <label>LifeMonthsLeft:*</label>
-    <textarea #pickerFilter class="comment_area"></textarea>
+    <input #pickerFilter type="number" pattern="^[0-9]" />
     <mat-form-field appearance="fill">
       <mat-label>DelicateCondition*</mat-label>
       <mat-select [(value)]="modeselect">
@@ -28,11 +40,6 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <label>Price*:</label>
-    <textarea #price class="comment_area"></textarea>
-    <label>ResidualPrice:</label>
-    <textarea #residualPrice class="comment_area"></textarea>
-    <br />
     <div class="complect">
       <mat-form-field appearance="fill">
         <mat-label>Choose main classification</mat-label>
@@ -45,7 +52,6 @@
 
       <button>Add Main Classification</button>
     </div>
-    <br />
     <div class="complect">
       <mat-form-field appearance="fill">
         <mat-label>Choose sub classification</mat-label>
@@ -57,8 +63,6 @@
       </mat-form-field>
       <button>Add Sub Classification</button>
     </div>
-    <br />
-    <br />
     <div class="complect">
       <mat-form-field appearance="fill">
         <mat-label>Choose</mat-label>
@@ -79,15 +83,6 @@
         </mat-form-field>
       </div>
     </div>
-    <br />
-    <label>BuildingAbbreviation*:</label>
-    <textarea #address class="comment_area"></textarea>
-    <label>room:</label>
-    <textarea #room class="comment_area"></textarea>
-    <br />
-    <label>DescriptionText:</label>
-    <textarea #description class="comment_area"></textarea>
-    <br />
     <button
       (click)="
         adding(
