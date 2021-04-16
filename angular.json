@@ -24,7 +24,11 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/apple-touch-icon.png", "src/robots.txt", "src/assets"],
-            "styles": ["src/main.scss"],
+            "styles": [
+              "src/main.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-grid.css"
+            ],
             "scripts": []
           },
           "configurations": {

@@ -25,6 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PropertyDetailComponent } from '@app/property-detail/property-detail.component';
 import { CommentComponent } from '@app/comment/comment.component';
 import { AddAssetComponent } from '@app/add-asset/add-asset.component';
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -52,6 +53,8 @@ import { AddAssetComponent } from '@app/add-asset/add-asset.component';
     InputTextModule,
     ProgressBarModule,
     NgxPaginationModule,
+    NgbPaginationModule,
+    NgbAlertModule,
   ],
   declarations: [
     HomeComponent,
