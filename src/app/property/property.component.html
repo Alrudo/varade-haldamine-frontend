@@ -8,24 +8,43 @@
           </tr>
         </thead>
         <tbody>
+          <tr class="input-row" [formGroup]="filterForm">
+            <td></td>
+            <td><input formControlName="id" type="text" placeholder="Filter" class="form-control" /></td>
+            <td><input formControlName="name" type="text" placeholder="Filter" class="form-control" /></td>
+            <td>
+              <input
+                formControlName="buildingAbbreviationPlusRoom"
+                type="text"
+                placeholder="Filter"
+                class="form-control"
+              />
+            </td>
+            <td>
+              <input formControlName="mainClassPlusSubclass" type="text" placeholder="Filter" class="form-control" />
+            </td>
+            <td><input formControlName="active" type="text" placeholder="Filter" class="form-control" /></td>
+            <td><input formControlName="lifeMonthsLeft" type="text" placeholder="Filter" class="form-control" /></td>
+            <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
+            <td><button type="button" (click)="filter()">Filtreeri</button></td>
+          </tr>
           <tr *ngFor="let el of assets; let i = index">
             <td><input type="checkbox" /></td>
-            <th scope="row" routerLink="/property_detail/{{ el.id }}">{{ el.id }}</th>
-            <td routerLink="/property_detail/{{ el.id }}">{{ el.name }}</td>
-            <td *ngIf="el.buildingAbbreviationPlusRoom === null; else active" routerLink="/property_detail/{{ el.id }}">
-              -
-            </td>
-            <ng-template #active
-              ><td routerLink="/property_detail/{{ el.id }}">{{ el.buildingAbbreviationPlusRoom }}</td></ng-template
-            >
-            <td *ngIf="el.mainClassPlusSubclass === null; else active2" routerLink="/property_detail/{{ el.id }}">-</td>
-            <ng-template #active2
-              ><td routerLink="/property_detail/{{ el.id }}">{{ el.mainClassPlusSubclass }}</td></ng-template
-            >
-            <td routerLink="/property_detail/{{ el.id }}">{{ el.active }}</td>
-            <td routerLink="/property_detail/{{ el.id }}">{{ el.lifeMonthsLeft }}</td>
-            <td routerLink="/property_detail/{{ el.id }}">{{ el.checked }}</td>
+            <th scope="row">{{ el.id }}</th>
+            <td>{{ el.name }}</td>
+            <td *ngIf="el.buildingAbbreviationPlusRoom === null; else active">-</td>
+            <ng-template #active>
+              <td>{{ el.buildingAbbreviationPlusRoom }}</td>
+            </ng-template>
+            <td *ngIf="el.mainClassPlusSubclass === null; else active2">-</td>
+            <ng-template #active2>
+              <td>{{ el.mainClassPlusSubclass }}</td>
+            </ng-template>
+            <td>{{ el.active }}</td>
+            <td>{{ el.lifeMonthsLeft }}</td>
+            <td>{{ el.checked }}</td>
             <td class="buttons">
+              <a routerLink="/property_detail/{{ el.id }}">Info</a>
               <button>On kohal</button>
               <button>Ei ole kohal</button>
             </td>
@@ -35,11 +54,11 @@
           <tr>
             <td colspan="10">
               <div class="lowerDiv">
-                <button *ngIf="currentPage !== 0" (click)="getFirstAsset()"><<</button>
-                <button *ngIf="currentPage !== 0" (click)="backward()"><</button>
+                <button class="butt" *ngIf="currentPage !== 0" (click)="getFirstAsset()"><<</button>
+                <button class="butt" *ngIf="currentPage !== 0" (click)="backward()"><</button>
                 <p>{{ currentPage + 1 }} : {{ maxPage }}</p>
-                <button *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
-                <button *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
+                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
+                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
               </div>
             </td>
           </tr>
