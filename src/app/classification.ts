@@ -1,4 +1,4 @@
 export interface Classification {
-  subclass: string;
-  class: string;
+  subClass: string;
+  mainClass: string;
 }

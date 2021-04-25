@@ -4,18 +4,29 @@
   text-align: center;
   justify-content: center;
   padding: 1em;
-}
-.center {
-  flex-flow: column;
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  border: 5px solid #ffff00;
-  padding: 10px;
+  border-style: solid;
+  border-color: #a11aac;
+  border-radius: 5px;
 }
 
-.complect {
-  border: ridge #a11aac;
-  display: flex;
-  flex-flow: column wrap;
+.main {
+  position: relative;
+}
+
+.section-from {
+  padding-top: 10px;
+}
+
+.row-left {
+  border-style: solid;
+  border-color: #cb21d9;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.row-right {
+  border-style: solid;
+  border-color: #cb21d9;
+  border-radius: 5px;
+  padding: 1em;
 }

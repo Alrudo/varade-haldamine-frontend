@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -37,7 +38,9 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    AppRoutingModule, // must be imported as the last module as it contains the fallback route
+    AppRoutingModule,
+    NgbPaginationModule,
+    NgbAlertModule, // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],

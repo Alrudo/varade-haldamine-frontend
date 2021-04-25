@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Asset } from '@app/asset';
 import { AssetInfo } from '@app/assetInfo';
+import { Classification } from '@app/classification';
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +41,20 @@ export class PropertyService {
   fullForward(lastPage: number): Observable<JSON> {
     const url = `asset/filtered?order=ASC&page=${lastPage - 1}&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
+  }
+
+  getClassification(): Observable<Classification[]> {
+    const url = `class`;
+    return this.http.get<Classification[]>(url);
+  }
+
+  getPossessor(): Observable<[]> {
+    const url = `possessor`;
+    return this.http.get<[]>(url);
+  }
+
+  getMajorAssets(): Observable<[]> {
+    const url = `kit/majorAssets`;
+    return this.http.get<[]>(url);
   }
 }
