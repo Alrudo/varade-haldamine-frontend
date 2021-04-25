@@ -30,7 +30,7 @@ a {
   text-decoration: none;
   color: black;
   background-color: whitesmoke;
-  border: thin solid #dddddd;
+  border: thin solid black;
   border-radius: 4px;
 }
 
@@ -39,7 +39,7 @@ a:hover {
   text-decoration: none;
   color: black;
   background-color: grey;
-  border: thin solid #dddddd;
+  border: thin solid black;
   border-radius: 4px;
 }
 
@@ -87,4 +87,11 @@ a:hover {
   display: flex;
   flex-flow: row;
   justify-content: center;
+}
+
+.butt {
+  margin-top: 0.8em;
+  margin-bottom: 1em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
