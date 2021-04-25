@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Asset } from '@app/asset';
 import { AssetInfo } from '@app/assetInfo';
 import { Classification } from '@app/classification';
 
@@ -21,8 +20,15 @@ export class PropertyService {
     return this.http.get<JSON>(url);
   }
 
-  getFilteredAssets(id: string, name: string): Observable<JSON> {
-    const url = `asset/filtered?id=${id}&name=${name}&order=ASC&page=0&size=10&sortBy=id`;
+  getFilteredAssets(
+    id: string,
+    name: string,
+    active: string,
+    building: string,
+    lifeMonths: string,
+    mainPlusSub: string
+  ): Observable<JSON> {
+    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=0&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
 
@@ -34,17 +40,56 @@ export class PropertyService {
   sendAsset(asset: AssetInfo): Observable<AssetInfo> {
     return this.http.post<AssetInfo>(this.url, asset, this.httpOptions);
   }
-  forward(nextPage: number): Observable<JSON> {
-    const url = `asset/filtered?order=ASC&page=${nextPage}&size=10&sortBy=id`;
+  forward(
+    nextPage: number,
+    id: string,
+    name: string,
+    active: string,
+    building: string,
+    lifeMonths: string,
+    mainPlusSub: string
+  ): Observable<JSON> {
+    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${nextPage}&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
-  backward(previousPage: number): Observable<JSON> {
-    const url = `asset/filtered?order=ASC&page=${previousPage}&size=10&sortBy=id`;
+  backward(
+    previousPage: number,
+    id: string,
+    name: string,
+    active: string,
+    building: string,
+    lifeMonths: string,
+    mainPlusSub: string
+  ): Observable<JSON> {
+    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${previousPage}&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
 
-  fullForward(lastPage: number): Observable<JSON> {
-    const url = `asset/filtered?order=ASC&page=${lastPage - 1}&size=10&sortBy=id`;
+  fullForward(
+    lastPage: number,
+    id: string,
+    name: string,
+    active: string,
+    building: string,
+    lifeMonths: string,
+    mainPlusSub: string
+  ): Observable<JSON> {
+    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${
+      lastPage - 1
+    }&size=10&sortBy=id`;
+    return this.http.get<JSON>(url);
+  }
+
+  fullBackward(
+    page: number,
+    id: string,
+    name: string,
+    active: string,
+    building: string,
+    lifeMonths: string,
+    mainPlusSub: string
+  ): Observable<JSON> {
+    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${page}&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
 

@@ -48,7 +48,14 @@ export class PropertyComponent implements OnInit {
 
   filter(): void {
     this.propertyService
-      .getFilteredAssets(this.filterForm.get('id').value, this.filterForm.get('name').value)
+      .getFilteredAssets(
+        this.filterForm.get('id').value,
+        this.filterForm.get('name').value,
+        this.filterForm.get('active').value,
+        this.filterForm.get('buildingAbbreviationPlusRoom').value,
+        this.filterForm.get('lifeMonthsLeft').value,
+        this.filterForm.get('mainClassPlusSubclass').value
+      )
       .subscribe((asset) => {
         this.updateAssets(asset);
       });
@@ -77,20 +84,66 @@ export class PropertyComponent implements OnInit {
   }
 
   backward(): void {
-    this.propertyService.backward(this.backwardNumber).subscribe((asset) => {
-      this.updateAssets(asset);
-    });
+    this.propertyService
+      .backward(
+        this.backwardNumber,
+        this.filterForm.get('id').value,
+        this.filterForm.get('name').value,
+        this.filterForm.get('active').value,
+        this.filterForm.get('buildingAbbreviationPlusRoom').value,
+        this.filterForm.get('lifeMonthsLeft').value,
+        this.filterForm.get('mainClassPlusSubclass').value
+      )
+      .subscribe((asset) => {
+        this.updateAssets(asset);
+      });
   }
 
   forward(): void {
-    this.propertyService.forward(this.forwardNumber).subscribe((asset) => {
-      this.updateAssets(asset);
-    });
+    this.propertyService
+      .forward(
+        this.forwardNumber,
+        this.filterForm.get('id').value,
+        this.filterForm.get('name').value,
+        this.filterForm.get('active').value,
+        this.filterForm.get('buildingAbbreviationPlusRoom').value,
+        this.filterForm.get('lifeMonthsLeft').value,
+        this.filterForm.get('mainClassPlusSubclass').value
+      )
+      .subscribe((asset) => {
+        this.updateAssets(asset);
+      });
   }
 
   fullForward(): void {
-    this.propertyService.fullForward(this.maxPage).subscribe((asset) => {
-      this.updateAssets(asset);
-    });
+    this.propertyService
+      .fullForward(
+        this.maxPage,
+        this.filterForm.get('id').value,
+        this.filterForm.get('name').value,
+        this.filterForm.get('active').value,
+        this.filterForm.get('buildingAbbreviationPlusRoom').value,
+        this.filterForm.get('lifeMonthsLeft').value,
+        this.filterForm.get('mainClassPlusSubclass').value
+      )
+      .subscribe((asset) => {
+        this.updateAssets(asset);
+      });
+  }
+
+  fullBackward(): void {
+    this.propertyService
+      .fullBackward(
+        0,
+        this.filterForm.get('id').value,
+        this.filterForm.get('name').value,
+        this.filterForm.get('active').value,
+        this.filterForm.get('buildingAbbreviationPlusRoom').value,
+        this.filterForm.get('lifeMonthsLeft').value,
+        this.filterForm.get('mainClassPlusSubclass').value
+      )
+      .subscribe((asset) => {
+        this.updateAssets(asset);
+      });
   }
 }
