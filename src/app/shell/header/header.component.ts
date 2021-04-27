@@ -1,8 +1,9 @@
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthenticationService, CredentialsService } from '@app/auth';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
 })
 export class HeaderComponent implements OnInit {
   @Input() sidenav!: MatSidenav;
+  user: any;
 
   constructor(
     private router: Router,
@@ -19,10 +21,22 @@ export class HeaderComponent implements OnInit {
     private credentialsService: CredentialsService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUser();
+  }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    Cookie.set('vasya', '12345678');
+    console.log(Cookie.getAll());
+    console.log(Cookie.get('vasya'));
+    Cookie.deleteAll();
+    console.log(Cookie.getAll());
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+    });
   }
 
   get username(): string | null {

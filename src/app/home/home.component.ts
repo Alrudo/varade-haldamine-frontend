@@ -31,8 +31,6 @@ export class HomeComponent implements OnInit {
   getUser() {
     this.authenticationService.getUser().subscribe((user) => {
       this.user = user;
-      console.log(user);
     });
-    console.log(this.user);
   }
 }

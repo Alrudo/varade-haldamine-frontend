@@ -50,6 +50,6 @@ export class AuthenticationService {
   }
 
   getUser(): Observable<any> {
-    return this.http.get<Observable<any>>(`asset/account`);
+    return this.http.get(`asset/account`);
   }
 }
