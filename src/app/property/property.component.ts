@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PropertyService } from './property.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Asset } from '@app/asset';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-property',
@@ -27,7 +28,7 @@ export class PropertyComponent implements OnInit {
     'Tegevused',
   ];
 
-  constructor(private propertyService: PropertyService, private fb: FormBuilder) {}
+  constructor(private route: ActivatedRoute, private propertyService: PropertyService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initFilterForm();
@@ -145,5 +146,10 @@ export class PropertyComponent implements OnInit {
       .subscribe((asset) => {
         this.updateAssets(asset);
       });
+  }
+
+  changeSessionStorage(id: string, link: string) {
+    sessionStorage.setItem('currentPage', link);
+    sessionStorage.setItem('id', id);
   }
 }

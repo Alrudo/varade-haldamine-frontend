@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -10,7 +11,7 @@ import { environment } from '@env/environment';
 export class AboutComponent implements OnInit {
   version: string | null = environment.version;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 }

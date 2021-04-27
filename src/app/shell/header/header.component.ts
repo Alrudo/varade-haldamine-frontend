@@ -33,4 +33,8 @@ export class HeaderComponent implements OnInit {
   get title(): string {
     return this.titleService.getTitle();
   }
+
+  changeSessionStorage(link: string) {
+    sessionStorage.setItem('currentPage', link);
+  }
 }

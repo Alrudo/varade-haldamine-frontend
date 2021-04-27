@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   isLoading = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.isLoading = true;
+    const location = sessionStorage.getItem('currentPage');
+    if (location === 'about') {
+      this.router.navigate(['about']);
+    }
+    if (location === 'add-asset') {
+      this.router.navigate(['add-asset']);
+    }
+    if (location === 'property_detail') {
+      this.router.navigate(['property_detail/' + sessionStorage.getItem('id')]);
+    }
   }
 }

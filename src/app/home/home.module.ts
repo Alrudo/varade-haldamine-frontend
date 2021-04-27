@@ -26,6 +26,7 @@ import { PropertyDetailComponent } from '@app/property-detail/property-detail.co
 import { CommentComponent } from '@app/comment/comment.component';
 import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from '@app/app-routing.module';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -35,7 +36,7 @@ import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-    HomeRoutingModule,
+    AppRoutingModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,

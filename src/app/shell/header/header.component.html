@@ -7,15 +7,15 @@
   </div>
   <div fxHide.lt-md>
     <a class="brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a>
-    <button mat-button routerLink="/home" routerLinkActive="active">
+    <button (click)="changeSessionStorage('home')" mat-button routerLink="/home" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span translate>Home</span>
     </button>
-    <button mat-button routerLink="/about" routerLinkActive="active">
+    <button (click)="changeSessionStorage('about')" mat-button routerLink="/about" routerLinkActive="active">
       <mat-icon>info</mat-icon>
       <span translate>About</span>
     </button>
-    <button mat-button routerLink="/add-asset" routerLinkActive="active">
+    <button (click)="changeSessionStorage('add-asset')" mat-button routerLink="/add-asset" routerLinkActive="active">
       <mat-icon>Add asset</mat-icon>
       <span translate>adding</span>
     </button>

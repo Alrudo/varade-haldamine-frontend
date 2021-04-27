@@ -44,7 +44,9 @@
             <td>{{ el.lifeMonthsLeft }}</td>
             <td>{{ el.checked }}</td>
             <td class="buttons">
-              <a routerLink="/property_detail/{{ el.id }}">Info</a>
+              <a (click)="changeSessionStorage(el.id, 'property_detail')" routerLink="/property_detail/{{ el.id }}"
+                >Info</a
+              >
               <button>On kohal</button>
               <button>Ei ole kohal</button>
             </td>
