@@ -37,4 +37,8 @@ export class HeaderComponent implements OnInit {
   changeSessionStorage(link: string) {
     sessionStorage.setItem('currentPage', link);
   }
+
+  login() {
+    window.location.reload();
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +9,13 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   isLoading = false;
+  user: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.isLoading = true;
+    this.getUser();
     const location = sessionStorage.getItem('currentPage');
     if (location === 'about') {
       this.router.navigate(['about']);
@@ -23,5 +26,13 @@ export class HomeComponent implements OnInit {
     if (location === 'property_detail') {
       this.router.navigate(['property_detail/' + sessionStorage.getItem('id')]);
     }
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
+    console.log(this.user);
   }
 }

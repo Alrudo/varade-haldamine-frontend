@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { Credentials, CredentialsService } from './credentials.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface LoginContext {
   username: string;
@@ -17,7 +18,11 @@ export interface LoginContext {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService) {}
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
   /**
    * Authenticates the user.
@@ -42,5 +47,9 @@ export class AuthenticationService {
     // Customize credentials invalidation here
     this.credentialsService.setCredentials();
     return of(true);
+  }
+
+  getUser(): Observable<any> {
+    return this.http.get<Observable<any>>(`asset/account`);
   }
 }
