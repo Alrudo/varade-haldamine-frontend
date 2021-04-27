@@ -26,11 +26,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    Cookie.set('vasya', '12345678');
-    console.log(Cookie.getAll());
-    console.log(Cookie.get('vasya'));
-    Cookie.deleteAll();
-    console.log(Cookie.getAll());
+    this.authenticationService.logout().subscribe();
+    window.location.reload();
   }
 
   getUser() {
@@ -50,9 +47,5 @@ export class HeaderComponent implements OnInit {
 
   changeSessionStorage(link: string) {
     sessionStorage.setItem('currentPage', link);
-  }
-
-  login() {
-    window.location.reload();
   }
 }

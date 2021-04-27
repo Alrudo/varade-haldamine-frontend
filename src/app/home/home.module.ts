@@ -27,6 +27,7 @@ import { CommentComponent } from '@app/comment/comment.component';
 import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from '@app/app-routing.module';
+import { AuthModule } from '@app/auth';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -56,6 +57,7 @@ import { AppRoutingModule } from '@app/app-routing.module';
     NgxPaginationModule,
     NgbPaginationModule,
     NgbAlertModule,
+    AuthModule,
   ],
   declarations: [
     HomeComponent,

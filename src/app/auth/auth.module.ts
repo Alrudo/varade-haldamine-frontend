@@ -23,5 +23,6 @@ import { LoginComponent } from './login.component';
     BrowserAnimationsModule,
   ],
   declarations: [LoginComponent],
+  exports: [LoginComponent],
 })
 export class AuthModule {}

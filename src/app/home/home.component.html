@@ -1,3 +1,6 @@
-<div *ngIf="user != null">
+<div *ngIf="user != null; else goLogin">
   <app-property></app-property>
 </div>
+<ng-template #goLogin>
+  <app-login></app-login>
+</ng-template>
