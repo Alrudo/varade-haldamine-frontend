@@ -44,17 +44,21 @@ export class PropertyDetailComponent implements OnInit {
   }
 
   backward(): void {
-    this.currentPage -= 1;
-    this.propertyService.getAssetAuditBackwards(this.asset, this.currentPage).subscribe((r) => {
-      this.asset = r;
-    });
+    if (this.currentPage - 1 >= 0) {
+      this.currentPage -= 1;
+      this.propertyService.getAssetAuditBackwards(this.asset, this.currentPage).subscribe((r) => {
+        this.asset = r;
+      });
+    }
   }
 
   forward(): void {
-    this.currentPage += 1;
-    this.propertyService.getAssetAuditForward(this.asset, this.currentPage).subscribe((r) => {
-      this.asset = r;
-    });
+    if (this.currentPage + 1 <= this.maxPage - 1) {
+      this.currentPage += 1;
+      this.propertyService.getAssetAuditForward(this.asset, this.currentPage).subscribe((r) => {
+        this.asset = r;
+      });
+    }
   }
 
   fullForward(): void {
