@@ -44,7 +44,7 @@ export class AuthenticationService {
    * @return True if the user was logged out successfully.
    */
   logout(): Observable<any> {
-    return this.http.get<Observable<any>>('asset/log');
+    return this.http.get<Observable<any>>('asset/logout');
   }
 
   getUser(): Observable<any> {

@@ -18,7 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { CookieService } from 'ng2-cookies';
 
 @NgModule({
   imports: [
@@ -43,7 +42,7 @@ import { CookieService } from 'ng2-cookies';
     NgbAlertModule, // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
-  providers: [CookieService], // { provide: LocationStrategy, useClass: HashLocationStrategy }
+  providers: [], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap: [AppComponent],
   exports: [],
 })

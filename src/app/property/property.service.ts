@@ -107,4 +107,29 @@ export class PropertyService {
     const url = `kit/majorAssets`;
     return this.http.get<[]>(url);
   }
+
+  getAssetAuditInfo(asset: AssetInfo): Observable<JSON> {
+    console.log(asset.id);
+    const url = `asset/auditt/${asset.id}`;
+    return this.http.get<JSON>(url);
+  }
+
+  getAssetAuditForward(asset: AssetInfo, nextAsset: number): Observable<AssetInfo> {
+    const url = `asset/audit?assetId=${asset.id}&index=${nextAsset}`;
+    return this.http.get<AssetInfo>(url);
+  }
+
+  getAssetAuditBackwards(asset: AssetInfo, previousAsset: number): Observable<AssetInfo> {
+    const url = `asset/audit?assetId=${asset.id}&index=${previousAsset}`;
+    return this.http.get<AssetInfo>(url);
+  }
+
+  getAssetAuditFullForward(asset: AssetInfo, maxNumber: number): Observable<AssetInfo> {
+    const url = `asset/audit?assetId=${asset.id}&index=${maxNumber - 1}`;
+    return this.http.get<AssetInfo>(url);
+  }
+  getAssetAuditFullBackwards(asset: AssetInfo, zero: number): Observable<AssetInfo> {
+    const url = `asset/audit?assetId=${asset.id}&index=${zero}`;
+    return this.http.get<AssetInfo>(url);
+  }
 }

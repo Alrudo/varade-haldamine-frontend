@@ -55,7 +55,6 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-
               <button>Add Main Classification</button>
             </div>
             <div class="complect">
@@ -91,29 +90,32 @@
             </div>
           </div>
         </div>
+
+        <div class="col">
+          <button
+            (click)="
+              adding(
+                id.value,
+                name.value,
+                possessorSellect,
+                pickerFilter.value,
+                modeselect,
+                price.value,
+                selectSubClassification,
+                selectClassification,
+                residualPrice.value,
+                selectForComplect,
+                sellectAsset,
+                address.value,
+                room.value,
+                description.value
+              )
+            "
+          >
+            Lisa
+          </button>
+        </div>
       </div>
     </div>
-    <button
-      (click)="
-        adding(
-          id.value,
-          name.value,
-          possessorSellect,
-          pickerFilter.value,
-          modeselect,
-          price.value,
-          selectSubClassification,
-          selectClassification,
-          residualPrice.value,
-          selectForComplect,
-          sellectAsset,
-          address.value,
-          room.value,
-          description.value
-        )
-      "
-    >
-      Lisa
-    </button>
   </div>
 </div>
