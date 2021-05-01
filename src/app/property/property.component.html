@@ -6,8 +6,6 @@
           <tr>
             <th *ngFor="let head of headElements; let i = index" scope="col">{{ head }}</th>
           </tr>
-        </thead>
-        <tbody>
           <tr class="input-row" [formGroup]="filterForm">
             <td></td>
             <td><input formControlName="id" type="text" placeholder="Filter" class="form-control" /></td>
@@ -28,7 +26,14 @@
             <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
             <td><button type="button" (click)="filter()">Filtreeri</button></td>
           </tr>
-          <tr *ngFor="let el of assets; let i = index">
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let el of assets
+                | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }
+            "
+          >
             <td><input type="checkbox" /></td>
             <th scope="row">{{ el.id }}</th>
             <td>{{ el.name }}</td>
@@ -54,11 +59,7 @@
           <tr>
             <td colspan="10">
               <div class="lowerDiv">
-                <button class="butt" *ngIf="currentPage !== 0" (click)="fullBackward()"><<</button>
-                <button class="butt" *ngIf="currentPage !== 0" (click)="backward()"><</button>
-                <p>{{ currentPage + 1 }} : {{ maxPage }}</p>
-                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
-                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
+                <pagination-controls (pageChange)="getPage((currentPage = $event))"> </pagination-controls>
               </div>
             </td>
           </tr>

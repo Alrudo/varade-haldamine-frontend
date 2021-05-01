@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AssetInfo } from '@app/assetInfo';
 import { Classification } from '@app/classification';
 
@@ -11,7 +11,11 @@ export class PropertyService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+  httpParams = new HttpParams();
   private url = 'asset';
+  private filterUrl = 'asset/filtered?';
+  private filterParams = new HttpParams();
+  private pageParams = new HttpParams().set('page', 0 + '');
 
   constructor(private http: HttpClient) {}
 
@@ -20,16 +24,32 @@ export class PropertyService {
     return this.http.get<JSON>(url);
   }
 
-  getFilteredAssets(
-    id: string,
-    name: string,
-    active: string,
-    building: string,
-    lifeMonths: string,
-    mainPlusSub: string
-  ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=0&size=10&sortBy=id`;
-    return this.http.get<JSON>(url);
+  getFilteredAssets(filterParams: HttpParams): Observable<JSON> {
+    this.filterParams = filterParams;
+    this.resetPage();
+    const params = this.mergeParams(this.pageParams, this.filterParams);
+    return this.http.get<JSON>(this.filterUrl, { params });
+  }
+
+  getPage(page: number) {
+    this.pageParams = new HttpParams().set('page', page.toString());
+    const params = this.mergeParams(this.pageParams, this.filterParams);
+    return this.http.get(this.filterUrl, { params });
+  }
+
+  mergeParams(params1: HttpParams, params2: HttpParams): HttpParams {
+    let mergedParams = new HttpParams();
+    params1.keys().forEach((key) => {
+      mergedParams = mergedParams.append(key, params1.get(key));
+    });
+    params2.keys().forEach((key) => {
+      mergedParams = mergedParams.append(key, params2.get(key));
+    });
+    return mergedParams;
+  }
+
+  resetPage() {
+    this.pageParams = new HttpParams().set('page', 0 + '');
   }
 
   getAssetById(id: string): Observable<AssetInfo> {
@@ -39,58 +59,6 @@ export class PropertyService {
 
   sendAsset(asset: AssetInfo): Observable<AssetInfo> {
     return this.http.post<AssetInfo>(this.url, asset, this.httpOptions);
-  }
-  forward(
-    nextPage: number,
-    id: string,
-    name: string,
-    active: string,
-    building: string,
-    lifeMonths: string,
-    mainPlusSub: string
-  ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${nextPage}&size=10&sortBy=id`;
-    return this.http.get<JSON>(url);
-  }
-  backward(
-    previousPage: number,
-    id: string,
-    name: string,
-    active: string,
-    building: string,
-    lifeMonths: string,
-    mainPlusSub: string
-  ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${previousPage}&size=10&sortBy=id`;
-    return this.http.get<JSON>(url);
-  }
-
-  fullForward(
-    lastPage: number,
-    id: string,
-    name: string,
-    active: string,
-    building: string,
-    lifeMonths: string,
-    mainPlusSub: string
-  ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${
-      lastPage - 1
-    }&size=10&sortBy=id`;
-    return this.http.get<JSON>(url);
-  }
-
-  fullBackward(
-    page: number,
-    id: string,
-    name: string,
-    active: string,
-    building: string,
-    lifeMonths: string,
-    mainPlusSub: string
-  ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${page}&size=10&sortBy=id`;
-    return this.http.get<JSON>(url);
   }
 
   getClassification(): Observable<Classification[]> {

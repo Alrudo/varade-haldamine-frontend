@@ -6,7 +6,6 @@ import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { PropertyComponent } from '@app/property/property.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -56,13 +55,6 @@ import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
     NgbPaginationModule,
     NgbAlertModule,
   ],
-  declarations: [
-    HomeComponent,
-    PropertyComponent,
-    PropertyDetailComponent,
-    SearchBarComponent,
-    CommentComponent,
-    AddAssetComponent,
-  ],
+  declarations: [HomeComponent, PropertyComponent, PropertyDetailComponent, CommentComponent, AddAssetComponent],
 })
 export class HomeModule {}
