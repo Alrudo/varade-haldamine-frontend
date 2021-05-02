@@ -12,7 +12,7 @@
         <ng-template pTemplate="header">
           <tr>
             <th></th>
-            <th *ngFor="let col of headElements.slice(1, 8)" pSortableColumn="{{ col.field }}">
+            <th *ngFor="let col of headElements" pSortableColumn="{{ col.field }}">
               {{ col.header }}
             </th>
             <th>Tegevused</th>
@@ -43,7 +43,7 @@
         <ng-template pTemplate="body" let-asset>
           <tr>
             <td><input type="checkbox" (change)="onCheck(asset)" /></td>
-            <td *ngFor="let col of headElements.slice(1, 8)">
+            <td *ngFor="let col of headElements">
               {{ asset[col.field] }}
             </td>
             <td class="buttons">

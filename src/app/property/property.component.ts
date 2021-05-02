@@ -23,7 +23,6 @@ export class PropertyComponent implements OnInit {
   itemsPerPage: number;
   loading: boolean;
   headElements = [
-    { field: ' ', header: 'Vali kõik' },
     { field: 'id', header: 'ID' },
     { field: 'name', header: 'Nimi' },
     { field: 'buildingAbbreviationPlusRoom', header: 'Maja ja tuba' },
@@ -31,7 +30,6 @@ export class PropertyComponent implements OnInit {
     { field: 'active', header: 'Aktiivne' },
     { field: 'lifeMonthsLeft', header: 'Elujääk' },
     { field: 'checked', header: 'Kontrollitud' },
-    { field: 'actions', header: 'Tegevused' },
   ];
 
   constructor(private propertyService: PropertyService, private fb: FormBuilder) {
