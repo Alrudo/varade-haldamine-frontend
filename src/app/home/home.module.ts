@@ -25,6 +25,7 @@ import { PropertyDetailComponent } from '@app/property-detail/property-detail.co
 import { CommentComponent } from '@app/comment/comment.component';
 import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -54,6 +55,7 @@ import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
     NgxPaginationModule,
     NgbPaginationModule,
     NgbAlertModule,
+    TableModule,
   ],
   declarations: [HomeComponent, PropertyComponent, PropertyDetailComponent, CommentComponent, AddAssetComponent],
 })

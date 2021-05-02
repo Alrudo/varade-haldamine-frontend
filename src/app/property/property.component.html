@@ -1,14 +1,27 @@
 <div class="main">
   <div class="section-table">
     <div class="containerTable">
-      <table class="styled-table">
-        <thead>
+      <p-table
+        class="styled-table"
+        [value]="assets | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }"
+        [lazy]="true"
+        [loading]="loading"
+        [customSort]="true"
+        (onLazyLoad)="sortAssets($event)"
+      >
+        <ng-template pTemplate="header">
           <tr>
-            <th *ngFor="let head of headElements; let i = index" scope="col">{{ head }}</th>
+            <th></th>
+            <th *ngFor="let col of headElements.slice(1, 8)" pSortableColumn="{{ col.field }}">
+              {{ col.header }}
+            </th>
+            <th>Tegevused</th>
           </tr>
           <tr class="input-row" [formGroup]="filterForm">
-            <td></td>
-            <td><input formControlName="id" type="text" placeholder="Filter" class="form-control" /></td>
+            <td><input type="checkbox" /></td>
+            <td>
+              <input id="float-input" formControlName="id" type="text" placeholder="Filter" class="form-control" />
+            </td>
             <td><input formControlName="name" type="text" placeholder="Filter" class="form-control" /></td>
             <td>
               <input
@@ -24,47 +37,26 @@
             <td><input formControlName="active" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="lifeMonthsLeft" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
-            <td><button type="button" (click)="filter()">Filtreeri</button></td>
+            <td></td>
           </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="
-              let el of assets
-                | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }
-            "
-          >
-            <td><input type="checkbox" /></td>
-            <th scope="row">{{ el.id }}</th>
-            <td>{{ el.name }}</td>
-            <td *ngIf="el.buildingAbbreviationPlusRoom === null; else active">-</td>
-            <ng-template #active>
-              <td>{{ el.buildingAbbreviationPlusRoom }}</td>
-            </ng-template>
-            <td *ngIf="el.mainClassPlusSubclass === null; else active2">-</td>
-            <ng-template #active2>
-              <td>{{ el.mainClassPlusSubclass }}</td>
-            </ng-template>
-            <td>{{ el.active }}</td>
-            <td>{{ el.lifeMonthsLeft }}</td>
-            <td>{{ el.checked }}</td>
-            <td class="buttons">
-              <a routerLink="/property_detail/{{ el.id }}">Info</a>
-              <button>On kohal</button>
-              <button>Ei ole kohal</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
+        </ng-template>
+        <ng-template pTemplate="body" let-asset>
           <tr>
-            <td colspan="10">
-              <div class="lowerDiv">
-                <pagination-controls (pageChange)="getPage((currentPage = $event))"> </pagination-controls>
-              </div>
+            <td><input type="checkbox" (change)="onCheck(asset)" /></td>
+            <td *ngFor="let col of headElements.slice(1, 8)">
+              {{ asset[col.field] }}
+            </td>
+            <td class="buttons">
+              <a routerLink="/property_detail/{{ asset.id }}">Info</a>
+              <p-button label="On kohal"></p-button>
+              <p-button label="Ei ole kohal"></p-button>
             </td>
           </tr>
-        </tfoot>
-      </table>
+        </ng-template>
+      </p-table>
+      <p-footer>
+        <pagination-controls (pageChange)="getPage((currentPage = $event))"> </pagination-controls>
+      </p-footer>
     </div>
   </div>
 </div>

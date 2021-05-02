@@ -16,6 +16,7 @@ export class PropertyService {
   private filterUrl = 'asset/filtered?';
   private filterParams = new HttpParams();
   private pageParams = new HttpParams().set('page', 0 + '');
+  private sortParams = new HttpParams().set('sortBy', 'id').set('order', 'ASC');
 
   constructor(private http: HttpClient) {}
 
@@ -24,26 +25,43 @@ export class PropertyService {
     return this.http.get<JSON>(url);
   }
 
-  getFilteredAssets(filterParams: HttpParams): Observable<JSON> {
-    this.filterParams = filterParams;
-    this.resetPage();
-    const params = this.mergeParams(this.pageParams, this.filterParams);
+  fetchAssets(): Observable<JSON> {
+    const params = this.mergeParams(this.pageParams, this.filterParams, this.sortParams);
     return this.http.get<JSON>(this.filterUrl, { params });
   }
 
-  getPage(page: number) {
-    this.pageParams = new HttpParams().set('page', page.toString());
-    const params = this.mergeParams(this.pageParams, this.filterParams);
-    return this.http.get(this.filterUrl, { params });
+  getFilteredAssets(filterParams: HttpParams): Observable<JSON> {
+    this.filterParams = filterParams;
+    this.resetPage();
+    return this.fetchAssets();
   }
 
-  mergeParams(params1: HttpParams, params2: HttpParams): HttpParams {
+  getPage(page: number): Observable<JSON> {
+    this.pageParams = new HttpParams().set('page', page.toString());
+    return this.fetchAssets();
+  }
+
+  getSortedAssets(field: string): Observable<JSON> {
+    if (this.sortParams.get('order') !== null) {
+      if (this.sortParams.get('order') === 'ASC') {
+        this.sortParams = new HttpParams().set('sortBy', field).set('order', 'DSC');
+      } else {
+        this.sortParams = new HttpParams().set('sortBy', field).set('order', 'ASC');
+      }
+    }
+    return this.fetchAssets();
+  }
+
+  mergeParams(params1: HttpParams, params2: HttpParams, params3: HttpParams): HttpParams {
     let mergedParams = new HttpParams();
     params1.keys().forEach((key) => {
       mergedParams = mergedParams.append(key, params1.get(key));
     });
     params2.keys().forEach((key) => {
       mergedParams = mergedParams.append(key, params2.get(key));
+    });
+    params3.keys().forEach((key) => {
+      mergedParams = mergedParams.append(key, params3.get(key));
     });
     return mergedParams;
   }
