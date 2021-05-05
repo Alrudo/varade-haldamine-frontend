@@ -26,11 +26,15 @@ export class HomeComponent implements OnInit {
     if (location === 'property_detail') {
       this.router.navigate(['property_detail/' + sessionStorage.getItem('id')]);
     }
+    if (location === 'change_asset') {
+      this.router.navigate(['change-asset/' + sessionStorage.getItem('id')]);
+    }
   }
 
   getUser() {
     this.authenticationService.getUser().subscribe((user) => {
       this.user = user;
+      this.isLoading = false;
     });
   }
 }

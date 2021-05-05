@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeAssetFormComponent } from './change-asset-form/change-asset-form.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,7 @@ import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
     NgbPaginationModule,
     NgbAlertModule, // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, ChangeAssetFormComponent],
   providers: [], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap: [AppComponent],
   exports: [],

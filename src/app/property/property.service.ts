@@ -132,4 +132,9 @@ export class PropertyService {
     const url = `asset/audit?assetId=${asset.id}&index=${zero}`;
     return this.http.get<AssetInfo>(url);
   }
+
+  changeAsset(asset: JSON, id: string): Observable<JSON> {
+    const url = `asset/${id}`;
+    return this.http.put<JSON>(url, asset, this.httpOptions);
+  }
 }

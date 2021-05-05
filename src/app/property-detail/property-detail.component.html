@@ -142,6 +142,9 @@
             </ng-template>
           </tr>
         </table>
+        <button (click)="changeSessionStoregeId('change_asset', asset.id)" routerLink="/change-asset/{{ asset.id }}">
+          Change
+        </button>
       </div>
     </div>
     <div class="section-buttons">

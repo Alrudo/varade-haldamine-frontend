@@ -15,10 +15,8 @@ export class PropertyDetailComponent implements OnInit {
   asset: AssetInfo;
   currentPage: number;
   maxPage: number;
-  forwardNumber: number;
-  backwardNumber: number;
 
-  constructor(private route: ActivatedRoute, private propertyService: PropertyService, private location: Location) {}
+  constructor(private route: ActivatedRoute, private propertyService: PropertyService) {}
 
   ngOnInit(): void {
     this.getAsset();
@@ -34,6 +32,11 @@ export class PropertyDetailComponent implements OnInit {
 
   changeSessionStorage(link: string) {
     sessionStorage.setItem('currentPage', link);
+  }
+
+  changeSessionStoregeId(link: string, id: string) {
+    sessionStorage.setItem('currentPage', link);
+    sessionStorage.setItem('id', id);
   }
 
   getAssetAuditInfo(): void {

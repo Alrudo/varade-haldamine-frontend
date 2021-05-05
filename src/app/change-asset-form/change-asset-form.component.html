@@ -1,0 +1,210 @@
+<div class="section-detail">
+  <div class="container2">
+    <button (click)="changeSessionStorage('property_detail', asset.id)" routerLink="/home" routerLinkActive="active">
+      go back
+    </button>
+  </div>
+  <div class="container-detail">
+    <div class="info">
+      <table>
+        <tr>
+          <td>Nimi:</td>
+          <td>{{ asset.name }}</td>
+          <textarea #name class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>Nr.:</td>
+          <td>{{ asset.id }}</td>
+          <textarea #id class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>Soetusmaksumus:</td>
+          <td *ngIf="asset.price === null; else price">-</td>
+          <ng-template #price>
+            <td>{{ asset.price }}</td>
+          </ng-template>
+          <input #priceValue type="number" pattern="^[0-9]" />
+        </tr>
+        <tr>
+          <td>Jääkväärtus:</td>
+          <td *ngIf="asset.residualPrice === null; else residualPrice">-</td>
+          <ng-template #residualPrice>
+            <td>{{ asset.residualPrice }}</td>
+          </ng-template>
+          <input #residualPriceValue type="number" pattern="^[0-9]" />
+        </tr>
+        <tr>
+          <td>Kirjeldus :</td>
+          <td *ngIf="asset.descriptionText === null; else description">-</td>
+          <ng-template #description>
+            <td>{{ asset.descriptionText }}</td>
+          </ng-template>
+          <textarea #descriptionText class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>PV klassi tähis:</td>
+          <td *ngIf="asset.mainClass === null; else mainClass">-</td>
+          <ng-template #mainClass>
+            <td>{{ asset.mainClass }}</td>
+          </ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose main classification</mat-label>
+            <mat-select [(value)]="selectClassification">
+              <mat-option *ngFor="let mainClassification of mainClassifications" [value]="mainClassification.value">
+                {{ mainClassification.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </tr>
+        <tr>
+          <td>PV alamklassi tähis:</td>
+          <td *ngIf="asset.subclass === null; else subclass">-</td>
+          <ng-template #subclass>
+            <td>{{ asset.subclass }}</td>
+          </ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose sub classification</mat-label>
+            <mat-select [(value)]="selectSubClassification">
+              <mat-option *ngFor="let subClassification of subClassifications" [value]="subClassification.value">
+                {{ subClassification.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </tr>
+        <tr>
+          <td>Aktiivne:</td>
+          <td *ngIf="asset.active === true; else active">Jah</td>
+          <ng-template #active>
+            <td>Ei</td>
+          </ng-template>
+          <mat-checkbox *ngIf="asset.active === true; else notActive" color="primary" [(ngModel)]="isChecked">
+            Ei
+          </mat-checkbox>
+          <ng-template #notActive>
+            <mat-checkbox color="primary" [(ngModel)]="isChecked">Jah</mat-checkbox>
+          </ng-template>
+        </tr>
+        <tr>
+          <td>Töökohtade aadressi tähis:</td>
+          <td *ngIf="asset.buildingAbbreviation === null; else building">-</td>
+          <ng-template #building>
+            <td>{{ asset.buildingAbbreviation }}</td>
+          </ng-template>
+          <textarea #buildingAbbreviation class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>Tööruumi nr.:</td>
+          <td *ngIf="asset.room === null; else room">-</td>
+          <ng-template #room>
+            <td>{{ asset.room }}</td>
+          </ng-template>
+          <textarea #roomValue class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>PV kasutaja nr.:</td>
+          <td *ngIf="asset.userId === null; else user">-</td>
+          <ng-template #user>
+            <td>{{ asset.userId }}</td>
+          </ng-template>
+          <textarea #userId class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>PV kasutaja nimi:</td>
+          <td *ngIf="asset.firstname === null; else person1">-</td>
+          <ng-template #person1>
+            <td>{{ asset.firstname }}</td>
+          </ng-template>
+          <textarea #personNameValue class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>PV kasutaja perekonnanimi:</td>
+          <td *ngIf="asset.lastname === null; else person2">-</td>
+          <ng-template #person2>
+            <td>{{ asset.lastname }}</td>
+          </ng-template>
+          <textarea #personSecondNameValue class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>Soetatud:</td>
+          <td *ngIf="asset.isPurchased === true; else isPurchased">Jah</td>
+          <ng-template #isPurchased>
+            <td>Ei</td>
+          </ng-template>
+          <mat-checkbox *ngIf="asset.isPurchased === true; else notPurchased" color="primary" [(ngModel)]="isChecked2">
+            Ei
+          </mat-checkbox>
+          <ng-template #notPurchased>
+            <mat-checkbox color="primary" [(ngModel)]="isChecked2">Jah</mat-checkbox>
+          </ng-template>
+        </tr>
+        <tr>
+          <td>Instituut/Allüksus nr.:</td>
+          <td *ngIf="asset.structuralUnit === null; else institute">-</td>
+          <ng-template #institute>
+            <td>{{ asset.structuralUnit }}</td>
+          </ng-template>
+          <textarea #structuralUnit class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>Osakond nr.:</td>
+          <td *ngIf="asset.subdivision === null; else subdivision">-</td>
+          <ng-template #subdivision>
+            <td>{{ asset.subdivision }}</td>
+          </ng-template>
+          <textarea #subdivisionValue class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>Eluea Jääk:</td>
+          <td *ngIf="asset.lifeMonthsLeft === null; else lifeMonths">-</td>
+          <ng-template #lifeMonths>
+            <td>{{ asset.lifeMonthsLeft }}</td>
+          </ng-template>
+          <textarea #lifeMonthsLeft class="comment_area"></textarea>
+        </tr>
+        <tr>
+          <td>Delikaatse sisuga:</td>
+          <td *ngIf="asset.delicateCondition === true; else delicateCondition">Jah</td>
+          <ng-template #delicateCondition>
+            <td>Ei</td>
+          </ng-template>
+          <mat-checkbox
+            *ngIf="asset.delicateCondition === true; else notDelicate"
+            color="primary"
+            [(ngModel)]="isChecked3"
+          >
+            Ei
+          </mat-checkbox>
+          <ng-template #notDelicate>
+            <mat-checkbox color="primary" [(ngModel)]="isChecked3">Jah</mat-checkbox>
+          </ng-template>
+        </tr>
+      </table>
+      <button
+        (click)="
+          change(
+            name.value,
+            id.value,
+            priceValue.value,
+            residualPriceValue.value,
+            descriptionText.value,
+            selectClassification,
+            selectSubClassification,
+            isChecked,
+            buildingAbbreviation.value,
+            roomValue.value,
+            userId.value,
+            personNameValue.value,
+            personSecondNameValue.value,
+            isChecked2,
+            structuralUnit.value,
+            subdivisionValue.value,
+            lifeMonthsLeft.value,
+            isChecked3
+          )
+        "
+      >
+        Muuda
+      </button>
+    </div>
+  </div>
+</div>
