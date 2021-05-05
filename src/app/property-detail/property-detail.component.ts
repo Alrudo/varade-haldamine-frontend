@@ -63,7 +63,7 @@ export class PropertyDetailComponent implements OnInit {
 
   fullForward(): void {
     this.currentPage = this.maxPage - 1;
-    this.propertyService.getAssetAuditFullForward(this.asset, this.maxPage - 1).subscribe((r) => {
+    this.propertyService.getAssetAuditFullForward(this.asset, this.maxPage).subscribe((r) => {
       this.asset = r;
     });
   }
