@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
+import { HttpEvent } from '@angular/common/http';
 import { Credentials, CredentialsService } from './credentials.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -48,6 +48,11 @@ export class AuthenticationService {
   }
 
   getUser(): Observable<any> {
-    return this.http.get(`asset/account`);
+    return this.http.get<any>(`asset/account`);
+  }
+
+  getUserRole(): Observable<string> {
+    // @ts-ignore
+    return this.http.get<string>(`asset/accountt`, { responseType: 'text' });
   }
 }

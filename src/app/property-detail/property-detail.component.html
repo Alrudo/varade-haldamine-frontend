@@ -142,12 +142,19 @@
             </ng-template>
           </tr>
         </table>
-        <button (click)="changeSessionStoregeId('change_asset', asset.id)" routerLink="/change-asset/{{ asset.id }}">
+        <button
+          *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht'"
+          (click)="changeSessionStoregeId('change_asset', asset.id)"
+          routerLink="/change-asset/{{ asset.id }}"
+        >
           Change
         </button>
       </div>
     </div>
-    <div class="section-buttons">
+    <div
+      *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht' || userRole == 'KomisjoniLiige'"
+      class="section-buttons"
+    >
       <div class="button-container d-inline-flex p-2">
         <button class="btn btn-outline-danger" (click)="fullBackward()"><<</button>
         <button class="btn btn-outline-danger" (click)="backward()"><</button>
@@ -156,7 +163,10 @@
         <button class="btn btn-outline-danger" (click)="fullForward()">>></button>
       </div>
     </div>
-    <div class="container">
+    <div
+      *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht' || userRole == 'KomisjoniLiige'"
+      class="container"
+    >
       <app-comment></app-comment>
     </div>
   </div>

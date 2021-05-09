@@ -28,7 +28,7 @@
       <span translate>About</span>
     </button>
     <button
-      *ngIf="user != null"
+      *ngIf="user != null && (userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht')"
       (click)="changeSessionStorage('add-asset')"
       mat-button
       routerLink="/add-asset"

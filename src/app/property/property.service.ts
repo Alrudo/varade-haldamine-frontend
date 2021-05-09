@@ -110,7 +110,7 @@ export class PropertyService {
 
   getAssetAuditInfo(asset: AssetInfo): Observable<JSON> {
     console.log(asset.id);
-    const url = `asset/auditt/${asset.id}`;
+    const url = `asset/audit/${asset.id}`;
     return this.http.get<JSON>(url);
   }
 
@@ -136,5 +136,10 @@ export class PropertyService {
   changeAsset(asset: JSON, id: string): Observable<JSON> {
     const url = `asset/${id}`;
     return this.http.put<JSON>(url, asset, this.httpOptions);
+  }
+
+  getUserRole(): Observable<string> {
+    // @ts-ignore
+    return this.http.get<string>(`asset/accountt`, { responseType: 'text' });
   }
 }

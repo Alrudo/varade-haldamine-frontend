@@ -3,7 +3,6 @@ import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthenticationService, CredentialsService } from '@app/auth';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +12,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class HeaderComponent implements OnInit {
   @Input() sidenav!: MatSidenav;
   user: any;
+  userRole: string;
 
   constructor(
     private router: Router,
@@ -23,16 +23,24 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
+    this.getRole();
   }
 
   logout() {
-    this.authenticationService.logout().subscribe();
-    window.location.reload();
+    this.authenticationService.logout().subscribe((r) => {
+      window.location.reload();
+    });
   }
 
   getUser() {
     this.authenticationService.getUser().subscribe((user) => {
       this.user = user;
+    });
+  }
+
+  getRole() {
+    this.authenticationService.getUserRole().subscribe((r) => {
+      this.userRole = r;
     });
   }
 

@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.getUser();
+
     const location = sessionStorage.getItem('currentPage');
     if (location === 'about') {
       this.router.navigate(['about']);
