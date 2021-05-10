@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetInfo } from '@app/assetInfo';
 import { PropertyService } from '@app/property/property.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '@app/modal/modal.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 interface Complect {
   value: string;
@@ -71,7 +74,7 @@ export class AddAssetComponent implements OnInit {
 
   selectLocation: string;
 
-  constructor(private propertyService: PropertyService) {}
+  constructor(private propertyService: PropertyService, protected matDialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getClassification();
@@ -82,8 +85,14 @@ export class AddAssetComponent implements OnInit {
   getClassification(): void {
     this.propertyService.getClassification().subscribe((classification) => {
       classification.forEach((item, i) => {
-        this.mainClassifications.push({ value: item['mainClass'], viewValue: item['mainClass'] } as MainClassification);
-        this.subClassifications.push({ value: item['subClass'], viewValue: item['subClass'] } as SubClassification);
+        const mainClass = { value: item['mainClass'], viewValue: item['mainClass'] } as MainClassification;
+        const subClass = { value: item['subClass'], viewValue: item['subClass'] } as SubClassification;
+        if (this.mainClassifications.find((item1) => item1.value === item['mainClass']) == null) {
+          this.mainClassifications.push(mainClass);
+        }
+        if (this.subClassifications.find((item1) => item1.value === item['subClass']) == null) {
+          this.subClassifications.push(subClass);
+        }
       });
     });
   }
@@ -106,6 +115,17 @@ export class AddAssetComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.majorAssets.push({ value: item, viewValue: item } as PossessorId);
       });
+    });
+  }
+
+  open() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = '350px';
+    dialogConfig.width = '600px';
+    const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+    modalDialog.afterClosed().subscribe(() => {
+      this.getClassification();
     });
   }
 

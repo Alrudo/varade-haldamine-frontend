@@ -142,4 +142,8 @@ export class PropertyService {
     // @ts-ignore
     return this.http.get<string>(`asset/accountt`, { responseType: 'text' });
   }
+  addClassification(classification: Classification): Observable<Classification> {
+    console.log('zawel');
+    return this.http.post<Classification>(`class`, classification, this.httpOptions);
+  }
 }
