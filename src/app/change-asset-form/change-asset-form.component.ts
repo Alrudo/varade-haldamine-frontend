@@ -92,7 +92,6 @@ export class ChangeAssetFormComponent implements OnInit {
     if (isChecked3 == true && this.asset.delicateCondition == true) {
       isChecked3 = false;
     }
-
     const obj = ({
       active: isChecked,
       buildingAbbreviation: buildingAbbreviation,
@@ -113,8 +112,9 @@ export class ChangeAssetFormComponent implements OnInit {
       subdivision: subdivisionValue,
       userId: userId,
     } as unknown) as JSON;
-
-    console.log(obj);
+    if (roomValue === '') {
+      obj['room'] = '-';
+    }
     this.propertyService.changeAsset(obj, this.asset.id).subscribe();
   }
 }
