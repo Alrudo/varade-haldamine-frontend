@@ -44,15 +44,16 @@ export class AuthenticationService {
    * @return True if the user was logged out successfully.
    */
   logout(): Observable<any> {
-    return this.http.get<Observable<any>>('asset/logout');
+    return this.http.get<Observable<any>>('api/asset/logout');
   }
 
   getUser(): Observable<any> {
-    return this.http.get<any>(`asset/account`);
+    // @ts-ignore
+    return this.http.get<any>(`api/asset/account`, { responseType: 'application/json' });
   }
 
   getUserRole(): Observable<string> {
-    // @ts-ignore
-    return this.http.get<string>(`asset/accountt`, { responseType: 'text' });
+    // @ts-ignore application/json
+    return this.http.get<string>(`api/asset/accountt`, { responseType: 'text' });
   }
 }

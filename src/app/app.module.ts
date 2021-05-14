@@ -22,6 +22,7 @@ import { ChangeAssetFormComponent } from './change-asset-form/change-asset-form.
 import { ModalModule } from 'ng2-modal-module';
 import { ModalComponent } from '@app/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   imports: [
@@ -45,7 +46,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgbPaginationModule,
     NgbAlertModule,
     ModalModule,
-    MatDialogModule, // must be imported as the last module as it contains the fallback route
+    MatDialogModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:8080/api'],
+        sendAccessToken: true,
+      },
+    }), // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent, ChangeAssetFormComponent, ModalComponent],
   providers: [], // { provide: LocationStrategy, useClass: HashLocationStrategy }

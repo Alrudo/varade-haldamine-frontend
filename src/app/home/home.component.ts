@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     this.getUser();
 
     const location = sessionStorage.getItem('currentPage');
-    if (location === 'about') {
+    /*if (location === 'about') {
       this.router.navigate(['about']);
     }
     if (location === 'add-asset') {
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     }
     if (location === 'change_asset') {
       this.router.navigate(['change-asset/' + sessionStorage.getItem('id')]);
-    }
+    }*/
   }
 
   getUser() {

@@ -11,12 +11,12 @@ export class PropertyService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  private url = 'asset';
+  private url = 'api/asset';
 
   constructor(private http: HttpClient) {}
 
   getAssets(): Observable<JSON> {
-    const url = `asset/filtered?order=ASC&page=0&size=10&sortBy=id`;
+    const url = `api/asset/filtered?order=ASC&page=0&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
 
@@ -28,7 +28,7 @@ export class PropertyService {
     lifeMonths: string,
     mainPlusSub: string
   ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=0&size=10&sortBy=id`;
+    const url = `api/asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=0&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
 
@@ -49,7 +49,7 @@ export class PropertyService {
     lifeMonths: string,
     mainPlusSub: string
   ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${nextPage}&size=10&sortBy=id`;
+    const url = `api/asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${nextPage}&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
   backward(
@@ -61,7 +61,7 @@ export class PropertyService {
     lifeMonths: string,
     mainPlusSub: string
   ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${previousPage}&size=10&sortBy=id`;
+    const url = `api/asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${previousPage}&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
 
@@ -74,7 +74,7 @@ export class PropertyService {
     lifeMonths: string,
     mainPlusSub: string
   ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${
+    const url = `api/asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${
       lastPage - 1
     }&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
@@ -89,61 +89,61 @@ export class PropertyService {
     lifeMonths: string,
     mainPlusSub: string
   ): Observable<JSON> {
-    const url = `asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${page}&size=10&sortBy=id`;
+    const url = `api/asset/filtered?active=${active}&buildingAbbreviationPlusRoom=${building}&id=${id}&lifeMonthsLeft=${lifeMonths}&mainClassPlusSubclass=${mainPlusSub}&name=${name}&order=ASC&page=${page}&size=10&sortBy=id`;
     return this.http.get<JSON>(url);
   }
 
   getClassification(): Observable<Classification[]> {
-    const url = `class`;
+    const url = `api/class`;
     return this.http.get<Classification[]>(url);
   }
 
   getPossessor(): Observable<[]> {
-    const url = `possessor`;
+    const url = `api/possessor`;
     return this.http.get<[]>(url);
   }
 
   getMajorAssets(): Observable<[]> {
-    const url = `kit/majorAssets`;
+    const url = `api/kit/majorAssets`;
     return this.http.get<[]>(url);
   }
 
   getAssetAuditInfo(asset: AssetInfo): Observable<JSON> {
-    console.log(asset.id);
-    const url = `asset/audit/${asset.id}`;
+    const url = `api/asset/audit/${asset.id}`;
     return this.http.get<JSON>(url);
   }
 
   getAssetAuditForward(asset: AssetInfo, nextAsset: number): Observable<AssetInfo> {
-    const url = `asset/audit?assetId=${asset.id}&index=${nextAsset}`;
+    const url = `api/asset/audit?assetId=${asset.id}&index=${nextAsset}`;
     return this.http.get<AssetInfo>(url);
   }
 
   getAssetAuditBackwards(asset: AssetInfo, previousAsset: number): Observable<AssetInfo> {
-    const url = `asset/audit?assetId=${asset.id}&index=${previousAsset}`;
+    const url = `api/asset/audit?assetId=${asset.id}&index=${previousAsset}`;
     return this.http.get<AssetInfo>(url);
   }
 
   getAssetAuditFullForward(asset: AssetInfo, maxNumber: number): Observable<AssetInfo> {
-    const url = `asset/audit?assetId=${asset.id}&index=${maxNumber - 1}`;
+    const url = `api/asset/audit?assetId=${asset.id}&index=${maxNumber - 1}`;
     return this.http.get<AssetInfo>(url);
   }
   getAssetAuditFullBackwards(asset: AssetInfo, zero: number): Observable<AssetInfo> {
-    const url = `asset/audit?assetId=${asset.id}&index=${zero}`;
+    const url = `api/asset/audit?assetId=${asset.id}&index=${zero}`;
     return this.http.get<AssetInfo>(url);
   }
 
   changeAsset(asset: JSON, id: string): Observable<JSON> {
-    const url = `asset/${id}`;
+    const url = `api/asset/${id}`;
     return this.http.put<JSON>(url, asset, this.httpOptions);
   }
 
   getUserRole(): Observable<string> {
     // @ts-ignore
-    return this.http.get<string>(`asset/accountt`, { responseType: 'text' });
+    return this.http.get<string>(`api/asset/accountt`, { responseType: 'text' });
   }
+
   addClassification(classification: Classification): Observable<Classification> {
     console.log('zawel');
-    return this.http.post<Classification>(`class`, classification, this.httpOptions);
+    return this.http.post<Classification>(`api/class`, classification, this.httpOptions);
   }
 }
