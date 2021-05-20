@@ -143,7 +143,6 @@ export class PropertyService {
   }
 
   addClassification(classification: Classification): Observable<Classification> {
-    console.log('zawel');
     return this.http.post<Classification>(`api/class`, classification, this.httpOptions);
   }
 }

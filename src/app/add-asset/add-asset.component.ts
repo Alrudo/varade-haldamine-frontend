@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '@app/modal/modal.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/auth';
+import { Router } from '@angular/router';
 
 interface Complect {
   value: string;
@@ -80,10 +81,12 @@ export class AddAssetComponent implements OnInit {
   constructor(
     private propertyService: PropertyService,
     protected matDialog: MatDialog,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.getRole();
     this.getClassification();
     this.getPossessor();
     this.getMajorAssets();
@@ -249,6 +252,16 @@ export class AddAssetComponent implements OnInit {
   getUser() {
     this.authenticationService.getUser().subscribe((user) => {
       this.user = user;
+    });
+  }
+
+  getRole() {
+    this.authenticationService.getUserRole().subscribe((role) => {
+      if (role !== 'Raamatupidaja') {
+        console.log(role);
+        // @ts-ignore
+        this.router.navigate(['/home']);
+      }
     });
   }
 }

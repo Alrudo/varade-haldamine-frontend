@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyService } from '@app/property/property.service';
 import { AssetInfo } from '@app/assetInfo';
 import { AuthenticationService } from '@app/auth';
@@ -22,8 +22,11 @@ interface SubClassification {
 export class ChangeAssetFormComponent implements OnInit {
   asset: AssetInfo;
   user: any;
+
   isChecked: any = false;
+
   isChecked2: any = false;
+
   isChecked3: any = false;
 
   selectClassification: string;
@@ -37,10 +40,12 @@ export class ChangeAssetFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private propertyService: PropertyService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.getRole();
     this.getAsset();
     this.getClassification();
     this.getUser();
@@ -121,12 +126,21 @@ export class ChangeAssetFormComponent implements OnInit {
     if (roomValue === '') {
       obj['room'] = '-';
     }
-    this.propertyService.changeAsset(obj, this.asset.id).subscribe();
+    this.propertyService.changeAsset(obj, this.asset.id).subscribe(() => {
+      this.getAsset();
+    });
   }
 
   getUser() {
     this.authenticationService.getUser().subscribe((user) => {
       this.user = user;
+    });
+  }
+  getRole() {
+    this.authenticationService.getUserRole().subscribe((role) => {
+      if (role !== 'Raamatupidaja') {
+        this.router.navigate(['/home']);
+      }
     });
   }
 }
