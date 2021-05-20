@@ -26,7 +26,10 @@
             <td><input formControlName="active" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="lifeMonthsLeft" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
-            <td><button type="button" (click)="filter()">Filtreeri</button></td>
+            <td>
+              <button type="button" (click)="filter()">Filtreeri</button>
+              <button *ngIf="userRole === 'Raamatupidaja'" type="button" (click)="excel()">Download Excel</button>
+            </td>
           </tr>
           <tr *ngFor="let el of assets; let i = index">
             <td><input type="checkbox" /></td>

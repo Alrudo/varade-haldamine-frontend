@@ -3,6 +3,7 @@ import { PropertyService } from './property.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Asset } from '@app/asset';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-property',
@@ -10,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./property.component.scss'],
 })
 export class PropertyComponent implements OnInit {
+  userRole: any;
   filterForm: FormGroup;
   assets: Asset[] = [];
   currentPage: number;
@@ -28,9 +30,15 @@ export class PropertyComponent implements OnInit {
     'Tegevused',
   ];
 
-  constructor(private route: ActivatedRoute, private propertyService: PropertyService, private fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    private propertyService: PropertyService,
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {
+    this.getRole();
     this.initFilterForm();
     this.getFirstAsset();
   }
@@ -151,5 +159,19 @@ export class PropertyComponent implements OnInit {
   changeSessionStorage(id: string, link: string) {
     sessionStorage.setItem('currentPage', link);
     sessionStorage.setItem('id', id);
+  }
+
+  excel(): void {
+    this.propertyService.getExcel().subscribe((response) => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
+  getRole(): void {
+    this.authenticationService.getUserRole().subscribe((role) => {
+      this.userRole = role;
+    });
   }
 }

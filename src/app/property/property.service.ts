@@ -145,4 +145,9 @@ export class PropertyService {
   addClassification(classification: Classification): Observable<Classification> {
     return this.http.post<Classification>(`api/class`, classification, this.httpOptions);
   }
+
+  getExcel(): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`api/asset/exportExcel`, { responseType: 'blob' });
+  }
 }
