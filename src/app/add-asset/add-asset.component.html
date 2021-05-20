@@ -1,4 +1,4 @@
-<div class="main">
+<div *ngIf="user != null; else goLogin" class="main">
   <div class="section-from">
     <div class="container">
       <div class="row">
@@ -119,3 +119,6 @@
     </div>
   </div>
 </div>
+<ng-template #goLogin>
+  <app-login></app-login>
+</ng-template>

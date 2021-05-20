@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyService } from '@app/property/property.service';
 import { AssetInfo } from '@app/assetInfo';
+import { AuthenticationService } from '@app/auth';
 
 interface MainClassification {
   value: string;
@@ -20,7 +21,7 @@ interface SubClassification {
 })
 export class ChangeAssetFormComponent implements OnInit {
   asset: AssetInfo;
-
+  user: any;
   isChecked: any = false;
   isChecked2: any = false;
   isChecked3: any = false;
@@ -33,11 +34,16 @@ export class ChangeAssetFormComponent implements OnInit {
 
   subClassifications: SubClassification[] = [];
 
-  constructor(private route: ActivatedRoute, private propertyService: PropertyService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private propertyService: PropertyService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
     this.getAsset();
     this.getClassification();
+    this.getUser();
   }
 
   getAsset(): void {
@@ -116,5 +122,11 @@ export class ChangeAssetFormComponent implements OnInit {
       obj['room'] = '-';
     }
     this.propertyService.changeAsset(obj, this.asset.id).subscribe();
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+    });
   }
 }

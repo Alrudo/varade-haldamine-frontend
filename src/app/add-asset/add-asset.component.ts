@@ -4,6 +4,7 @@ import { PropertyService } from '@app/property/property.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '@app/modal/modal.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AuthenticationService } from '@app/auth';
 
 interface Complect {
   value: string;
@@ -41,6 +42,8 @@ interface MajorAsset {
   styleUrls: ['./add-asset.component.scss'],
 })
 export class AddAssetComponent implements OnInit {
+  user: any;
+
   selectClassification: string;
 
   mainClassifications: MainClassification[] = [];
@@ -74,12 +77,17 @@ export class AddAssetComponent implements OnInit {
 
   selectLocation: string;
 
-  constructor(private propertyService: PropertyService, protected matDialog: MatDialog) {}
+  constructor(
+    private propertyService: PropertyService,
+    protected matDialog: MatDialog,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
     this.getClassification();
     this.getPossessor();
     this.getMajorAssets();
+    this.getUser();
   }
 
   getClassification(): void {
@@ -236,5 +244,11 @@ export class AddAssetComponent implements OnInit {
       } as AssetInfo;
       this.propertyService.sendAsset(asset).subscribe();
     }
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+    });
   }
 }

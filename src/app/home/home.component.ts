@@ -16,20 +16,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.getUser();
-
-    const location = sessionStorage.getItem('currentPage');
-    /*if (location === 'about') {
-      this.router.navigate(['about']);
-    }
-    if (location === 'add-asset') {
-      this.router.navigate(['add-asset']);
-    }
-    if (location === 'property_detail') {
-      this.router.navigate(['property_detail/' + sessionStorage.getItem('id')]);
-    }
-    if (location === 'change_asset') {
-      this.router.navigate(['change-asset/' + sessionStorage.getItem('id')]);
-    }*/
   }
 
   getUser() {
