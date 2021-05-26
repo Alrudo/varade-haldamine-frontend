@@ -13,11 +13,10 @@
       routerLink="/home"
       routerLinkActive="active"
     >
-    <a class="brand" routerLink="/home" routerLinkActive="active" translate>APP_NAME</a>
-    <button mat-button routerLink="/home" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span translate>Home</span>
     </button>
+
     <button
       *ngIf="user != null"
       (click)="changeSessionStorage('about')"

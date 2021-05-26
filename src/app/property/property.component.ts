@@ -35,9 +35,6 @@ export class PropertyComponent implements OnInit {
     { field: 'checked', header: 'Kontrollitud' },
   ];
 
-  constructor(private propertyService: PropertyService, private fb: FormBuilder) {
-    this.initFilterForm();
-  }
   constructor(
     private route: ActivatedRoute,
     private propertyService: PropertyService,
@@ -46,11 +43,13 @@ export class PropertyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
+    this.initFilterForm();
+    this.getRole();
     this.getPage(1);
     this.filterForm.valueChanges.pipe(debounceTime(800)).subscribe(() => {
       this.filter();
     });
-    this.loading = true;
   }
 
   filter(): void {
@@ -94,122 +93,6 @@ export class PropertyComponent implements OnInit {
       const index = this.selected.indexOf(asset, 0);
       this.selected.splice(index, 1);
     }
-    this.getRole();
-    this.initFilterForm();
-    this.getFirstAsset();
-  }
-
-  private initFilterForm(): void {
-    this.filterForm = this.fb.group({
-      id: new FormControl(''),
-      name: new FormControl(''),
-      buildingAbbreviationPlusRoom: new FormControl(''),
-      mainClassPlusSubclass: new FormControl(''),
-      active: new FormControl(''),
-      lifeMonthsLeft: new FormControl(''),
-      checked: new FormControl(''),
-    });
-  }
-
-  filter(): void {
-    this.propertyService
-      .getFilteredAssets(
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
-  }
-
-  getFirstAsset(): void {
-    this.propertyService.getAssets().subscribe((asset) => {
-      this.updateAssets(asset);
-    });
-  }
-
-  updateAssets(asset: JSON): void {
-    this.assets = asset['content'];
-    this.currentPage = asset['pageable']['pageNumber'];
-    this.maxPage = asset['totalPages'];
-    if (this.currentPage === this.maxPage) {
-      this.forwardNumber = this.maxPage;
-    } else {
-      this.forwardNumber = this.currentPage + 1;
-    }
-    if (this.currentPage === 0) {
-      this.backwardNumber = 0;
-    } else {
-      this.backwardNumber = this.currentPage - 1;
-    }
-  }
-
-  backward(): void {
-    this.propertyService
-      .backward(
-        this.backwardNumber,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
-  }
-
-  forward(): void {
-    this.propertyService
-      .forward(
-        this.forwardNumber,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
-  }
-
-  fullForward(): void {
-    this.propertyService
-      .fullForward(
-        this.maxPage,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
-  }
-
-  fullBackward(): void {
-    this.propertyService
-      .fullBackward(
-        0,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
   }
 
   changeSessionStorage(id: string, link: string) {
@@ -228,6 +111,18 @@ export class PropertyComponent implements OnInit {
   getRole(): void {
     this.authenticationService.getUserRole().subscribe((role) => {
       this.userRole = role;
+    });
+  }
+
+  private initFilterForm(): void {
+    this.filterForm = this.fb.group({
+      id: new FormControl(''),
+      name: new FormControl(''),
+      buildingAbbreviationPlusRoom: new FormControl(''),
+      mainClassPlusSubclass: new FormControl(''),
+      active: new FormControl(''),
+      lifeMonthsLeft: new FormControl(''),
+      checked: new FormControl(''),
     });
   }
 }
