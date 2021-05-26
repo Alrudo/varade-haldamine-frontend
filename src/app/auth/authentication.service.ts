@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
-import { Credentials, CredentialsService } from './credentials.service';
+// import { Credentials, CredentialsService } from './credentials.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface LoginContext {
@@ -22,22 +22,22 @@ export class AuthenticationService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
+  constructor(private http: HttpClient) {} // , private credentialsService: CredentialsService) {}
 
   /**
    * Authenticates the user.
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
-    const data = {
-      username: context.username,
-      token: '123456',
-    };
-    this.credentialsService.setCredentials(data, context.remember);
-    return of(data);
-  }
+  // login(context: LoginContext): Observable<Credentials> {
+  //   // Replace by proper authentication call
+  //   const data = {
+  //     username: context.username,
+  //     token: '123456',
+  //   };
+  //   this.credentialsService.setCredentials(data, context.remember);
+  //   return of(data);
+  // }
 
   /**
    * Logs out the user and clear credentials.
