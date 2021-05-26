@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
+import { HttpEvent } from '@angular/common/http';
 import { Credentials, CredentialsService } from './credentials.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface LoginContext {
   username: string;
@@ -17,7 +18,11 @@ export interface LoginContext {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService) {}
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
   /**
    * Authenticates the user.
@@ -38,9 +43,17 @@ export class AuthenticationService {
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.
    */
-  logout(): Observable<boolean> {
-    // Customize credentials invalidation here
-    this.credentialsService.setCredentials();
-    return of(true);
+  logout(): Observable<any> {
+    return this.http.get<Observable<any>>('api/asset/logout');
+  }
+
+  getUser(): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`api/asset/account`, { responseType: 'application/json' });
+  }
+
+  getUserRole(): Observable<string> {
+    // @ts-ignore application/json
+    return this.http.get<string>(`api/asset/accountt`, { responseType: 'text' });
   }
 }

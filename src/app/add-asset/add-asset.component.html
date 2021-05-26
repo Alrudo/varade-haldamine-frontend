@@ -1,4 +1,4 @@
-<div class="main">
+<div *ngIf="user != null; else goLogin" class="main">
   <div class="section-from">
     <div class="container">
       <div class="row">
@@ -55,8 +55,6 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-
-              <button>Add Main Classification</button>
             </div>
             <div class="complect">
               <mat-form-field appearance="fill">
@@ -67,7 +65,6 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <button>Add Sub Classification</button>
             </div>
             <div class="complect">
               <mat-form-field appearance="fill">
@@ -89,31 +86,39 @@
                 </mat-form-field>
               </div>
             </div>
+            <button (click)="open()">Add Sub Classification</button>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <button
+            (click)="
+              adding(
+                id.value,
+                name.value,
+                possessorSellect,
+                pickerFilter.value,
+                modeselect,
+                price.value,
+                selectSubClassification,
+                selectClassification,
+                residualPrice.value,
+                selectForComplect,
+                sellectAsset,
+                address.value,
+                room.value,
+                description.value
+              )
+            "
+          >
+            Lisa
+          </button>
+        </div>
+      </div>
     </div>
-    <button
-      (click)="
-        adding(
-          id.value,
-          name.value,
-          possessorSellect,
-          pickerFilter.value,
-          modeselect,
-          price.value,
-          selectSubClassification,
-          selectClassification,
-          residualPrice.value,
-          selectForComplect,
-          sellectAsset,
-          address.value,
-          room.value,
-          description.value
-        )
-      "
-    >
-      Lisa
-    </button>
   </div>
 </div>
+<ng-template #goLogin>
+  <app-login></app-login>
+</ng-template>

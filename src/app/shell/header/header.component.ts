@@ -1,5 +1,5 @@
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthenticationService, CredentialsService } from '@app/auth';
@@ -11,6 +11,8 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
 })
 export class HeaderComponent implements OnInit {
   @Input() sidenav!: MatSidenav;
+  user: any;
+  userRole: string;
 
   constructor(
     private router: Router,
@@ -19,10 +21,27 @@ export class HeaderComponent implements OnInit {
     private credentialsService: CredentialsService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUser();
+    this.getRole();
+  }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    this.authenticationService.logout().subscribe((r) => {
+      window.location.reload();
+    });
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+    });
+  }
+
+  getRole() {
+    this.authenticationService.getUserRole().subscribe((r) => {
+      this.userRole = r;
+    });
   }
 
   get username(): string | null {
@@ -32,5 +51,9 @@ export class HeaderComponent implements OnInit {
 
   get title(): string {
     return this.titleService.getTitle();
+  }
+
+  changeSessionStorage(link: string) {
+    sessionStorage.setItem('currentPage', link);
   }
 }

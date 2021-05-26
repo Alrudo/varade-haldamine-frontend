@@ -6,19 +6,42 @@
     <span class="title">{{ title }}</span>
   </div>
   <div fxHide.lt-md>
+    <button
+      *ngIf="user != null"
+      (click)="changeSessionStorage('home')"
+      mat-button
+      routerLink="/home"
+      routerLinkActive="active"
+    >
     <a class="brand" routerLink="/home" routerLinkActive="active" translate>APP_NAME</a>
     <button mat-button routerLink="/home" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span translate>Home</span>
     </button>
-    <button mat-button routerLink="/add-asset" routerLinkActive="active">
+    <button
+      *ngIf="user != null"
+      (click)="changeSessionStorage('about')"
+      mat-button
+      routerLink="/about"
+      routerLinkActive="active"
+    >
+      <mat-icon>info</mat-icon>
+      <span translate>About</span>
+    </button>
+    <button
+      *ngIf="user != null && (userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht')"
+      (click)="changeSessionStorage('add-asset')"
+      mat-button
+      routerLink="/add-asset"
+      routerLinkActive="active"
+    >
       <mat-icon>Add asset</mat-icon>
       <span translate>adding</span>
     </button>
   </div>
   <span fxFlex></span>
   <app-language-selector icon="true"></app-language-selector>
-  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+  <button *ngIf="user != null" mat-icon-button [matMenuTriggerFor]="userMenu">
     <mat-icon>person</mat-icon>
   </button>
   <mat-menu #userMenu="matMenu">

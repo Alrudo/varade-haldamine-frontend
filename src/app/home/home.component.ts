@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   isLoading = false;
+  user: any;
 
-  constructor() {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.isLoading = true;
+    this.getUser();
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+      this.isLoading = false;
+    });
   }
 }

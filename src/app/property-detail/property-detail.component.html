@@ -1,146 +1,170 @@
-<br />
-<div class="container2">
-  <button (click)="goBack()">go back</button>
-  <h2>{{ asset.name }}</h2>
-</div>
-<div class="info">
-  <table>
-    <tr>
-      <td>Nr.:</td>
-      <td>{{ asset.id }}</td>
-    </tr>
-    <tr>
-      <td>PV konteerimise kuupäev:</td>
-      <td>{{ asset.createdAt }}</td>
-    </tr>
-    <tr>
-      <td>Soetusmaksumus:</td>
-      <td *ngIf="asset.price === null; else price">-</td>
-      <ng-template #price>
-        <td>{{ asset.price }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Jääkväärtus:</td>
-      <td *ngIf="asset.residualPrice === null; else residualPrice">-</td>
-      <ng-template #residualPrice>
-        <td>{{ asset.residualPrice }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Kontrollitud:</td>
-      <td *ngIf="asset.checked === false; else checked">Ei</td>
-      <ng-template #checked>
-        <td>Jah</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Kirjeldus :</td>
-      <td *ngIf="asset.descriptionText === null; else description">-</td>
-      <ng-template #description>
-        <td>{{ asset.descriptionText }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Peavara komponent:</td>
-      <td *ngIf="asset.majorAssetId === null; else majorAsset">-</td>
-      <ng-template #majorAsset>
-        <td>{{ asset.majorAssetId }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>PV klassi tähis:</td>
-      <td *ngIf="asset.mainClass === null; else mainClass">-</td>
-      <ng-template #mainClass>
-        <td>{{ asset.mainClass }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>PV alamklassi tähis:</td>
-      <td *ngIf="asset.subclass === null; else subclass">-</td>
-      <ng-template #subclass>
-        <td>{{ asset.subclass }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Aktiivne:</td>
-      <td *ngIf="asset.active === true; else active">Jah</td>
-      <ng-template #active>
-        <td>Ei</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Töökohtade aadressi tähis:</td>
-      <td *ngIf="asset.buildingAbbreviation === null; else building">-</td>
-      <ng-template #building>
-        <td>{{ asset.buildingAbbreviation }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Tööruumi nr.:</td>
-      <td *ngIf="asset.room === null; else room">-</td>
-      <ng-template #room>
-        <td>{{ asset.room }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>PV kasutaja nr.:</td>
-      <td *ngIf="asset.userId === null; else user">-</td>
-      <ng-template #user>
-        <td>{{ asset.userId }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>PV kasutaja nimi:</td>
-      <td *ngIf="asset.firstname === null && asset.lastname === null; else name">-</td>
-      <ng-template #name>
-        <td>{{ asset.firstname }} {{ asset.lastname }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Soetatud:</td>
-      <td *ngIf="asset.isPurchased === true; else isPurchased">Jah</td>
-      <ng-template #isPurchased>
-        <td>Ei</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Peavara/osis:</td>
-      <td *ngIf="asset.kitPartName === null; else kitPart">-</td>
-      <ng-template #kitPart>
-        <td>{{ asset.kitPartName }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Instituut/Allüksus nr.:</td>
-      <td *ngIf="asset.structuralUnit === null; else institute">-</td>
-      <ng-template #institute>
-        <td>{{ asset.structuralUnit }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Osakond nr.:</td>
-      <td *ngIf="asset.subdivision === null; else subdivision">-</td>
-      <ng-template #subdivision>
-        <td>{{ asset.subdivision }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Eluea Jääk:</td>
-      <td *ngIf="asset.lifeMonthsLeft === null; else lifeMonths">-</td>
-      <ng-template #lifeMonths>
-        <td>{{ asset.lifeMonthsLeft }}</td>
-      </ng-template>
-    </tr>
-    <tr>
-      <td>Delikaatse sisuga:</td>
-      <td *ngIf="asset.delicateCondition === true; else delicateCondition">Jah</td>
-      <ng-template #delicateCondition>
-        <td>Ei</td>
-      </ng-template>
-    </tr>
-  </table>
-</div>
-<div class="container">
-  <app-comment></app-comment>
+<div class="main">
+  <div class="section-detail">
+    <div class="container2">
+      <button (click)="changeSessionStorage('home')" routerLink="/home" routerLinkActive="active">go back</button>
+      <h2>{{ asset.name }}</h2>
+    </div>
+    <div class="container-detail">
+      <div class="info">
+        <table>
+          <tr>
+            <td>Nr.:</td>
+            <td>{{ asset.id }}</td>
+          </tr>
+          <tr>
+            <td>PV konteerimise kuupäev:</td>
+            <td>{{ asset.createdAt }}</td>
+          </tr>
+          <tr>
+            <td>Soetusmaksumus:</td>
+            <td *ngIf="asset.price === null; else price">-</td>
+            <ng-template #price>
+              <td>{{ asset.price }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Jääkväärtus:</td>
+            <td *ngIf="asset.residualPrice === null; else residualPrice">-</td>
+            <ng-template #residualPrice>
+              <td>{{ asset.residualPrice }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Kontrollitud:</td>
+            <td *ngIf="asset.checked === false; else checked">Ei</td>
+            <ng-template #checked>
+              <td>Jah</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Kirjeldus :</td>
+            <td *ngIf="asset.descriptionText === null; else description">-</td>
+            <ng-template #description>
+              <td>{{ asset.descriptionText }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Peavara komponent:</td>
+            <td *ngIf="asset.majorAssetId === null; else majorAsset">-</td>
+            <ng-template #majorAsset>
+              <td>{{ asset.majorAssetId }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>PV klassi tähis:</td>
+            <td *ngIf="asset.mainClass === null; else mainClass">-</td>
+            <ng-template #mainClass>
+              <td>{{ asset.mainClass }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>PV alamklassi tähis:</td>
+            <td *ngIf="asset.subclass === null; else subclass">-</td>
+            <ng-template #subclass>
+              <td>{{ asset.subclass }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Aktiivne:</td>
+            <td *ngIf="asset.active === true; else active">Jah</td>
+            <ng-template #active>
+              <td>Ei</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Töökohtade aadressi tähis:</td>
+            <td *ngIf="asset.buildingAbbreviation === null; else building">-</td>
+            <ng-template #building>
+              <td>{{ asset.buildingAbbreviation }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Tööruumi nr.:</td>
+            <td *ngIf="asset.room === null; else room">-</td>
+            <ng-template #room>
+              <td>{{ asset.room }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>PV kasutaja nr.:</td>
+            <td *ngIf="asset.userId === null; else user">-</td>
+            <ng-template #user>
+              <td>{{ asset.userId }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>PV kasutaja nimi:</td>
+            <td *ngIf="asset.firstname === null && asset.lastname === null; else name">-</td>
+            <ng-template #name>
+              <td>{{ asset.firstname }} {{ asset.lastname }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Soetatud:</td>
+            <td *ngIf="asset.isPurchased === true; else isPurchased">Jah</td>
+            <ng-template #isPurchased>
+              <td>Ei</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Peavara/osis:</td>
+            <td *ngIf="asset.kitPartName === null; else kitPart">-</td>
+            <ng-template #kitPart>
+              <td>{{ asset.kitPartName }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Instituut/Allüksus nr.:</td>
+            <td *ngIf="asset.structuralUnit === null; else institute">-</td>
+            <ng-template #institute>
+              <td>{{ asset.structuralUnit }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Osakond nr.:</td>
+            <td *ngIf="asset.subdivision === null; else subdivision">-</td>
+            <ng-template #subdivision>
+              <td>{{ asset.subdivision }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Eluea Jääk:</td>
+            <td *ngIf="asset.lifeMonthsLeft === null; else lifeMonths">-</td>
+            <ng-template #lifeMonths>
+              <td>{{ asset.lifeMonthsLeft }}</td>
+            </ng-template>
+          </tr>
+          <tr>
+            <td>Delikaatse sisuga:</td>
+            <td *ngIf="asset.delicateCondition === true; else delicateCondition">Jah</td>
+            <ng-template #delicateCondition>
+              <td>Ei</td>
+            </ng-template>
+          </tr>
+        </table>
+        <button
+          *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht'"
+          (click)="changeSessionStoregeId('change_asset', asset.id)"
+          routerLink="/change-asset/{{ asset.id }}"
+        >
+          Change
+        </button>
+      </div>
+    </div>
+    <div
+      *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht' || userRole == 'KomisjoniLiige'"
+      class="section-buttons"
+    >
+      <div class="button-container d-inline-flex p-2">
+        <button class="btn btn-outline-danger" (click)="fullBackward()"><<</button>
+        <button class="btn btn-outline-danger" (click)="backward()"><</button>
+        <h3>{{ currentPage + 1 }} : {{ maxPage }}</h3>
+        <button class="btn btn-outline-danger" (click)="forward()">></button>
+        <button class="btn btn-outline-danger" (click)="fullForward()">>></button>
+      </div>
+    </div>
+    <div class="container">
+      <app-comment></app-comment>
+    </div>
+  </div>
 </div>

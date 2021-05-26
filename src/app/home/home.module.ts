@@ -6,6 +6,7 @@ import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { PropertyComponent } from '@app/property/property.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,6 +26,8 @@ import { PropertyDetailComponent } from '@app/property-detail/property-detail.co
 import { CommentComponent } from '@app/comment/comment.component';
 import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AuthModule } from '@app/auth';
 import { TableModule } from 'primeng/table';
 
 @NgModule({
@@ -35,7 +38,7 @@ import { TableModule } from 'primeng/table';
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-    HomeRoutingModule,
+    AppRoutingModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -55,6 +58,7 @@ import { TableModule } from 'primeng/table';
     NgxPaginationModule,
     NgbPaginationModule,
     NgbAlertModule,
+    AuthModule,
     TableModule,
   ],
   declarations: [HomeComponent, PropertyComponent, PropertyDetailComponent, CommentComponent, AddAssetComponent],
