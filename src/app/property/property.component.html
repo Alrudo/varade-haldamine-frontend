@@ -1,4 +1,15 @@
 <div class="main">
+  <div>
+    <button *ngIf="userRole === 'Raamatupidaja'" (click)="startInventory()" translate>Start inventory</button>
+  </div>
+  <div>
+    <button *ngIf="userRole === 'Raamatupidaja'" (click)="endInventory()" translate>End inventory</button>
+  </div>
+  <div>
+    <button *ngIf="userRole === 'Raamatupidaja' && selected.length > 1" (click)="checkAllOnPage()">
+      Check multiple
+    </button>
+  </div>
   <div class="section-table">
     <div class="containerTable">
       <p-table
@@ -7,12 +18,13 @@
         [lazy]="true"
         [loading]="loading"
         [customSort]="true"
+        [lazyLoadOnInit]="false"
         (onLazyLoad)="sortAssets($event)"
       >
         <ng-template pTemplate="header">
           <tr>
             <th></th>
-            <th *ngFor="let col of headElements" pSortableColumn="{{ col.field }}">
+            <th *ngFor="let col of headElements" pSortableColumn="{{ col.field }}" translate>
               {{ col.header }}
             </th>
             <th>Tegevused</th>
@@ -38,35 +50,12 @@
             <td><input formControlName="lifeMonthsLeft" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
             <td>
-              <button *ngIf="userRole === 'Raamatupidaja'" type="button" (click)="excel()">Download Excel</button>
+              <button *ngIf="userRole === 'Raamatupidaja'" type="button" (click)="excel()" translate>
+                Download Excel
+              </button>
             </td>
-            <td></td>
           </tr>
         </ng-template>
-        <!--          <tr *ngFor="let el of assets; let i = index">-->
-        <!--            <td><input type="checkbox" /></td>-->
-        <!--            <th scope="row">{{ el.id }}</th>-->
-        <!--            <td>{{ el.name }}</td>-->
-        <!--            <td *ngIf="el.buildingAbbreviationPlusRoom === null; else active">-</td>-->
-        <!--            <ng-template #active>-->
-        <!--              <td>{{ el.buildingAbbreviationPlusRoom }}</td>-->
-        <!--            </ng-template>-->
-        <!--            <td *ngIf="el.mainClassPlusSubclass === null; else active2">-</td>-->
-        <!--            <ng-template #active2>-->
-        <!--              <td>{{ el.mainClassPlusSubclass }}</td>-->
-        <!--            </ng-template>-->
-        <!--            <td>{{ el.active }}</td>-->
-        <!--            <td>{{ el.lifeMonthsLeft }}</td>-->
-        <!--            <td>{{ el.checked }}</td>-->
-        <!--            <td class="buttons">-->
-        <!--              <a (click)="changeSessionStorage(el.id, 'property_detail')" routerLink="/property_detail/{{ el.id }}"-->
-        <!--                >Info</a-->
-        <!--              >-->
-        <!--              <button>On kohal</button>-->
-        <!--              <button>Ei ole kohal</button>-->
-        <!--            </td>-->
-        <!--          </tr>-->
-
         <ng-template pTemplate="body" let-asset>
           <tr>
             <td><input type="checkbox" (change)="onCheck(asset)" /></td>
@@ -80,8 +69,8 @@
               >
                 Info
               </a>
-              <p-button label="On kohal"></p-button>
-              <p-button label="Ei ole kohal"></p-button>
+              <p-button (click)="markAsPresent(asset.id)" translate>Present</p-button>
+              <p-button (click)="markAsMissing(asset.id)" translate>Missing</p-button>
             </td>
           </tr>
         </ng-template>

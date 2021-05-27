@@ -57,7 +57,7 @@ export class PropertyComponent implements OnInit {
     let params = new HttpParams();
     Object.keys(this.filterForm.controls).forEach((key) => {
       const value = this.filterForm.get(key);
-      if (value !== null) {
+      if (value !== null && value.value !== '') {
         params = params.set(key, value.value.toString());
       }
     });
@@ -95,6 +95,10 @@ export class PropertyComponent implements OnInit {
     }
   }
 
+  checkAllOnPage(): void {
+    this.propertyService.checkAllPageAssets(this.selected).subscribe(() => this.getPage(1));
+  }
+
   changeSessionStorage(id: string, link: string) {
     sessionStorage.setItem('currentPage', link);
     sessionStorage.setItem('id', id);
@@ -112,6 +116,26 @@ export class PropertyComponent implements OnInit {
     this.authenticationService.getUserRole().subscribe((role) => {
       this.userRole = role;
     });
+  }
+
+  markAsPresent(id: string): void {
+    this.propertyService.markAssetPresent(id);
+  }
+
+  markAsMissing(id: string): void {
+    // TODO
+  }
+
+  startInventory(): void {
+    this.propertyService.startInventory();
+  }
+
+  endInventory(): void {
+    // TODO
+  }
+
+  checkInventory(): void {
+    // TODO
   }
 
   private initFilterForm(): void {

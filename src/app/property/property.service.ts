@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AssetInfo } from '@app/assetInfo';
 import { Classification } from '@app/classification';
+import { Asset } from '@app/asset';
 
 @Injectable({
   providedIn: 'root',
@@ -126,5 +127,27 @@ export class PropertyService {
   getExcel(): Observable<any> {
     // @ts-ignore
     return this.http.get<any>(`${this.baseUrl}/exportExcel`, { responseType: 'blob' });
+  }
+
+  markAssetPresent(id: string): void {
+    // TODO
+    this.http.put(`${this.baseUrl}/check/${id}`, id);
+  }
+
+  markAssetMissing(id: string): void {
+    // TODO
+  }
+
+  checkAllPageAssets(assets: Asset[]): Observable<any> {
+    const assetIDs = assets.map((asset) => asset.id);
+    return this.http.put<string[]>(`${this.baseUrl}/check`, assetIDs);
+  }
+
+  startInventory(): Observable<any> {
+    return this.http.post<null>('api/inventory', null);
+  }
+
+  endInventory(): Observable<any> {
+    return this.http.put<null>('api/inventory', null);
   }
 }

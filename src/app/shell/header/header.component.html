@@ -16,17 +16,6 @@
       <mat-icon>home</mat-icon>
       <span translate>Home</span>
     </button>
-
-    <button
-      *ngIf="user != null"
-      (click)="changeSessionStorage('about')"
-      mat-button
-      routerLink="/about"
-      routerLinkActive="active"
-    >
-      <mat-icon>info</mat-icon>
-      <span translate>About</span>
-    </button>
     <button
       *ngIf="user != null && (userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht')"
       (click)="changeSessionStorage('add-asset')"
@@ -34,8 +23,8 @@
       routerLink="/add-asset"
       routerLinkActive="active"
     >
-      <mat-icon>Add asset</mat-icon>
-      <span translate>adding</span>
+      <mat-icon>add</mat-icon>
+      <span translate>Add asset</span>
     </button>
   </div>
   <span fxFlex></span>
@@ -45,7 +34,9 @@
   </button>
   <mat-menu #userMenu="matMenu">
     <mat-list>
-      <mat-list-item> <span translate>Logged in as</span>&nbsp;<b>aaaa</b> </mat-list-item>
+      <mat-list-item>
+        <span translate>Logged in as</span>&nbsp;<b>{{ userRole }}</b>
+      </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
     <button mat-menu-item (click)="logout()" translate>Logout</button>
