@@ -1,17 +1,19 @@
 <div class="main">
-  <div>
-    <button *ngIf="userRole === 'Raamatupidaja'" (click)="startInventory()" translate>Start inventory</button>
-  </div>
-  <div>
-    <button *ngIf="userRole === 'Raamatupidaja'" (click)="endInventory()" translate>End inventory</button>
-  </div>
-  <div>
-    <button *ngIf="userRole === 'Raamatupidaja' && selected.length > 1" (click)="checkAllOnPage()">
-      Check multiple
-    </button>
-  </div>
   <div class="section-table">
     <div class="containerTable">
+      <span>
+        <!--  <div>-->
+        <!--    <button *ngIf="userRole === 'Raamatupidaja'" (click)="startInventory()" translate>Start inventory</button>-->
+        <!--  </div>-->
+        <button (click)="startInventory()" translate>Start inventory</button>
+        <!--  <div>-->
+        <!--    <button *ngIf="userRole === 'Raamatupidaja'" (click)="endInventory()" translate>End inventory</button>-->
+        <!--  </div>-->
+        <button (click)="endInventory()" translate>End inventory</button>
+      </span>
+      <div>
+        <button *ngIf="selected.length > 1" (click)="checkAllOnPage()" translate>Check multiple</button>
+      </div>
       <p-table
         class="styled-table"
         [value]="assets | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }"
@@ -30,7 +32,7 @@
             <th>Tegevused</th>
           </tr>
           <tr class="input-row" [formGroup]="filterForm">
-            <td><input type="checkbox" /></td>
+            <td><input [checked]="allChecked()" type="checkbox" (change)="onCheckAll()" /></td>
             <td>
               <input id="float-input" formControlName="id" type="text" placeholder="Filter" class="form-control" />
             </td>
@@ -58,8 +60,8 @@
         </ng-template>
         <ng-template pTemplate="body" let-asset>
           <tr>
-            <td><input type="checkbox" (change)="onCheck(asset)" /></td>
-            <td *ngFor="let col of headElements">
+            <td><input [checked]="isChecked(asset)" type="checkbox" (change)="onCheck(asset)" /></td>
+            <td *ngFor="let col of headElements" translate>
               {{ asset[col.field] }}
             </td>
             <td class="buttons">
@@ -69,8 +71,8 @@
               >
                 Info
               </a>
-              <p-button (click)="markAsPresent(asset.id)" translate>Present</p-button>
-              <p-button (click)="markAsMissing(asset.id)" translate>Missing</p-button>
+              <p-button (click)="markAsPresent(asset.id)" label="OK" translate></p-button>
+              <p-button (click)="markAsMissing(asset.id)" label="NOT OK" translate></p-button>
             </td>
           </tr>
         </ng-template>

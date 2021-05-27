@@ -27,12 +27,12 @@ export class PropertyComponent implements OnInit {
   loading: boolean;
   headElements = [
     { field: 'id', header: 'ID' },
-    { field: 'name', header: 'Nimi' },
-    { field: 'buildingAbbreviationPlusRoom', header: 'Maja ja tuba' },
-    { field: 'mainClassPlusSubclass', header: 'PV klass ja alamklass' },
-    { field: 'active', header: 'Aktiivne' },
-    { field: 'lifeMonthsLeft', header: 'Elujääk' },
-    { field: 'checked', header: 'Kontrollitud' },
+    { field: 'name', header: 'Name' },
+    { field: 'buildingAbbreviationPlusRoom', header: 'Building and room' },
+    { field: 'mainClassPlusSubclass', header: 'PV class and subclass' },
+    { field: 'active', header: 'Active' },
+    { field: 'lifeMonthsLeft', header: 'Life months left' },
+    { field: 'checked', header: 'Checked' },
   ];
 
   constructor(
@@ -95,6 +95,23 @@ export class PropertyComponent implements OnInit {
     }
   }
 
+  onCheckAll(): void {
+    if (this.selected.length === this.assets.length) {
+      this.selected = [];
+    } else {
+      this.selected = [];
+      this.selected = this.selected.concat(this.assets);
+    }
+  }
+
+  allChecked(): boolean {
+    return this.selected.length === this.assets.length;
+  }
+
+  isChecked(asset: Asset): boolean {
+    return this.selected.includes(asset);
+  }
+
   checkAllOnPage(): void {
     this.propertyService.checkAllPageAssets(this.selected).subscribe(() => this.getPage(1));
   }
@@ -127,15 +144,15 @@ export class PropertyComponent implements OnInit {
   }
 
   startInventory(): void {
-    this.propertyService.startInventory();
+    this.propertyService.startInventory().subscribe(() => this.getPage(1));
   }
 
   endInventory(): void {
-    // TODO
+    this.propertyService.endInventory().subscribe(() => this.getPage(1));
   }
 
   checkInventory(): void {
-    // TODO
+    // TODO ?
   }
 
   private initFilterForm(): void {
