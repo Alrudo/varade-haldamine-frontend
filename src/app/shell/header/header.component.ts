@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   @Input() sidenav!: MatSidenav;
   user: any;
   userRole: string;
+  userName: string;
 
   constructor(
     private router: Router,
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.getUser();
     this.getRole();
+    this.getUsername();
   }
 
   logout() {
@@ -40,6 +42,12 @@ export class HeaderComponent implements OnInit {
   getRole() {
     this.authenticationService.getUserRole().subscribe((r) => {
       this.userRole = r;
+    });
+  }
+
+  getUsername() {
+    this.authenticationService.getUserName().subscribe((r) => {
+      this.userName = r;
     });
   }
 
