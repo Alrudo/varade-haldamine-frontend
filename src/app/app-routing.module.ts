@@ -11,7 +11,7 @@ const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'about', component: AboutComponent },
+    { path: 'about', loadChildren: () => import('./about/about.module').then((m) => m.AboutModule) },
     { path: 'property_detail/:id', component: PropertyDetailComponent },
     { path: 'add-asset', component: AddAssetComponent },
     { path: 'change-asset/:id', component: ChangeAssetFormComponent },
