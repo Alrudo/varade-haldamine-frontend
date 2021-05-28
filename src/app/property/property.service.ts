@@ -124,14 +124,19 @@ export class PropertyService {
     return this.http.post<Classification>(`api/class`, classification, this.httpOptions);
   }
 
+  getInventoryExcel(): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`${this.baseUrl}/inventoryExcel`, { responseType: 'blob' });
+  }
+
   getExcel(): Observable<any> {
     // @ts-ignore
     return this.http.get<any>(`${this.baseUrl}/exportExcel`, { responseType: 'blob' });
   }
 
-  markAssetPresent(id: string): void {
+  checkAsset(id: string): Observable<any> {
     // TODO
-    this.http.put(`${this.baseUrl}/check/${id}`, id);
+    return this.http.put(`${this.baseUrl}/check/${id}`, id);
   }
 
   markAssetMissing(id: string): void {

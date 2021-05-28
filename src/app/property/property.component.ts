@@ -26,14 +26,15 @@ export class PropertyComponent implements OnInit {
   itemsPerPage: number;
   loading: boolean;
   headElements = [
-    { field: 'id', header: 'ID' },
-    { field: 'name', header: 'Name' },
-    { field: 'buildingAbbreviationPlusRoom', header: 'Building and room' },
-    { field: 'mainClassPlusSubclass', header: 'PV class and subclass' },
-    { field: 'active', header: 'Active' },
-    { field: 'lifeMonthsLeft', header: 'Life months left' },
-    { field: 'checked', header: 'Checked' },
+    { field: 'id', header: 'ID', disabled: true },
+    { field: 'name', header: 'Name', disabled: true },
+    { field: 'buildingAbbreviationPlusRoom', header: 'Building and room', disabled: false },
+    { field: 'mainClassPlusSubclass', header: 'PV class and subclass', disabled: false },
+    { field: 'active', header: 'Active', disabled: true },
+    { field: 'lifeMonthsLeft', header: 'Life months left', disabled: false },
+    { field: 'checked', header: 'Checked', disabled: true },
   ];
+  sortableColumns = ['id', 'name', 'active', 'checked'];
 
   constructor(
     private route: ActivatedRoute,
@@ -73,12 +74,15 @@ export class PropertyComponent implements OnInit {
   }
 
   sortAssets(event: LazyLoadEvent): void {
-    this.loading = true;
-    this.propertyService.getSortedAssets(event.sortField).subscribe((asset) => this.updateAssets(asset));
+    if (this.sortableColumns.includes(event.sortField)) {
+      this.loading = true;
+      this.propertyService.getSortedAssets(event.sortField).subscribe((asset) => this.updateAssets(asset));
+    }
   }
 
   updateAssets(asset: JSON): void {
     this.assets = asset['content'];
+    console.log(this.assets);
     this.currentPage = asset['pageable']['pageNumber'] + 1;
     this.totalPages = asset['totalPages'];
     this.totalElements = asset['totalElements'];
@@ -121,6 +125,14 @@ export class PropertyComponent implements OnInit {
     sessionStorage.setItem('id', id);
   }
 
+  downloadInventoryExcel(): void {
+    this.propertyService.getInventoryExcel().subscribe((response) => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
   excel(): void {
     this.propertyService.getExcel().subscribe((response) => {
       const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -135,8 +147,8 @@ export class PropertyComponent implements OnInit {
     });
   }
 
-  markAsPresent(id: string): void {
-    this.propertyService.markAssetPresent(id);
+  checkAsset(id: string): void {
+    this.propertyService.checkAsset(id).subscribe(() => this.getPage(1));
   }
 
   markAsMissing(id: string): void {

@@ -11,6 +11,10 @@
         <!--  </div>-->
         <button (click)="endInventory()" translate>End inventory</button>
       </span>
+      <span>
+        <button (click)="downloadInventoryExcel()" translate>Download inventory Excel</button>
+        <!--        <button (click)="endInventory()" translate>End inventory</button>-->
+      </span>
       <div>
         <button *ngIf="selected.length > 1" (click)="checkAllOnPage()" translate>Check multiple</button>
       </div>
@@ -71,8 +75,7 @@
               >
                 Info
               </a>
-              <p-button (click)="markAsPresent(asset.id)" label="OK" translate></p-button>
-              <p-button (click)="markAsMissing(asset.id)" label="NOT OK" translate></p-button>
+              <p-button (click)="checkAsset(asset.id)" label="OK" translate></p-button>
             </td>
           </tr>
         </ng-template>
