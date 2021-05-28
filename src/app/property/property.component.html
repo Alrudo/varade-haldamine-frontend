@@ -1,22 +1,27 @@
 <div class="main">
   <div class="section-table">
     <div class="containerTable">
-      <span>
-        <!--  <div>-->
-        <!--    <button *ngIf="userRole === 'Raamatupidaja'" (click)="startInventory()" translate>Start inventory</button>-->
-        <!--  </div>-->
-        <button (click)="startInventory()" translate>Start inventory</button>
-        <!--  <div>-->
-        <!--    <button *ngIf="userRole === 'Raamatupidaja'" (click)="endInventory()" translate>End inventory</button>-->
-        <!--  </div>-->
-        <button (click)="endInventory()" translate>End inventory</button>
-      </span>
-      <span>
-        <button (click)="downloadInventoryExcel()" translate>Download inventory Excel</button>
-        <!--        <button (click)="endInventory()" translate>End inventory</button>-->
-      </span>
+      <div *ngIf="userRole === 'ÜksuseJuht'">
+        <span>
+          <button (click)="startInventory()" translate>Start inventory</button>
+          <button (click)="endInventory()" translate>End inventory</button>
+        </span>
+        <span>
+          <div>
+            <button (click)="downloadInventoryExcel()" translate>Download inventory Excel</button>
+          </div>
+          <div>
+            <!-- TODO -->
+            <input id="year-input" type="number" placeholder="Year" />
+            <button (click)="downloadInventoryExcelByYear()" translate>Download yearly inventory Excel</button>
+            <!-- TODO -->
+          </div>
+        </span>
+      </div>
       <div>
-        <button *ngIf="selected.length > 1" (click)="checkAllOnPage()" translate>Check multiple</button>
+        <button *ngIf="userRole === 'KomisjoniLiige' && selected.length > 1" (click)="checkAllOnPage()" translate>
+          Check multiple
+        </button>
       </div>
       <p-table
         class="styled-table"
@@ -36,7 +41,14 @@
             <th>Tegevused</th>
           </tr>
           <tr class="input-row" [formGroup]="filterForm">
-            <td><input [checked]="allChecked()" type="checkbox" (change)="onCheckAll()" /></td>
+            <td>
+              <input
+                *ngIf="userRole === 'KomisjoniLiige'"
+                [checked]="allChecked()"
+                type="checkbox"
+                (change)="onCheckAll()"
+              />
+            </td>
             <td>
               <input id="float-input" formControlName="id" type="text" placeholder="Filter" class="form-control" />
             </td>
@@ -64,9 +76,16 @@
         </ng-template>
         <ng-template pTemplate="body" let-asset>
           <tr>
-            <td><input [checked]="isChecked(asset)" type="checkbox" (change)="onCheck(asset)" /></td>
+            <td>
+              <input
+                *ngIf="userRole === 'KomisjoniLiige'"
+                [checked]="isChecked(asset)"
+                type="checkbox"
+                (change)="onCheck(asset)"
+              />
+            </td>
             <td *ngFor="let col of headElements" translate>
-              {{ asset[col.field] }}
+              {{ asset[col.field] | translate }}
             </td>
             <td class="buttons">
               <a
@@ -75,7 +94,12 @@
               >
                 Info
               </a>
-              <p-button (click)="checkAsset(asset.id)" label="OK" translate></p-button>
+              <p-button
+                *ngIf="userRole === 'KomisjoniLiige'"
+                (click)="checkAsset(asset.id)"
+                label="OK"
+                translate
+              ></p-button>
             </td>
           </tr>
         </ng-template>

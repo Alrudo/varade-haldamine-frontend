@@ -1,7 +1,7 @@
 {
   "APP_NAME": "TalTech inventuur",
   "Home": "Pealeht",
-  "Logged in as": "Sisselogitud roll ",
+  "Logged in as": "Sisselogitud ",
   "Login": "Logi sisse",
   "Logout": "Logi välja",
   "Password": "Parool",
@@ -48,5 +48,8 @@
   "No": "Ei",
   "mainClass": "Põhiklass",
   "subClass": "Alamklass",
-  "Download inventory Excel": "Laadi alla inventuuri Excel"
+  "Download inventory Excel": "Laadi alla inventuuri Excel",
+  "Download yearly inventory Excel": "Laadi alla aasta inventuuri Excel",
+  "true": "Jah",
+  "false": "Ei"
 }

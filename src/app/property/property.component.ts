@@ -82,7 +82,6 @@ export class PropertyComponent implements OnInit {
 
   updateAssets(asset: JSON): void {
     this.assets = asset['content'];
-    console.log(this.assets);
     this.currentPage = asset['pageable']['pageNumber'] + 1;
     this.totalPages = asset['totalPages'];
     this.totalElements = asset['totalElements'];
@@ -109,6 +108,7 @@ export class PropertyComponent implements OnInit {
   }
 
   allChecked(): boolean {
+    console.log(this.selected.length + ' / ' + this.assets.length);
     return this.selected.length === this.assets.length;
   }
 
@@ -126,6 +126,14 @@ export class PropertyComponent implements OnInit {
   }
 
   downloadInventoryExcel(): void {
+    this.propertyService.getInventoryExcel().subscribe((response) => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
+  downloadInventoryExcelByYear(): void {
     this.propertyService.getInventoryExcel().subscribe((response) => {
       const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const url = window.URL.createObjectURL(blob);
