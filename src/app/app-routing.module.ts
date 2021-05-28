@@ -5,12 +5,13 @@ import { HomeComponent } from '@app/home/home.component';
 import { PropertyDetailComponent } from '@app/property-detail/property-detail.component';
 import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 import { ChangeAssetFormComponent } from '@app/change-asset-form/change-asset-form.component';
+import { AboutComponent } from '@app/about/about.component';
 
 const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'about', loadChildren: () => import('./about/about.module').then((m) => m.AboutModule) },
+    { path: 'about', component: AboutComponent },
     { path: 'property_detail/:id', component: PropertyDetailComponent },
     { path: 'add-asset', component: AddAssetComponent },
     { path: 'change-asset/:id', component: ChangeAssetFormComponent },

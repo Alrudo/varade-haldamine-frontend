@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env/environment';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-about',
@@ -11,7 +12,17 @@ import { Router } from '@angular/router';
 export class AboutComponent implements OnInit {
   version: string | null = environment.version;
 
-  constructor(private router: Router) {}
+  user: any;
 
-  ngOnInit() {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
+
+  ngOnInit(): void {
+    this.getUser();
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+    });
+  }
 }

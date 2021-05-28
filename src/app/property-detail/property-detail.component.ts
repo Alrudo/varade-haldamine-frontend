@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 
 import { PropertyService } from '@app/property/property.service';
 import { AssetInfo } from '@app/assetInfo';
+import { AuthenticationService } from '@app/auth';
 
 @Component({
   selector: 'app-property-detail',
@@ -16,12 +17,24 @@ export class PropertyDetailComponent implements OnInit {
   currentPage: number;
   maxPage: number;
   userRole: string;
+  user: any;
 
-  constructor(private route: ActivatedRoute, private propertyService: PropertyService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private propertyService: PropertyService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
     this.getAsset();
     this.getRole();
+    this.getUser();
+  }
+
+  getUser() {
+    this.authenticationService.getUser().subscribe((user) => {
+      this.user = user;
+    });
   }
 
   getAsset(): void {
