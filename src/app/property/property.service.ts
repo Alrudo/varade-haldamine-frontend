@@ -135,12 +135,7 @@ export class PropertyService {
   }
 
   checkAsset(id: string): Observable<any> {
-    // TODO
     return this.http.put(`${this.baseUrl}/check/${id}`, id);
-  }
-
-  markAssetMissing(id: string): void {
-    // TODO
   }
 
   checkAllPageAssets(assets: Asset[]): Observable<any> {

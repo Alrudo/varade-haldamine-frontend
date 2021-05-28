@@ -159,20 +159,12 @@ export class PropertyComponent implements OnInit {
     this.propertyService.checkAsset(id).subscribe(() => this.getPage(1));
   }
 
-  markAsMissing(id: string): void {
-    // TODO
-  }
-
   startInventory(): void {
     this.propertyService.startInventory().subscribe(() => this.getPage(1));
   }
 
   endInventory(): void {
     this.propertyService.endInventory().subscribe(() => this.getPage(1));
-  }
-
-  checkInventory(): void {
-    // TODO ?
   }
 
   private initFilterForm(): void {
