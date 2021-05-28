@@ -30,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private oauthService: OAuthService
   ) {
     this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndLogin().then();
+    // this.oauthService.loadDiscoveryDocumentAndLogin().then();
     this.oauthService.setupAutomaticSilentRefresh();
   }
 
