@@ -33,4 +33,9 @@ export class AuthenticationService {
     // @ts-ignore application/json
     return this.http.get<string>(`api/asset/accountt`, { responseType: 'text' });
   }
+
+  getUserName(): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`api/asset/username`, { responseType: 'text' });
+  }
 }

@@ -44,7 +44,9 @@
   </button>
   <mat-menu #userMenu="matMenu">
     <mat-list>
-      <mat-list-item> <span translate>Logged in as</span>&nbsp;<b>aaaa</b> </mat-list-item>
+      <mat-list-item>
+        <span translate>Logged in as</span>&nbsp;<b>{{ userName }}</b>
+      </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
     <button mat-menu-item (click)="logout()" translate>Logout</button>
