@@ -29,7 +29,9 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout().subscribe((r) => {
-      window.location.reload();
+      window.location.href = 'http://localhost:4200/home';
+      // window.location.reload();
+      // this.router.navigate(['/home']);
     });
   }
 
