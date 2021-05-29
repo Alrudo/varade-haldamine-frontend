@@ -47,7 +47,7 @@ a:hover {
   color: #a11aac;
 }
 
-.styled-table {
+::ng-deep .styled-table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
@@ -56,30 +56,30 @@ a:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.styled-table thead tr {
+::ng-deep .styled-table thead tr {
   background-color: #a11aac;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
 }
 
-.styled-table th,
+::ng-deep .styled-table th,
 .styled-table td {
   padding: 12px 15px;
 }
 
-.styled-table tbody tr {
-  border-bottom: thin solid #dddddd;
+::ng-deep .styled-table tbody tr {
+  border-bottom: thin solid #ddd;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
+::ng-deep .styled-table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.styled-table tbody tr:last-of-type {
+::ng-deep .styled-table tbody tr:last-of-type {
   border-bottom: 2px solid #a11aac;
 }
 
-.styled-table tbody tr:hover {
+::ng-deep .styled-table tbody tr:hover {
   background-color: darkgrey;
 }
 
@@ -87,11 +87,4 @@ a:hover {
   display: flex;
   flex-flow: row;
   justify-content: center;
-}
-
-.butt {
-  margin-top: 0.8em;
-  margin-bottom: 1em;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
 }

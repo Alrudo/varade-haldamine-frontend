@@ -15,11 +15,13 @@ export class PropertyDetailComponent implements OnInit {
   asset: AssetInfo;
   currentPage: number;
   maxPage: number;
+  userRole: string;
 
   constructor(private route: ActivatedRoute, private propertyService: PropertyService) {}
 
   ngOnInit(): void {
     this.getAsset();
+    this.getRole();
   }
 
   getAsset(): void {
@@ -75,6 +77,12 @@ export class PropertyDetailComponent implements OnInit {
     this.currentPage = 0;
     this.propertyService.getAssetAuditFullBackwards(this.asset, 0).subscribe((r) => {
       this.asset = r;
+    });
+  }
+
+  getRole() {
+    this.propertyService.getUserRole().subscribe((r) => {
+      this.userRole = r;
     });
   }
 }

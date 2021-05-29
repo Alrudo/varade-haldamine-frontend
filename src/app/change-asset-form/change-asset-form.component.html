@@ -1,4 +1,4 @@
-<div class="section-detail">
+<div *ngIf="user != null; else goLogin" class="section-detail">
   <div class="container2">
     <button (click)="changeSessionStorage('property_detail', asset.id)" routerLink="/home" routerLinkActive="active">
       go back
@@ -208,3 +208,6 @@
     </div>
   </div>
 </div>
+<ng-template #goLogin>
+  <app-login></app-login>
+</ng-template>

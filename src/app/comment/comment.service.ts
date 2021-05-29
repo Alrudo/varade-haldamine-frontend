@@ -7,11 +7,11 @@ import { Comment } from '@app/comment';
   providedIn: 'root',
 })
 export class CommentService {
-  private url = 'comment';
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+
+  private url = 'api/comment';
 
   constructor(private http: HttpClient) {}
 

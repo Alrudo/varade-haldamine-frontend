@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login() {
-    window.location.reload();
+    window.location.href = 'http://localhost:8080/oauth2/authorization/azure';
   }
 
   private createForm() {

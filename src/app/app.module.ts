@@ -19,6 +19,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeAssetFormComponent } from './change-asset-form/change-asset-form.component';
+import { ModalModule } from 'ng2-modal-module';
+import { ModalComponent } from '@app/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   imports: [
@@ -40,9 +44,17 @@ import { ChangeAssetFormComponent } from './change-asset-form/change-asset-form.
     MatInputModule,
     AppRoutingModule,
     NgbPaginationModule,
-    NgbAlertModule, // must be imported as the last module as it contains the fallback route
+    NgbAlertModule,
+    ModalModule,
+    MatDialogModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:8080/api'],
+        sendAccessToken: true,
+      },
+    }), // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent, ChangeAssetFormComponent],
+  declarations: [AppComponent, ChangeAssetFormComponent, ModalComponent],
   providers: [], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap: [AppComponent],
   exports: [],
