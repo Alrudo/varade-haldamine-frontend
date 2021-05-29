@@ -21,6 +21,7 @@ interface SubClassification {
 })
 export class ChangeAssetFormComponent implements OnInit {
   asset: AssetInfo;
+  user: any;
 
   isChecked: any = false;
   isChecked2: any = false;
