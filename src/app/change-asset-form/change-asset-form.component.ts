@@ -24,9 +24,7 @@ export class ChangeAssetFormComponent implements OnInit {
   user: any;
 
   isChecked: any = false;
-
   isChecked2: any = false;
-
   isChecked3: any = false;
 
   selectClassification: string;
