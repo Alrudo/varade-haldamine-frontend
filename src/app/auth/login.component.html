@@ -3,12 +3,11 @@
     <div>
       <h1 fxLayoutAlign="center" translate>APP_NAME</h1>
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2rem">
-        <h4 class="version">v{{ version }}</h4>
         <app-language-selector></app-language-selector>
       </div>
     </div>
     <div class="login-container" fxLayout="row" fxLayoutAlign="center">
-      <button (click)="login()">Login</button>
+      <button class="submit" (click)="login()">Login</button>
     </div>
   </div>
 </div>
