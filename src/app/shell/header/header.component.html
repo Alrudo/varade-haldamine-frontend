@@ -6,7 +6,6 @@
     <span class="title">{{ title }}</span>
   </div>
   <div fxHide.lt-md>
-    <a class="brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a>
     <button
       *ngIf="user != null"
       (click)="changeSessionStorage('home')"
@@ -18,24 +17,14 @@
       <span translate>Home</span>
     </button>
     <button
-      *ngIf="user != null"
-      (click)="changeSessionStorage('about')"
-      mat-button
-      routerLink="/about"
-      routerLinkActive="active"
-    >
-      <mat-icon>info</mat-icon>
-      <span translate>About</span>
-    </button>
-    <button
-      *ngIf="user != null"
+      *ngIf="user != null && userRole == 'Raamatupidaja'"
       (click)="changeSessionStorage('add-asset')"
       mat-button
       routerLink="/add-asset"
       routerLinkActive="active"
     >
-      <mat-icon>Add asset</mat-icon>
-      <span translate>adding</span>
+      <mat-icon>add</mat-icon>
+      <span translate>Add asset</span>
     </button>
   </div>
   <span fxFlex></span>
@@ -46,7 +35,7 @@
   <mat-menu #userMenu="matMenu">
     <mat-list>
       <mat-list-item>
-        <span translate>Logged in as</span>&nbsp;<b>{{ username }}</b>
+        <span translate>Logged in as</span>&nbsp;<b>{{ userName }}</b>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>

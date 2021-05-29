@@ -15,7 +15,7 @@ export const environment = {
   version: env.npm_package_version + '-dev',
   serverUrl: '',
   defaultLanguage: 'en-US',
-  supportedLanguages: ['en-US'],
+  supportedLanguages: ['en-US', 'et-EE'],
 };
 
 /*
