@@ -94,14 +94,17 @@ export class ChangeAssetFormComponent implements OnInit {
   ): void {
     if (isChecked == true && this.asset.active == true) {
       isChecked = false;
+    } else if (isChecked == false && this.asset.active == true) {
+      isChecked = true;
     }
-
     if (isChecked2 == true && this.asset.isPurchased == true) {
       isChecked2 = false;
     }
 
     if (isChecked3 == true && this.asset.delicateCondition == true) {
       isChecked3 = false;
+    } else if (isChecked3 == false && this.asset.delicateCondition == true) {
+      isChecked3 = true;
     }
     const obj = ({
       active: isChecked,
@@ -123,9 +126,6 @@ export class ChangeAssetFormComponent implements OnInit {
       subdivision: subdivisionValue,
       userId: userId,
     } as unknown) as JSON;
-    if (roomValue === '') {
-      obj['room'] = '-';
-    }
     this.propertyService.changeAsset(obj, this.asset.id).subscribe(() => {
       this.getAsset();
     });
