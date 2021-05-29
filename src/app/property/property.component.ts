@@ -4,6 +4,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Asset } from '@app/asset';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/auth';
+import { HttpParams } from '@angular/common/http';
+import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { LazyLoadEvent, SortEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-property',
@@ -14,21 +19,22 @@ export class PropertyComponent implements OnInit {
   userRole: any;
   filterForm: FormGroup;
   assets: Asset[] = [];
+  selected: Asset[] = [];
   currentPage: number;
-  maxPage: number;
-  forwardNumber: number;
-  backwardNumber: number;
-  headElements: string[] = [
-    '',
-    'ID',
-    'Nimi',
-    'Maja ja Tuba',
-    'PV klass ja alamklass',
-    'Active',
-    'Elujaak',
-    'Kontrollitud',
-    'Tegevused',
+  totalPages: number;
+  totalElements: number;
+  itemsPerPage: number;
+  loading: boolean;
+  headElements = [
+    { field: 'id', header: 'ID', disabled: true },
+    { field: 'name', header: 'Name', disabled: true },
+    { field: 'buildingAbbreviationPlusRoom', header: 'Building and room', disabled: false },
+    { field: 'mainClassPlusSubclass', header: 'PV class and subclass', disabled: false },
+    { field: 'active', header: 'Active', disabled: true },
+    { field: 'lifeMonthsLeft', header: 'Life months left', disabled: false },
+    { field: 'checked', header: 'Checked', disabled: true },
   ];
+  sortableColumns = ['id', 'name', 'active', 'checked'];
 
   constructor(
     private route: ActivatedRoute,
@@ -38,127 +44,101 @@ export class PropertyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getRole();
+    this.loading = true;
     this.initFilterForm();
-    this.getFirstAsset();
-  }
-
-  private initFilterForm(): void {
-    this.filterForm = this.fb.group({
-      id: new FormControl(''),
-      name: new FormControl(''),
-      buildingAbbreviationPlusRoom: new FormControl(''),
-      mainClassPlusSubclass: new FormControl(''),
-      active: new FormControl(''),
-      lifeMonthsLeft: new FormControl(''),
-      checked: new FormControl(''),
+    this.getRole();
+    this.getPage(1);
+    this.filterForm.valueChanges.pipe(debounceTime(800)).subscribe(() => {
+      this.filter();
     });
   }
 
   filter(): void {
-    this.propertyService
-      .getFilteredAssets(
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
+    this.loading = true;
+    let params = new HttpParams();
+    Object.keys(this.filterForm.controls).forEach((key) => {
+      const value = this.filterForm.get(key);
+      if (value !== null && value.value !== '') {
+        params = params.set(key, value.value.toString());
+      }
+    });
+    this.propertyService.getFilteredAssets(params).subscribe((asset) => this.updateAssets(asset));
   }
 
-  getFirstAsset(): void {
-    this.propertyService.getAssets().subscribe((asset) => {
-      this.updateAssets(asset);
+  getPage(page: number): void {
+    this.loading = true;
+    page -= 1;
+    this.propertyService.getPage(page).subscribe((data: any) => {
+      this.updateAssets(data);
     });
+  }
+
+  sortAssets(event: LazyLoadEvent): void {
+    if (this.sortableColumns.includes(event.sortField)) {
+      this.loading = true;
+      this.propertyService.getSortedAssets(event.sortField).subscribe((asset) => this.updateAssets(asset));
+    }
   }
 
   updateAssets(asset: JSON): void {
     this.assets = asset['content'];
-    this.currentPage = asset['pageable']['pageNumber'];
-    this.maxPage = asset['totalPages'];
-    if (this.currentPage === this.maxPage) {
-      this.forwardNumber = this.maxPage;
+    this.currentPage = asset['pageable']['pageNumber'] + 1;
+    this.totalPages = asset['totalPages'];
+    this.totalElements = asset['totalElements'];
+    this.itemsPerPage = asset['size'];
+    this.loading = false;
+  }
+
+  onCheck(asset: Asset): void {
+    if (!this.selected.includes(asset)) {
+      this.selected.push(asset);
     } else {
-      this.forwardNumber = this.currentPage + 1;
+      const index = this.selected.indexOf(asset, 0);
+      this.selected.splice(index, 1);
     }
-    if (this.currentPage === 0) {
-      this.backwardNumber = 0;
+  }
+
+  onCheckAll(): void {
+    if (this.selected.length === this.assets.length) {
+      this.selected = [];
     } else {
-      this.backwardNumber = this.currentPage - 1;
+      this.selected = [];
+      this.selected = this.selected.concat(this.assets);
     }
   }
 
-  backward(): void {
-    this.propertyService
-      .backward(
-        this.backwardNumber,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
+  allChecked(): boolean {
+    console.log(this.selected.length + ' / ' + this.assets.length);
+    return this.selected.length === this.assets.length;
   }
 
-  forward(): void {
-    this.propertyService
-      .forward(
-        this.forwardNumber,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
+  isChecked(asset: Asset): boolean {
+    return this.selected.includes(asset);
   }
 
-  fullForward(): void {
-    this.propertyService
-      .fullForward(
-        this.maxPage,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
-  }
-
-  fullBackward(): void {
-    this.propertyService
-      .fullBackward(
-        0,
-        this.filterForm.get('id').value,
-        this.filterForm.get('name').value,
-        this.filterForm.get('active').value,
-        this.filterForm.get('buildingAbbreviationPlusRoom').value,
-        this.filterForm.get('lifeMonthsLeft').value,
-        this.filterForm.get('mainClassPlusSubclass').value
-      )
-      .subscribe((asset) => {
-        this.updateAssets(asset);
-      });
+  checkAllOnPage(): void {
+    this.propertyService.checkAllPageAssets(this.selected).subscribe(() => this.getPage(1));
   }
 
   changeSessionStorage(id: string, link: string) {
     sessionStorage.setItem('currentPage', link);
     sessionStorage.setItem('id', id);
+  }
+
+  downloadInventoryExcel(): void {
+    this.propertyService.getInventoryExcel().subscribe((response) => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
+  downloadInventoryExcelByYear(): void {
+    this.propertyService.getInventoryExcel().subscribe((response) => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
   }
 
   excel(): void {
@@ -172,6 +152,30 @@ export class PropertyComponent implements OnInit {
   getRole(): void {
     this.authenticationService.getUserRole().subscribe((role) => {
       this.userRole = role;
+    });
+  }
+
+  checkAsset(id: string): void {
+    this.propertyService.checkAsset(id).subscribe(() => this.getPage(1));
+  }
+
+  startInventory(): void {
+    this.propertyService.startInventory().subscribe(() => this.getPage(1));
+  }
+
+  endInventory(): void {
+    this.propertyService.endInventory().subscribe(() => this.getPage(1));
+  }
+
+  private initFilterForm(): void {
+    this.filterForm = this.fb.group({
+      id: new FormControl(''),
+      name: new FormControl(''),
+      buildingAbbreviationPlusRoom: new FormControl(''),
+      mainClassPlusSubclass: new FormControl(''),
+      active: new FormControl(''),
+      lifeMonthsLeft: new FormControl(''),
+      checked: new FormControl(''),
     });
   }
 }

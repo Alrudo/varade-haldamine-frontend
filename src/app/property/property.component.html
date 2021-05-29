@@ -1,16 +1,57 @@
 <div class="main">
   <div class="section-table">
     <div class="containerTable">
-      <table class="styled-table">
-        <thead>
+      <div *ngIf="userRole === 'ÜksuseJuht'">
+        <span>
+          <button (click)="startInventory()" translate>Start inventory</button>
+          <button (click)="endInventory()" translate>End inventory</button>
+        </span>
+        <span>
+          <div>
+            <button (click)="downloadInventoryExcel()" translate>Download inventory Excel</button>
+          </div>
+          <div>
+            <!-- TODO -->
+            <input id="year-input" type="number" placeholder="Year" />
+            <button (click)="downloadInventoryExcelByYear()" translate>Download yearly inventory Excel</button>
+            <!-- TODO -->
+          </div>
+        </span>
+      </div>
+      <div>
+        <button *ngIf="userRole === 'KomisjoniLiige' && selected.length > 1" (click)="checkAllOnPage()" translate>
+          Check multiple
+        </button>
+      </div>
+      <p-table
+        class="styled-table"
+        [value]="assets | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }"
+        [lazy]="true"
+        [loading]="loading"
+        [customSort]="true"
+        [lazyLoadOnInit]="false"
+        (onLazyLoad)="sortAssets($event)"
+      >
+        <ng-template pTemplate="header">
           <tr>
-            <th *ngFor="let head of headElements; let i = index" scope="col">{{ head }}</th>
+            <th></th>
+            <th *ngFor="let col of headElements" pSortableColumn="{{ col.field }}" translate>
+              {{ col.header }}
+            </th>
+            <th>Tegevused</th>
           </tr>
-        </thead>
-        <tbody>
           <tr class="input-row" [formGroup]="filterForm">
-            <td></td>
-            <td><input formControlName="id" type="text" placeholder="Filter" class="form-control" /></td>
+            <td>
+              <input
+                *ngIf="userRole === 'KomisjoniLiige'"
+                [checked]="allChecked()"
+                type="checkbox"
+                (change)="onCheckAll()"
+              />
+            </td>
+            <td>
+              <input id="float-input" formControlName="id" type="text" placeholder="Filter" class="form-control" />
+            </td>
             <td><input formControlName="name" type="text" placeholder="Filter" class="form-control" /></td>
             <td>
               <input
@@ -27,48 +68,45 @@
             <td><input formControlName="lifeMonthsLeft" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
             <td>
-              <button type="button" (click)="filter()">Filtreeri</button>
-              <button *ngIf="userRole === 'Raamatupidaja'" type="button" (click)="excel()">Download Excel</button>
+              <button *ngIf="userRole === 'Raamatupidaja'" type="button" (click)="excel()" translate>
+                Download Excel
+              </button>
             </td>
           </tr>
-          <tr *ngFor="let el of assets; let i = index">
-            <td><input type="checkbox" /></td>
-            <th scope="row">{{ el.id }}</th>
-            <td>{{ el.name }}</td>
-            <td *ngIf="el.buildingAbbreviationPlusRoom === null; else active">-</td>
-            <ng-template #active>
-              <td>{{ el.buildingAbbreviationPlusRoom }}</td>
-            </ng-template>
-            <td *ngIf="el.mainClassPlusSubclass === null; else active2">-</td>
-            <ng-template #active2>
-              <td>{{ el.mainClassPlusSubclass }}</td>
-            </ng-template>
-            <td>{{ el.active }}</td>
-            <td>{{ el.lifeMonthsLeft }}</td>
-            <td>{{ el.checked }}</td>
-            <td class="buttons">
-              <a (click)="changeSessionStorage(el.id, 'property_detail')" routerLink="/property_detail/{{ el.id }}"
-                >Info</a
-              >
-              <button>On kohal</button>
-              <button>Ei ole kohal</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
+        </ng-template>
+        <ng-template pTemplate="body" let-asset>
           <tr>
-            <td colspan="10">
-              <div class="lowerDiv">
-                <button class="butt" *ngIf="currentPage !== 0" (click)="fullBackward()"><<</button>
-                <button class="butt" *ngIf="currentPage !== 0" (click)="backward()"><</button>
-                <p>{{ currentPage + 1 }} : {{ maxPage }}</p>
-                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
-                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
-              </div>
+            <td>
+              <input
+                *ngIf="userRole === 'KomisjoniLiige'"
+                [checked]="isChecked(asset)"
+                type="checkbox"
+                (change)="onCheck(asset)"
+              />
+            </td>
+            <td *ngFor="let col of headElements" translate>
+              {{ asset[col.field] | translate }}
+            </td>
+            <td class="buttons">
+              <a
+                (click)="changeSessionStorage(asset.id, 'property_detail')"
+                routerLink="/property_detail/{{ asset.id }}"
+              >
+                Info
+              </a>
+              <p-button
+                *ngIf="userRole === 'KomisjoniLiige'"
+                (click)="checkAsset(asset.id)"
+                label="OK"
+                translate
+              ></p-button>
             </td>
           </tr>
-        </tfoot>
-      </table>
+        </ng-template>
+      </p-table>
+      <p-footer>
+        <pagination-controls (pageChange)="getPage((currentPage = $event))"></pagination-controls>
+      </p-footer>
     </div>
   </div>
 </div>

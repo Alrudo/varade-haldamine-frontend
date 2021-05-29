@@ -4,9 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
-import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { PropertyComponent } from '@app/property/property.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,6 +26,7 @@ import { AddAssetComponent } from '@app/add-asset/add-asset.component';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AuthModule } from '@app/auth';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -58,14 +57,8 @@ import { AuthModule } from '@app/auth';
     NgbPaginationModule,
     NgbAlertModule,
     AuthModule,
+    TableModule,
   ],
-  declarations: [
-    HomeComponent,
-    PropertyComponent,
-    PropertyDetailComponent,
-    SearchBarComponent,
-    CommentComponent,
-    AddAssetComponent,
-  ],
+  declarations: [HomeComponent, PropertyComponent, PropertyDetailComponent, CommentComponent, AddAssetComponent],
 })
 export class HomeModule {}
