@@ -86,11 +86,11 @@ export class AddAssetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUser();
     this.getRole();
     this.getClassification();
     this.getPossessor();
     this.getMajorAssets();
-    this.getUser();
   }
 
   getClassification(): void {

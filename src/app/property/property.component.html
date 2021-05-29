@@ -88,12 +88,7 @@
               {{ asset[col.field] | translate }}
             </td>
             <td class="buttons">
-              <a
-                (click)="changeSessionStorage(asset.id, 'property_detail')"
-                routerLink="/property_detail/{{ asset.id }}"
-              >
-                Info
-              </a>
+              <a routerLink="/property_detail/{{ asset.id }}"> Info </a>
               <p-button
                 *ngIf="userRole === 'KomisjoniLiige'"
                 (click)="checkAsset(asset.id)"

@@ -50,11 +50,6 @@ export class PropertyDetailComponent implements OnInit {
     this.location.back();
   }
 
-  changeSessionStoregeId(link: string, id: string) {
-    sessionStorage.setItem('currentPage', link);
-    sessionStorage.setItem('id', id);
-  }
-
   getAssetAuditInfo(): void {
     this.propertyService.getAssetAuditInfo(this.asset).subscribe((r) => {
       this.maxPage = r['totalElements'];

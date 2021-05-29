@@ -6,19 +6,12 @@
     <span class="title">{{ title }}</span>
   </div>
   <div fxHide.lt-md>
-    <button
-      *ngIf="user != null"
-      (click)="changeSessionStorage('home')"
-      mat-button
-      routerLink="/home"
-      routerLinkActive="active"
-    >
+    <button *ngIf="user != null" mat-button routerLink="/home" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span translate>Home</span>
     </button>
     <!--    <button-->
     <!--      *ngIf="user != null"-->
-    <!--      (click)="changeSessionStorage('about')"-->
     <!--      mat-button-->
     <!--      routerLink="/about"-->
     <!--      routerLinkActive="active"-->
@@ -28,7 +21,6 @@
     <!--    </button>-->
     <button
       *ngIf="user != null && (userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht')"
-      (click)="changeSessionStorage('add-asset')"
       mat-button
       routerLink="/add-asset"
       routerLinkActive="active"

@@ -120,11 +120,6 @@ export class PropertyComponent implements OnInit {
     this.propertyService.checkAllPageAssets(this.selected).subscribe(() => this.getPage(1));
   }
 
-  changeSessionStorage(id: string, link: string) {
-    sessionStorage.setItem('currentPage', link);
-    sessionStorage.setItem('id', id);
-  }
-
   downloadInventoryExcel(): void {
     this.propertyService.getInventoryExcel().subscribe((response) => {
       const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

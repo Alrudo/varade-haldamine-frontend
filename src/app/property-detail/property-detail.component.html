@@ -145,7 +145,6 @@
           </table>
           <button
             *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht'"
-            (click)="changeSessionStoregeId('change_asset', asset.id)"
             routerLink="/change-asset/{{ asset.id }}"
           >
             Change
