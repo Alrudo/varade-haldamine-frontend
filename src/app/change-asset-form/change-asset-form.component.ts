@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyService } from '@app/property/property.service';
 import { AssetInfo } from '@app/assetInfo';
 import { AuthenticationService } from '@app/auth';
+import { Location } from '@angular/common';
 
 interface MainClassification {
   value: string;
@@ -39,7 +40,8 @@ export class ChangeAssetFormComponent implements OnInit {
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -56,11 +58,6 @@ export class ChangeAssetFormComponent implements OnInit {
     });
   }
 
-  changeSessionStorage(link: string, id: string) {
-    sessionStorage.setItem('currentPage', link);
-    sessionStorage.setItem('id', id);
-  }
-
   getClassification(): void {
     this.propertyService.getClassification().subscribe((classification) => {
       classification.forEach((item, i) => {
@@ -68,6 +65,10 @@ export class ChangeAssetFormComponent implements OnInit {
         this.subClassifications.push({ value: item['subClass'], viewValue: item['subClass'] } as SubClassification);
       });
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   change(

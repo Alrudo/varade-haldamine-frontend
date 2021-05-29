@@ -22,7 +22,8 @@ export class PropertyDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private propertyService: PropertyService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -45,8 +46,8 @@ export class PropertyDetailComponent implements OnInit {
     });
   }
 
-  changeSessionStorage(link: string) {
-    sessionStorage.setItem('currentPage', link);
+  goBack(): void {
+    this.location.back();
   }
 
   changeSessionStoregeId(link: string, id: string) {

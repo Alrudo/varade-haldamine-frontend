@@ -1,10 +1,6 @@
 <div *ngIf="user != null; else goLogin" class="main">
   <div class="section-from">
-    <div class="container2">
-      <button (click)="changeSessionStorage('property_detail', asset.id)" routerLink="/home" routerLinkActive="active">
-        go back
-      </button>
-    </div>
+    <div class="container2"></div>
     <div class="container">
       <div class="d-flex flex-column row-table">
         <table class="table table-bordered">
@@ -195,7 +191,10 @@
           </tr>
           <tr>
             <td colspan="3">
+              <button type="button" class="btn btn-primary" (click)="goBack()">Go back</button>
               <button
+                type="button"
+                class="btn btn-primary"
                 (click)="
                   change(
                     name.value,
