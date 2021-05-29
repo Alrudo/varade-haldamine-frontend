@@ -9,7 +9,6 @@ import { AuthenticationService } from '@app/auth';
 })
 export class HomeComponent implements OnInit {
   isLoading = false;
-  user: any;
 
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
@@ -19,9 +18,12 @@ export class HomeComponent implements OnInit {
   }
 
   getUser() {
-    this.authenticationService.getUser().subscribe((user) => {
-      this.user = user;
-      this.isLoading = false;
+    this.authenticationService.getUserRole().subscribe((role) => {
+      window.sessionStorage.setItem('role', role);
     });
+  }
+
+  getRoleSessionStorage(): string {
+    return window.sessionStorage.getItem('role');
   }
 }

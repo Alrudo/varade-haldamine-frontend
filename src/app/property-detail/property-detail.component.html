@@ -1,4 +1,4 @@
-<div *ngIf="user != null; else goLogin" class="main">
+<div *ngIf="getRoleSessionStorage() != null" class="main">
   <div class="main">
     <div class="section-detail">
       <div class="container2">
@@ -145,7 +145,6 @@
           </table>
           <button
             *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht'"
-            (click)="changeSessionStoregeId('change_asset', asset.id)"
             routerLink="/change-asset/{{ asset.id }}"
           >
             Change
@@ -170,6 +169,3 @@
     </div>
   </div>
 </div>
-<ng-template #goLogin>
-  <app-login></app-login>
-</ng-template>

@@ -1,4 +1,4 @@
-<div *ngIf="user != null; else goLogin">
+<div *ngIf="getRoleSessionStorage() != null; else goLogin">
   <app-property></app-property>
 </div>
 <ng-template #goLogin>

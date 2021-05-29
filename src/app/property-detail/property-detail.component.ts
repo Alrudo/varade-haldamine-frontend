@@ -17,7 +17,6 @@ export class PropertyDetailComponent implements OnInit {
   currentPage: number;
   maxPage: number;
   userRole: string;
-  user: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,15 +26,11 @@ export class PropertyDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (window.sessionStorage.getItem('role') == null) {
+      window.location.href = 'http://localhost:4200/home';
+    }
     this.getAsset();
     this.getRole();
-    this.getUser();
-  }
-
-  getUser() {
-    this.authenticationService.getUser().subscribe((user) => {
-      this.user = user;
-    });
   }
 
   getAsset(): void {
@@ -48,11 +43,6 @@ export class PropertyDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
-  }
-
-  changeSessionStoregeId(link: string, id: string) {
-    sessionStorage.setItem('currentPage', link);
-    sessionStorage.setItem('id', id);
   }
 
   getAssetAuditInfo(): void {
@@ -95,8 +85,13 @@ export class PropertyDetailComponent implements OnInit {
   }
 
   getRole() {
-    this.propertyService.getUserRole().subscribe((r) => {
-      this.userRole = r;
+    this.propertyService.getUserRole().subscribe((role) => {
+      window.sessionStorage.setItem('role', role);
+      this.userRole = role;
     });
+  }
+
+  getRoleSessionStorage(): string {
+    return window.sessionStorage.getItem('role');
   }
 }

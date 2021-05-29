@@ -43,8 +43,6 @@ interface MajorAsset {
   styleUrls: ['./add-asset.component.scss'],
 })
 export class AddAssetComponent implements OnInit {
-  user: any;
-
   selectClassification: string;
 
   mainClassifications: MainClassification[] = [];
@@ -76,21 +74,20 @@ export class AddAssetComponent implements OnInit {
     { value: true, viewValue: 'Yes' },
   ];
 
-  selectLocation: string;
-
   constructor(
     private propertyService: PropertyService,
     protected matDialog: MatDialog,
-    private authenticationService: AuthenticationService,
-    private router: Router
+    private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
+    if (window.sessionStorage.getItem('role') == null) {
+      window.location.href = 'http://localhost:4200/home';
+    }
     this.getRole();
     this.getClassification();
     this.getPossessor();
     this.getMajorAssets();
-    this.getUser();
   }
 
   getClassification(): void {
@@ -249,19 +246,17 @@ export class AddAssetComponent implements OnInit {
     }
   }
 
-  getUser() {
-    this.authenticationService.getUser().subscribe((user) => {
-      this.user = user;
-    });
-  }
-
   getRole() {
     this.authenticationService.getUserRole().subscribe((role) => {
+      window.localStorage.setItem('role', role);
       if (role !== 'Raamatupidaja') {
-        console.log(role);
         // @ts-ignore
         this.router.navigate(['/home']);
       }
     });
+  }
+
+  getRoleSessionStorage(): string {
+    return window.sessionStorage.getItem('role');
   }
 }

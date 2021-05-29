@@ -1,4 +1,4 @@
-<div *ngIf="user != null; else goLogin" class="main">
+<div *ngIf="getRoleSessionStorage() != null" class="main">
   <div class="section-from">
     <div class="container2"></div>
     <div class="container">
@@ -227,6 +227,3 @@
     </div>
   </div>
 </div>
-<ng-template #goLogin>
-  <app-login></app-login>
-</ng-template>

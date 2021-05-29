@@ -6,8 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/auth';
 import { HttpParams } from '@angular/common/http';
 import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { MatTableDataSource } from '@angular/material/table';
 import { LazyLoadEvent, SortEvent } from 'primeng/api';
 
 @Component({
@@ -44,7 +42,6 @@ export class PropertyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loading = true;
     this.getRole();
     this.initFilterForm();
     this.getPage(1);
@@ -152,7 +149,6 @@ export class PropertyComponent implements OnInit {
   getRole(): void {
     this.authenticationService.getUserRole().subscribe((role) => {
       this.userRole = role;
-      this.loading = false;
     });
   }
 

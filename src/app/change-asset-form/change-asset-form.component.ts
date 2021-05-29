@@ -22,7 +22,6 @@ interface SubClassification {
 })
 export class ChangeAssetFormComponent implements OnInit {
   asset: AssetInfo;
-  user: any;
 
   isChecked: any = false;
   isChecked2: any = false;
@@ -45,10 +44,12 @@ export class ChangeAssetFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (window.sessionStorage.getItem('role') == null) {
+      window.location.href = 'http://localhost:4200/home';
+    }
     this.getRole();
     this.getAsset();
     this.getClassification();
-    this.getUser();
   }
 
   getAsset(): void {
@@ -130,16 +131,16 @@ export class ChangeAssetFormComponent implements OnInit {
     });
   }
 
-  getUser() {
-    this.authenticationService.getUser().subscribe((user) => {
-      this.user = user;
-    });
-  }
   getRole() {
     this.authenticationService.getUserRole().subscribe((role) => {
+      window.sessionStorage.setItem('role', role);
       if (role !== 'Raamatupidaja') {
         this.router.navigate(['/home']);
       }
     });
+  }
+
+  getRoleSessionStorage(): string {
+    return window.sessionStorage.getItem('role');
   }
 }

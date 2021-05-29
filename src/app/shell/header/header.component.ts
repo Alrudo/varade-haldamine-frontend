@@ -11,8 +11,6 @@ import { AuthenticationService } from '@app/auth'; // CredentialsService } from 
 })
 export class HeaderComponent implements OnInit {
   @Input() sidenav!: MatSidenav;
-  user: any;
-  userRole: string;
   userName: string;
 
   constructor(
@@ -22,7 +20,6 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getUser();
     this.getRole();
     this.getUsername();
   }
@@ -30,21 +27,19 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authenticationService.logout().subscribe((r) => {
       window.location.href = 'http://localhost:4200/home';
-      // window.location.reload();
-      // this.router.navigate(['/home']);
-    });
-  }
-
-  getUser() {
-    this.authenticationService.getUser().subscribe((user) => {
-      this.user = user;
+      //window.location.reload();
+      //this.router.navigate(['/home']);
     });
   }
 
   getRole() {
-    this.authenticationService.getUserRole().subscribe((r) => {
-      this.userRole = r;
+    this.authenticationService.getUserRole().subscribe((role) => {
+      window.sessionStorage.setItem('role', role);
     });
+  }
+
+  getRoleSessionStorage(): string {
+    return window.sessionStorage.getItem('role');
   }
 
   getUsername() {
@@ -60,9 +55,5 @@ export class HeaderComponent implements OnInit {
 
   get title(): string {
     return this.titleService.getTitle();
-  }
-
-  changeSessionStorage(link: string) {
-    sessionStorage.setItem('currentPage', link);
   }
 }
