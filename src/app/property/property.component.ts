@@ -45,8 +45,8 @@ export class PropertyComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.initFilterForm();
     this.getRole();
+    this.initFilterForm();
     this.getPage(1);
     this.filterForm.valueChanges.pipe(debounceTime(800)).subscribe(() => {
       this.filter();
@@ -152,6 +152,7 @@ export class PropertyComponent implements OnInit {
   getRole(): void {
     this.authenticationService.getUserRole().subscribe((role) => {
       this.userRole = role;
+      this.loading = false;
     });
   }
 

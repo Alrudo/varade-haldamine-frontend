@@ -6,6 +6,11 @@
   padding: 1em;
 }
 
+.btn-div {
+  display: flex;
+  justify-content: space-between;
+}
+
 .logo {
   width: 150px;
   margin: 0 auto;

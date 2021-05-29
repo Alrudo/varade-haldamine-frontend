@@ -1,26 +1,21 @@
 <div class="main">
   <div class="section-table">
     <div class="containerTable">
-      <div *ngIf="userRole === 'ÜksuseJuht'">
+      <div class="btn-div" *ngIf="userRole === 'ÜksuseJuht'">
         <span>
           <button type="button" class="btn btn-primary" (click)="startInventory()" translate>Start inventory</button>
           <button type="button" class="btn btn-primary" (click)="endInventory()" translate>End inventory</button>
         </span>
-        <span>
+        <div class="row">
+          <!-- TODO -->
+          <div class="col"><input class="form-control" id="year-input" type="number" placeholder="Year" /></div>
           <div>
-            <button type="button" class="btn btn-primary" (click)="downloadInventoryExcel()" translate>
-              Download inventory Excel
-            </button>
-          </div>
-          <div>
-            <!-- TODO -->
-            <input id="year-input" type="number" placeholder="Year" />
             <button type="button" class="btn btn-primary" (click)="downloadInventoryExcelByYear()" translate>
               Download yearly inventory Excel
             </button>
-            <!-- TODO -->
           </div>
-        </span>
+          <!-- TODO -->
+        </div>
       </div>
       <div>
         <button
@@ -79,6 +74,15 @@
             <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
             <td>
               <button
+                *ngIf="userRole === 'ÜksuseJuht'"
+                type="button"
+                class="btn btn-primary"
+                (click)="downloadInventoryExcel()"
+                translate
+              >
+                Download inventory
+              </button>
+              <button
                 type="button"
                 class="btn btn-primary"
                 *ngIf="userRole === 'Raamatupidaja'"
@@ -112,11 +116,15 @@
                 Info
               </a>
               <button
+                type="button"
+                class="btn btn-primary"
                 *ngIf="userRole === 'KomisjoniLiige'"
                 (click)="checkAsset(asset.id)"
                 label="OK"
                 translate
-              ></button>
+              >
+                OK
+              </button>
             </td>
           </tr>
         </ng-template>
