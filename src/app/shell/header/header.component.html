@@ -16,18 +16,8 @@
       <mat-icon>home</mat-icon>
       <span translate>Home</span>
     </button>
-    <!--    <button-->
-    <!--      *ngIf="user != null"-->
-    <!--      (click)="changeSessionStorage('about')"-->
-    <!--      mat-button-->
-    <!--      routerLink="/about"-->
-    <!--      routerLinkActive="active"-->
-    <!--    >-->
-    <!--      <mat-icon>info</mat-icon>-->
-    <!--      <span translate>About</span>-->
-    <!--    </button>-->
     <button
-      *ngIf="user != null && (userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht')"
+      *ngIf="user != null && userRole == 'Raamatupidaja'"
       (click)="changeSessionStorage('add-asset')"
       mat-button
       routerLink="/add-asset"
