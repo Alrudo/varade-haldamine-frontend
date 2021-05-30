@@ -115,7 +115,7 @@ export class ChangeAssetFormComponent implements OnInit {
       id: id,
       isPurchased: isChecked2,
       lastname: personSecondNameValue,
-      lifeMonthsLeft: lifeMonthsLeft,
+      lifeMonthsLeft: lifeMonthsLeft, //
       mainClass: selectClassification,
       name: name,
       price: priceValue,
