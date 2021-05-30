@@ -280,7 +280,7 @@ export class AddAssetComponent implements OnInit {
         },
         (error) => {
           this.isSubmitSuccessful = false;
-          this.isSubmitFail = true;
+          // this.isSubmitFail = true;
           console.log(error);
         }
       );
