@@ -6,18 +6,19 @@
           <button type="button" class="btn btn-primary" (click)="startInventory()" translate>Start inventory</button>
           <button type="button" class="btn btn-primary" (click)="endInventory()" translate>End inventory</button>
         </span>
-        <div class="row">
+        <div class="row" [formGroup]="excelYearField">
           <div class="col">
-            <input class="form-control" #year id="year-input" type="number" placeholder="Year" />
-          </div>
-          <div [formGroup]="excelYearField">
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="downloadInventoryExcelByYear(year.value)"
+            <input
+              class="form-control"
+              #year
+              id="year-input"
+              type="number"
+              placeholder="Year"
               formControlName="excelYear"
-              translate
-            >
+            />
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary" (click)="downloadInventoryExcelByYear(year.value)" translate>
               Download yearly inventory Excel
             </button>
           </div>
