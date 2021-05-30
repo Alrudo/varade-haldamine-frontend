@@ -25,8 +25,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe((r) => {
-      window.location.href = 'http://localhost:4200/home';
+    this.authenticationService.logout().subscribe(() => {
+      if (window.location.href !== 'http://localhost:4200/home') {
+        window.location.href = 'http://localhost:4200/home';
+      }
       //window.location.reload();
       //this.router.navigate(['/home']);
     });
@@ -34,12 +36,12 @@ export class HeaderComponent implements OnInit {
 
   getRole() {
     this.authenticationService.getUserRole().subscribe((role) => {
-      window.sessionStorage.setItem('role', role);
+      window.localStorage.setItem('role', role);
     });
   }
 
   getRoleSessionStorage(): string {
-    return window.sessionStorage.getItem('role');
+    return window.localStorage.getItem('role');
   }
 
   getUsername() {

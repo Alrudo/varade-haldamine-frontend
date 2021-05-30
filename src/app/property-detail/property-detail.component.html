@@ -143,18 +143,10 @@
               </ng-template>
             </tr>
           </table>
-          <button
-            *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht'"
-            routerLink="/change-asset/{{ asset.id }}"
-          >
-            Change
-          </button>
+          <button *ngIf="userRole == 'Raamatupidaja'" routerLink="/change-asset/{{ asset.id }}">Change</button>
         </div>
       </div>
-      <div
-        *ngIf="userRole == 'Raamatupidaja' || userRole == 'ÜksuseJuht' || userRole == 'KomisjoniLiige'"
-        class="section-buttons"
-      >
+      <div *ngIf="userRole == 'Raamatupidaja'" class="section-buttons">
         <div class="button-container d-inline-flex p-2">
           <button class="btn btn-outline-danger" (click)="fullBackward()"><<</button>
           <button class="btn btn-outline-danger" (click)="backward()"><</button>

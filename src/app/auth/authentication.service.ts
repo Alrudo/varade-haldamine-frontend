@@ -21,7 +21,7 @@ export class AuthenticationService {
    * @return True if the user was logged out successfully.
    */
   logout(): Observable<any> {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
     return this.http.get<Observable<any>>('api/asset/logout');
   }
 

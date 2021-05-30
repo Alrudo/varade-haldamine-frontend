@@ -8,22 +8,19 @@ import { AuthenticationService } from '@app/auth';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  isLoading = false;
-
   constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
-    this.isLoading = true;
     this.getUser();
   }
 
   getUser() {
     this.authenticationService.getUserRole().subscribe((role) => {
-      window.sessionStorage.setItem('role', role);
+      window.localStorage.setItem('role', role);
     });
   }
 
   getRoleSessionStorage(): string {
-    return window.sessionStorage.getItem('role');
+    return window.localStorage.getItem('role');
   }
 }

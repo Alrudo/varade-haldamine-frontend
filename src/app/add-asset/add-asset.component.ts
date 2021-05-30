@@ -81,7 +81,7 @@ export class AddAssetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (window.sessionStorage.getItem('role') == null) {
+    if (window.localStorage.getItem('role') == null) {
       window.location.href = 'http://localhost:4200/home';
     }
     this.getRole();
@@ -248,7 +248,7 @@ export class AddAssetComponent implements OnInit {
 
   getRole() {
     this.authenticationService.getUserRole().subscribe((role) => {
-      window.localStorage.setItem('role', role);
+      // TODO review roles
       if (role !== 'Raamatupidaja') {
         // @ts-ignore
         this.router.navigate(['/home']);
@@ -257,6 +257,6 @@ export class AddAssetComponent implements OnInit {
   }
 
   getRoleSessionStorage(): string {
-    return window.sessionStorage.getItem('role');
+    return window.localStorage.getItem('role');
   }
 }

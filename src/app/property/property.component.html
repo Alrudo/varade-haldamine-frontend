@@ -108,13 +108,7 @@
               {{ asset[col.field] | translate }}
             </td>
             <td class="buttons">
-              <a
-                class="btn btn-primary"
-                (click)="changeSessionStorage(asset.id, 'property_detail')"
-                routerLink="/property_detail/{{ asset.id }}"
-              >
-                Info
-              </a>
+              <a class="btn btn-primary" routerLink="/property_detail/{{ asset.id }}"> Info </a>
               <button
                 type="button"
                 class="btn btn-primary"

@@ -26,7 +26,7 @@ export class PropertyDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (window.sessionStorage.getItem('role') == null) {
+    if (window.localStorage.getItem('role') == null) {
       window.location.href = 'http://localhost:4200/home';
     }
     this.getAsset();
@@ -86,12 +86,12 @@ export class PropertyDetailComponent implements OnInit {
 
   getRole() {
     this.propertyService.getUserRole().subscribe((role) => {
-      window.sessionStorage.setItem('role', role);
+      window.localStorage.setItem('role', role);
       this.userRole = role;
     });
   }
 
   getRoleSessionStorage(): string {
-    return window.sessionStorage.getItem('role');
+    return window.localStorage.getItem('role');
   }
 }

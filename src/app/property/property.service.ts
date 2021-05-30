@@ -148,6 +148,6 @@ export class PropertyService {
   }
 
   endInventory(): Observable<any> {
-    return this.http.put<null>('api/inventory', null);
+    return this.http.put<any>('api/inventory', { responseType: 'text' });
   }
 }
