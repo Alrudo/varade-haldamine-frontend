@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-
-import { Credentials, CredentialsService } from './credentials.service';
-
-export interface LoginContext {
-  username: string;
-  password: string;
-  remember?: boolean;
-}
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /**
  * Provides a base for authentication workflow.
@@ -17,30 +10,33 @@ export interface LoginContext {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService) {}
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
-  /**
-   * Authenticates the user.
-   * @param context The login parameters.
-   * @return The user credentials.
-   */
-  login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
-    const data = {
-      username: context.username,
-      token: '123456',
-    };
-    this.credentialsService.setCredentials(data, context.remember);
-    return of(data);
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.
    */
-  logout(): Observable<boolean> {
-    // Customize credentials invalidation here
-    this.credentialsService.setCredentials();
-    return of(true);
+  logout(): Observable<any> {
+    window.localStorage.clear();
+    return this.http.get<Observable<any>>('api/asset/logout');
+  }
+
+  getUser(): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`api/asset/account`, { responseType: 'application/json' });
+  }
+
+  getUserRole(): Observable<string> {
+    // @ts-ignore application/json
+    return this.http.get<string>(`api/asset/accountt`, { responseType: 'text' });
+  }
+
+  getUserName(): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`api/asset/username`, { responseType: 'text' });
   }
 }

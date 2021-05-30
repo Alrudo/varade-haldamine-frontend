@@ -8,6 +8,8 @@ import { environment } from '@env/environment';
 import { Logger, UntilDestroy, untilDestroyed } from '@core';
 import { I18nService } from '@app/i18n';
 import { PrimeNGConfig } from 'primeng/api';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { authConfig } from '@app/auth/auth.config';
 
 const log = new Logger('App');
 
@@ -24,8 +26,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private translateService: TranslateService,
     private i18nService: I18nService,
-    private primengConfig: PrimeNGConfig
-  ) {}
+    private primengConfig: PrimeNGConfig,
+    private oauthService: OAuthService
+  ) {
+    this.oauthService.configure(authConfig);
+    // this.oauthService.loadDiscoveryDocumentAndLogin().then();
+    this.oauthService.setupAutomaticSilentRefresh();
+  }
 
   ngOnInit() {
     this.primengConfig.ripple = true;

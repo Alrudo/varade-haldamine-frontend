@@ -4,37 +4,40 @@
   text-align: center;
   justify-content: center;
   padding: 1em;
-  border-style: solid;
-  border-color: #a11aac;
-  border-radius: 5px;
 }
 
 .main {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .section-from {
   padding-top: 10px;
 }
 
-.row-left {
+.row-table {
   border-style: solid;
   border-color: #cb21d9;
   border-radius: 5px;
   padding: 1em;
-}
-
-.row-right {
-  border-style: solid;
-  border-color: #cb21d9;
-  border-radius: 5px;
-  padding: 1em;
+  margin-left: 10em;
+  margin-right: 10em;
+  display: flex;
+  justify-content: space-between;
 }
 
 button {
   background-color: #cb21d9;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
 }
 
 button:hover {
   background-color: #9b18d9;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+.comment-area {
+  word-break: break-all;
 }

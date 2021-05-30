@@ -1,16 +1,68 @@
 <div class="main">
   <div class="section-table">
     <div class="containerTable">
-      <table class="styled-table">
-        <thead>
+      <div class="btn-div" *ngIf="userRole === 'ÜksuseJuht'">
+        <span>
+          <button type="button" class="btn btn-primary" (click)="startInventory()" translate>Start inventory</button>
+          <button type="button" class="btn btn-primary" (click)="endInventory()" translate>End inventory</button>
+        </span>
+        <div class="row" [formGroup]="excelYearField">
+          <div class="col">
+            <input
+              class="form-control"
+              #year
+              id="year-input"
+              type="number"
+              placeholder="Year"
+              formControlName="excelYear"
+            />
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary" (click)="downloadInventoryExcelByYear(year.value)" translate>
+              Download yearly inventory Excel
+            </button>
+          </div>
+        </div>
+      </div>
+      <p-table
+        class="styled-table"
+        [value]="assets | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }"
+        [lazy]="true"
+        [loading]="loading"
+        [customSort]="true"
+        [lazyLoadOnInit]="false"
+        (onLazyLoad)="sortAssets($event)"
+      >
+        <ng-template pTemplate="header">
           <tr>
-            <th *ngFor="let head of headElements; let i = index" scope="col">{{ head }}</th>
+            <th *ngIf="userRole === 'KomisjoniLiige'">
+              <button
+                type="button"
+                class="btn btn-primary"
+                *ngIf="userRole === 'KomisjoniLiige' && selected.length > 1"
+                (click)="checkAllOnPage()"
+                translate
+              >
+                Check multiple
+              </button>
+            </th>
+            <th *ngFor="let col of headElements" pSortableColumn="{{ col.field }}" translate>
+              {{ col.header }}
+            </th>
+            <th>Tegevused</th>
           </tr>
-        </thead>
-        <tbody>
           <tr class="input-row" [formGroup]="filterForm">
-            <td></td>
-            <td><input formControlName="id" type="text" placeholder="Filter" class="form-control" /></td>
+            <td *ngIf="userRole === 'KomisjoniLiige'">
+              <input
+                *ngIf="userRole === 'KomisjoniLiige'"
+                [checked]="allChecked()"
+                type="checkbox"
+                (change)="onCheckAll()"
+              />
+            </td>
+            <td>
+              <input id="float-input" formControlName="id" type="text" placeholder="Filter" class="form-control" />
+            </td>
             <td><input formControlName="name" type="text" placeholder="Filter" class="form-control" /></td>
             <td>
               <input
@@ -26,44 +78,60 @@
             <td><input formControlName="active" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="lifeMonthsLeft" type="text" placeholder="Filter" class="form-control" /></td>
             <td><input formControlName="checked" type="text" placeholder="Filter" class="form-control" /></td>
-            <td><button type="button" (click)="filter()">Filtreeri</button></td>
-          </tr>
-          <tr *ngFor="let el of assets; let i = index">
-            <td><input type="checkbox" /></td>
-            <th scope="row">{{ el.id }}</th>
-            <td>{{ el.name }}</td>
-            <td *ngIf="el.buildingAbbreviationPlusRoom === null; else active">-</td>
-            <ng-template #active>
-              <td>{{ el.buildingAbbreviationPlusRoom }}</td>
-            </ng-template>
-            <td *ngIf="el.mainClassPlusSubclass === null; else active2">-</td>
-            <ng-template #active2>
-              <td>{{ el.mainClassPlusSubclass }}</td>
-            </ng-template>
-            <td>{{ el.active }}</td>
-            <td>{{ el.lifeMonthsLeft }}</td>
-            <td>{{ el.checked }}</td>
-            <td class="buttons">
-              <a routerLink="/property_detail/{{ el.id }}">Info</a>
-              <button>On kohal</button>
-              <button>Ei ole kohal</button>
+            <td>
+              <button
+                *ngIf="userRole === 'ÜksuseJuht'"
+                type="button"
+                class="btn btn-primary"
+                (click)="downloadInventoryExcel()"
+                translate
+              >
+                Download inventory
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                *ngIf="userRole === 'Raamatupidaja'"
+                (click)="excel()"
+                translate
+              >
+                Download Excel
+              </button>
             </td>
           </tr>
-        </tbody>
-        <tfoot>
+        </ng-template>
+        <ng-template pTemplate="body" let-asset>
           <tr>
-            <td colspan="10">
-              <div class="lowerDiv">
-                <button class="butt" *ngIf="currentPage !== 0" (click)="fullBackward()"><<</button>
-                <button class="butt" *ngIf="currentPage !== 0" (click)="backward()"><</button>
-                <p>{{ currentPage + 1 }} : {{ maxPage }}</p>
-                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="forward()">></button>
-                <button class="butt" *ngIf="currentPage + 1 !== maxPage" (click)="fullForward()">>></button>
-              </div>
+            <td *ngIf="userRole === 'KomisjoniLiige'">
+              <input
+                *ngIf="userRole === 'KomisjoniLiige'"
+                [checked]="isChecked(asset)"
+                type="checkbox"
+                (change)="onCheck(asset)"
+              />
+            </td>
+            <td *ngFor="let col of headElements" translate>
+              {{ asset[col.field] | translate }}
+            </td>
+            <td class="buttons">
+              <a class="btn btn-primary" routerLink="/property_detail/{{ asset.id }}"> Info </a>
+              <button
+                type="button"
+                class="btn btn-primary"
+                *ngIf="userRole === 'KomisjoniLiige'"
+                (click)="checkAsset(asset.id)"
+                label="OK"
+                translate
+              >
+                OK
+              </button>
             </td>
           </tr>
-        </tfoot>
-      </table>
+        </ng-template>
+      </p-table>
+      <p-footer>
+        <pagination-controls (pageChange)="getPage((currentPage = $event))"></pagination-controls>
+      </p-footer>
     </div>
   </div>
 </div>

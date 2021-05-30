@@ -1,2 +1,6 @@
-<router-outlet></router-outlet>
-<app-property></app-property>
+<div *ngIf="getRoleSessionStorage() != null; else goLogin">
+  <app-property></app-property>
+</div>
+<ng-template #goLogin>
+  <app-login></app-login>
+</ng-template>

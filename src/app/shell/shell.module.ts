@@ -13,6 +13,6 @@ import { HeaderComponent } from './header/header.component';
 @NgModule({
   imports: [CommonModule, TranslateModule, FlexLayoutModule, MaterialModule, AuthModule, I18nModule, RouterModule],
   declarations: [HeaderComponent, ShellComponent],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent, ShellComponent],
 })
 export class ShellModule {}
