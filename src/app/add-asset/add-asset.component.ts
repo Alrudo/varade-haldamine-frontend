@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetInfo } from '@app/assetInfo';
 import { PropertyService } from '@app/property/property.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '@app/modal/modal.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/auth';
-import { Router } from '@angular/router';
 
 interface Complect {
   value: string;

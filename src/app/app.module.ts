@@ -23,6 +23,7 @@ import { ModalModule } from 'ng2-modal-module';
 import { ModalComponent } from '@app/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { ModalErrorComponent } from './modal-error/modal-error.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
       },
     }), // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent, ChangeAssetFormComponent, ModalComponent],
+  declarations: [AppComponent, ChangeAssetFormComponent, ModalComponent, ModalErrorComponent],
   providers: [], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap: [AppComponent],
   exports: [],

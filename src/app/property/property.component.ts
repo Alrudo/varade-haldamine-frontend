@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyService } from './property.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Asset } from '@app/asset';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/auth';
 import { HttpParams } from '@angular/common/http';
-import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
-import { LazyLoadEvent, SortEvent } from 'primeng/api';
+import { debounceTime } from 'rxjs/operators';
+import { LazyLoadEvent } from 'primeng/api';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalErrorComponent } from '@app/modal-error/modal-error.component';
 
 @Component({
   selector: 'app-property',
@@ -38,7 +40,8 @@ export class PropertyComponent implements OnInit {
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private fb: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    protected matDialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -159,9 +162,22 @@ export class PropertyComponent implements OnInit {
   }
 
   endInventory(): void {
-    this.propertyService.endInventory().subscribe((res) => {
-      this.getPage(1);
-    });
+    this.propertyService.endInventory().subscribe(
+      (res) => {
+        this.getPage(1);
+      },
+      (error) => {
+        open();
+      }
+    );
+  }
+
+  open() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = 'modal-error-component';
+    dialogConfig.height = '350px';
+    dialogConfig.width = '600px';
+    this.matDialog.open(ModalErrorComponent, dialogConfig);
   }
 
   private initFilterForm(): void {
