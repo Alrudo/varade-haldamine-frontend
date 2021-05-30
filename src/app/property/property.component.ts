@@ -167,14 +167,14 @@ export class PropertyComponent implements OnInit {
         this.getPage(1);
       },
       (error) => {
-        open();
+        this.openModal();
       }
     );
   }
 
-  open() {
+  openModal() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.id = 'modal-error-component';
+    dialogConfig.id = 'modal-component-hz';
     dialogConfig.height = '350px';
     dialogConfig.width = '600px';
     this.matDialog.open(ModalErrorComponent, dialogConfig);
