@@ -1,11 +1,11 @@
 <mat-toolbar class="mat-elevation-z6 navbar" color="primary">
-  <div fxHide.gt-sm fxLayoutAlign="start center">
-    <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span class="title">{{ title }}</span>
-  </div>
-  <div fxHide.lt-md>
+  <!--  <div fxHide.gt-sm fxLayoutAlign="start center">-->
+  <!--    <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">-->
+  <!--      <mat-icon>menu</mat-icon>-->
+  <!--    </button>-->
+  <!--    <span class="title">{{ title }}</span>-->
+  <!--  </div>-->
+  <div>
     <button *ngIf="getRoleSessionStorage() != null" mat-button routerLink="/home" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span translate>Home</span>
