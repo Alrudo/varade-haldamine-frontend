@@ -81,11 +81,11 @@ export class PropertyComponent implements OnInit {
   }
 
   updateAssets(asset: JSON): void {
-    this.assets = asset.content;
-    this.currentPage = asset.pageable.pageNumber + 1;
-    this.totalPages = asset.totalPages;
-    this.totalElements = asset.totalElements;
-    this.itemsPerPage = asset.size;
+    this.assets = asset['content'];
+    this.currentPage = asset['pageable']['pageNumber'] + 1;
+    this.totalPages = asset['totalPages'];
+    this.totalElements = asset['totalElements'];
+    this.itemsPerPage = asset['size'];
     this.loading = false;
   }
 

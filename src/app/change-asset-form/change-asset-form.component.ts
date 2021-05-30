@@ -115,7 +115,7 @@ export class ChangeAssetFormComponent implements OnInit {
       id: id,
       isPurchased: isChecked2,
       lastname: personSecondNameValue,
-      lifeMonthsLeft: lifeMonthsLeft, //
+      lifeMonthsLeft: lifeMonthsLeft,
       mainClass: selectClassification,
       name: name,
       price: priceValue,
@@ -126,6 +126,7 @@ export class ChangeAssetFormComponent implements OnInit {
       subdivision: subdivisionValue,
       userId: userId,
     } as unknown) as JSON;
+    console.log(obj);
     this.propertyService.changeAsset(obj, this.asset.id).subscribe(() => {
       this.getAsset();
     });

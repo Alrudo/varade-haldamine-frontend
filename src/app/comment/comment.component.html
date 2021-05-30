@@ -1,12 +1,20 @@
-<h3>Kommentaarid:</h3>
-<ul>
-  <li *ngFor="let comment of comments">
-    {{ comment.text }}
-    <p class="time">{{ comment.createdAt | date }}</p>
-  </li>
-</ul>
-<div class="leaveComment">
-  <label>Lisa kommentaar:</label>
-  <textarea #comment class="comment_area"></textarea>
-  <button (click)="addComment(comment.value); comment.value = ''">Lisa</button>
+<div class="d-flex justify-content-center">
+  <div>
+    <h3 class="text-center mt-4">Kommentaarid:</h3>
+    <div>
+      <ul class="pl-0">
+        <li *ngFor="let comment of comments">
+          {{ comment.text }}
+          <p class="time">{{ comment.createdAt | date }}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="leaveComment">
+      <label class="font-weight-bold">Lisa kommentaar:</label>
+      <textarea #comment class="comment_area"></textarea>
+      <div class="d-flex justify-content-center mb-4">
+        <button class="btn btn-primary" (click)="addComment(comment.value); comment.value = ''">Lisa</button>
+      </div>
+    </div>
+  </div>
 </div>
