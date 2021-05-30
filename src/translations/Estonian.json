@@ -51,5 +51,21 @@
   "Download inventory": "Laadi alla inventuuri",
   "Download yearly inventory Excel": "Laadi alla aasta inventuuri Excel",
   "true": "Jah",
-  "false": "Ei"
+  "false": "Ei",
+  "New asset added successfully.": "Uue vara lisamine õnnestus.",
+  "New asset could not be added. Asset with same ID already exists.": "Uue vara lisamine ebaõnnestus. Sama IDga vara on juba olemas.",
+  "ID is required.": "ID on kohustuslik.",
+  "Maximum allowed length is 20 characters.": "Maksimaalne lubatud pikkus on 20 tähemärki.",
+  "Name is required.": "Nimi on kohustuslik.",
+  "Maximum allowed length is 100 characters.": "Maksimaalne lubatud pikkus on 100 tähemärki.",
+  "Price is required.": "Hind on kohustuslik.",
+  "Value must be larger than 0.": "Väärtus peab olema suurem kui 0.",
+  "Building is required.": "Hoone on kohustuslik.",
+  "Maximum allowed length is 10 characters.": "Maksimaalne lubatud pikkus on 10 tähemärki.",
+  "Maximum allowed length is 255 characters.": "Maksimaalne lubatud pikkus on 255 tähemärki.",
+  "Possessor ID is required.": "Omaniku ID on kohustuslik.",
+  "Months left is required.": "Elujääk on kohustuslik.",
+  "Delicate condition is required.": "Delikaatsuse valik on kohustuslik.",
+  "Main class is required.": "Põhiklass on kohustuslik.",
+  "Sub class is required.": "Alamklass on kohustuslik."
 }

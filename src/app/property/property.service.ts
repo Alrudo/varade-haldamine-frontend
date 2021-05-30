@@ -27,6 +27,12 @@ export class PropertyService {
     return this.http.get<JSON>(this.filterUrl, { params });
   }
 
+  resetParams(): void {
+    this.filterParams = new HttpParams();
+    this.pageParams = new HttpParams().set('page', 0 + '');
+    this.sortParams = new HttpParams().set('sortBy', 'id').set('order', 'ASC');
+  }
+
   getFilteredAssets(filterParams: HttpParams): Observable<JSON> {
     this.filterParams = filterParams;
     this.resetPage();

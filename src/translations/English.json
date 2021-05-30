@@ -51,5 +51,21 @@
   "Download inventory": "Download inventory",
   "Download yearly inventory Excel": "Download yearly inventory Excel",
   "true": "Yes",
-  "false": "No"
+  "false": "No",
+  "New asset added successfully.": "New asset added successfully.",
+  "New asset could not be added. Asset with same ID already exists.": "New asset could not be added. Asset with same ID already exists.",
+  "ID is required.": "ID is required.",
+  "Maximum allowed length is 20 characters.": "Maximum allowed length is 20 characters.",
+  "Name is required.": "Name is required.",
+  "Maximum allowed length is 100 characters.": "Maximum allowed length is 100 characters.",
+  "Price is required.": "Price is required.",
+  "Value must be larger than 0.": "Value must be larger than 0.",
+  "Building is required.": "Building is required.",
+  "Maximum allowed length is 10 characters.": "Maximum allowed length is 10 characters.",
+  "Maximum allowed length is 255 characters.": "Maximum allowed length is 255 characters.",
+  "Possessor ID is required.": "Possessor ID is required.",
+  "Months left is required.": "Months left is required.",
+  "Delicate condition is required.": "Delicate condition is required.",
+  "Main class is required.": "Main class is required.",
+  "Sub class is required.": "Sub class is required."
 }

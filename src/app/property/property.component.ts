@@ -46,6 +46,7 @@ export class PropertyComponent implements OnInit {
 
   ngOnInit() {
     this.getRole();
+    this.propertyService.resetParams();
     this.initFilterForm();
     this.getPage(1);
     this.filterForm.valueChanges.pipe(debounceTime(800)).subscribe(() => {
@@ -81,11 +82,11 @@ export class PropertyComponent implements OnInit {
   }
 
   updateAssets(asset: JSON): void {
-    this.assets = asset.content;
-    this.currentPage = asset.pageable.pageNumber + 1;
-    this.totalPages = asset.totalPages;
-    this.totalElements = asset.totalElements;
-    this.itemsPerPage = asset.size;
+    this.assets = asset['content'];
+    this.currentPage = asset['pageable']['pageNumber'] + 1;
+    this.totalPages = asset['totalPages'];
+    this.totalElements = asset['totalElements'];
+    this.itemsPerPage = asset['size'];
     this.loading = false;
   }
 

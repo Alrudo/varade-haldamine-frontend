@@ -4,6 +4,7 @@ import { PropertyService } from '@app/property/property.service';
 import { ModalComponent } from '@app/modal/modal.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/auth';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface Complect {
   value: string;
@@ -43,6 +44,11 @@ interface MajorAsset {
 export class AddAssetComponent implements OnInit {
   selectClassification: string;
 
+  isSubmitSuccessful = false;
+  isSubmitFail = false;
+
+  form: FormGroup;
+
   mainClassifications: MainClassification[] = [];
 
   selectSubClassification: string;
@@ -75,10 +81,12 @@ export class AddAssetComponent implements OnInit {
   constructor(
     private propertyService: PropertyService,
     protected matDialog: MatDialog,
+    private fb: FormBuilder,
     private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
     if (window.localStorage.getItem('role') == null) {
       window.location.href = 'http://localhost:4200/home';
     }
@@ -86,6 +94,24 @@ export class AddAssetComponent implements OnInit {
     this.getClassification();
     this.getPossessor();
     this.getMajorAssets();
+  }
+
+  initForm(): void {
+    this.form = this.fb.group({
+      id: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      price: new FormControl(null, [Validators.required]),
+      residualPrice: new FormControl(null, [Validators.min(1)]),
+      building: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      room: new FormControl('', [Validators.maxLength(10)]),
+      description: new FormControl('', [Validators.maxLength(255)]),
+      possessorId: new FormControl('', [Validators.required]),
+      purchaseDate: new FormControl('', []),
+      lifeMonthsLeft: new FormControl('', [Validators.required, Validators.min(1)]),
+      isDelicate: new FormControl(false, [Validators.required]),
+      mainClass: new FormControl(null, [Validators.required]),
+      subClass: new FormControl(null, [Validators.required]),
+    });
   }
 
   getClassification(): void {
@@ -151,6 +177,13 @@ export class AddAssetComponent implements OnInit {
     room: string,
     descriptionText: string
   ): void {
+    if (!this.form.valid) {
+      Object.keys(this.form.controls).forEach((field) => {
+        const control = this.form.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+      return;
+    }
     if (selectForComplect === 'componentAssetId') {
       const asset = {
         id,
@@ -220,7 +253,7 @@ export class AddAssetComponent implements OnInit {
         possessorId: Number(possessorId),
         lifeMonthsLeft: Number(lifeMonthsLeft),
         delicateCondition,
-        checked: null,
+        checked: true,
         createdAt: null,
         modifiedAT: null,
         price: Number(price),
@@ -240,7 +273,17 @@ export class AddAssetComponent implements OnInit {
         structuralUnit: null,
         subdivision: null,
       } as AssetInfo;
-      this.propertyService.sendAsset(asset).subscribe();
+      this.propertyService.sendAsset(asset).subscribe(
+        () => {
+          this.isSubmitSuccessful = true;
+          this.isSubmitFail = false;
+        },
+        (error) => {
+          this.isSubmitSuccessful = false;
+          this.isSubmitFail = true;
+          console.log(error);
+        }
+      );
     }
   }
 
@@ -255,5 +298,45 @@ export class AddAssetComponent implements OnInit {
 
   getRoleSessionStorage(): string {
     return window.localStorage.getItem('role');
+  }
+
+  get getId() {
+    return this.form.get('id');
+  }
+  get getName() {
+    return this.form.get('name');
+  }
+  get getPrice() {
+    return this.form.get('price');
+  }
+  get getResidualPrice() {
+    return this.form.get('residualPrice');
+  }
+  get getBuilding() {
+    return this.form.get('building');
+  }
+  get getRoom() {
+    return this.form.get('room');
+  }
+  get getDescription() {
+    return this.form.get('description');
+  }
+  get getPossessorId() {
+    return this.form.get('possessorId');
+  }
+  get getPurchaseDate() {
+    return this.form.get('purchaseDate');
+  }
+  get getLifeMonthsLeft() {
+    return this.form.get('lifeMonthsLeft');
+  }
+  get getIsDelicate() {
+    return this.form.get('isDelicate');
+  }
+  get getMainClass() {
+    return this.form.get('mainClass');
+  }
+  get getSubClass() {
+    return this.form.get('subClass');
   }
 }

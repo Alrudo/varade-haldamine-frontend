@@ -1,69 +1,134 @@
 <div *ngIf="getRoleSessionStorage() != null" class="main">
   <div class="section-from">
     <div class="container">
-      <div class="row">
+      <div class="alert-success" *ngIf="isSubmitSuccessful" translate>New asset added successfully.</div>
+      <div class="alert-danger" *ngIf="isSubmitFail" translate>
+        New asset could not be added. Asset with same ID already exists.
+      </div>
+      <div class="row" [formGroup]="form">
         <div class="col col-lg-6">
           <div class="d-flex flex-column row-left">
             <label translate>ID*</label>
-            <textarea #id class="comment_area"></textarea>
+            <textarea #id class="comment_area" formControlName="id"></textarea>
+            <div *ngIf="getId.invalid && (getId.dirty || getId.touched)" class="alert alert-danger">
+              <div *ngIf="getId.errors?.required" translate>ID is required.</div>
+              <div *ngIf="getId.errors?.maxLength" translate>Maximum allowed length is 20 characters.</div>
+            </div>
             <label translate>Name*</label>
-            <textarea #name class="comment_area"></textarea>
+            <textarea #name class="comment_area" formControlName="name"></textarea>
+            <div *ngIf="getName.invalid && (getName.dirty || getName.touched)" class="alert alert-danger">
+              <div *ngIf="getName.errors?.required" translate>Name is required.</div>
+              <div *ngIf="getName.errors?.maxlength" translate>Maximum allowed length is 100 characters.</div>
+            </div>
             <label translate>Price*</label>
-            <input #price type="number" pattern="^[0-9]" />
+            <input #price type="number" pattern="^[0-9]+" formControlName="price" />
+            <div *ngIf="getPrice.invalid && (getPrice.dirty || getPrice.touched)" class="alert alert-danger">
+              <div *ngIf="getPrice.errors?.required" translate>Price is required.</div>
+            </div>
             <label translate>ResidualPrice</label>
-            <input #residualPrice type="number" pattern="^[0-9]" />
+            <input #residualPrice type="number" pattern="^[0-9]+" formControlName="residualPrice" />
+            <div
+              *ngIf="getResidualPrice.invalid && (getResidualPrice.dirty || getResidualPrice.touched)"
+              class="alert alert-danger"
+            >
+              <div *ngIf="getResidualPrice.errors?.min" translate>Value must be larger than 0.</div>
+            </div>
             <label translate>BuildingAbbreviation*</label>
-            <textarea #address class="comment_area"></textarea>
+            <textarea #address class="comment_area" formControlName="building"></textarea>
+            <div *ngIf="getBuilding.invalid && (getBuilding.dirty || getBuilding.touched)" class="alert alert-danger">
+              <div *ngIf="getBuilding.errors?.required" translate>Building is required.</div>
+              <div *ngIf="getBuilding.errors?.maxlength" translate>Maximum allowed length is 10 characters.</div>
+            </div>
             <label translate>room</label>
-            <textarea #room class="comment_area"></textarea>
+            <textarea #room class="comment_area" formControlName="room"></textarea>
+            <div *ngIf="getRoom.invalid && (getRoom.dirty || getRoom.touched)" class="alert alert-danger">
+              <div *ngIf="getRoom.errors?.maxlength" translate>Maximum allowed length is 10 characters.</div>
+            </div>
             <label translate>DescriptionText</label>
-            <textarea #description class="comment_area"></textarea>
+            <textarea #description class="comment_area" formControlName="description"></textarea>
+            <div
+              *ngIf="getDescription.invalid && (getDescription.dirty || getDescription.touched)"
+              class="alert alert-danger"
+            >
+              <div *ngIf="getDescription.errors?.maxlength" translate>Maximum allowed length is 255 characters.</div>
+            </div>
           </div>
         </div>
         <div class="col col-lg-6">
           <div class="d-flex flex-column row-right">
             <mat-form-field appearance="fill">
               <mat-label translate>PossessorId*</mat-label>
-              <mat-select [(value)]="possessorSellect">
+              <mat-select [(value)]="possessorSellect" formControlName="possessorId">
                 <mat-option *ngFor="let possessor of possessors" [value]="possessor.value">
                   {{ possessor.viewValue }}
                 </mat-option>
               </mat-select>
+              <div
+                *ngIf="getPossessorId.invalid && (getPossessorId.dirty || getPossessorId.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="getPossessorId.errors?.required" translate>Possessor ID is required.</div>
+              </div>
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label translate>Purchase Date</mat-label>
-              <input matInput [matDatepicker]="picker" />
+              <input matInput [matDatepicker]="picker" formControlName="purchaseDate" />
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <label translate>LifeMonthsLeft*</label>
-            <input #pickerFilter type="number" pattern="^[0-9]" />
+            <input #pickerFilter type="number" pattern="^[0-9]+" formControlName="lifeMonthsLeft" />
+            <div
+              *ngIf="getLifeMonthsLeft.invalid && (getLifeMonthsLeft.dirty || getLifeMonthsLeft.touched)"
+              class="alert alert-danger"
+            >
+              <div *ngIf="getLifeMonthsLeft.errors?.required" translate>Months left is required.</div>
+              <div *ngIf="getLifeMonthsLeft.errors?.min" translate>Value must be larger than 0.</div>
+            </div>
             <mat-form-field appearance="fill">
               <mat-label translate>DelicateCondition*</mat-label>
-              <mat-select [(value)]="modeselect">
+              <mat-select [(value)]="modeselect" formControlName="isDelicate">
                 <mat-option *ngFor="let delicate of delicates" [value]="delicate.value">
                   {{ delicate.viewValue }}
                 </mat-option>
               </mat-select>
+              <div
+                *ngIf="getIsDelicate.invalid && (getIsDelicate.dirty || getIsDelicate.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="getIsDelicate.errors?.required" translate>Delicate condition is required.</div>
+              </div>
             </mat-form-field>
             <div class="complect">
               <mat-form-field appearance="fill">
                 <mat-label translate>Choose main classification</mat-label>
-                <mat-select [(value)]="selectClassification">
+                <mat-select [(value)]="selectClassification" formControlName="mainClass">
                   <mat-option *ngFor="let mainClassification of mainClassifications" [value]="mainClassification.value">
                     {{ mainClassification.viewValue }}
                   </mat-option>
                 </mat-select>
+                <div
+                  *ngIf="getMainClass.invalid && (getMainClass.dirty || getMainClass.touched)"
+                  class="alert alert-danger"
+                >
+                  <div *ngIf="getMainClass.errors?.required" translate>Main class is required.</div>
+                </div>
               </mat-form-field>
             </div>
             <div class="complect">
               <mat-form-field appearance="fill">
                 <mat-label translate>Choose sub classification</mat-label>
-                <mat-select [(value)]="selectSubClassification">
+                <mat-select [(value)]="selectSubClassification" formControlName="subClass">
                   <mat-option *ngFor="let subClassification of subClassifications" [value]="subClassification.value">
                     {{ subClassification.viewValue }}
                   </mat-option>
                 </mat-select>
+                <div
+                  *ngIf="getSubClass.invalid && (getSubClass.dirty || getSubClass.touched)"
+                  class="alert alert-danger"
+                >
+                  <div *ngIf="getSubClass.errors?.required" translate>Sub class is required.</div>
+                </div>
               </mat-form-field>
             </div>
             <div class="complect">
