@@ -17,8 +17,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeAssetFormComponent } from './change-asset-form/change-asset-form.component';
+import { ModalModule } from 'ng2-modal-module';
+import { ModalComponent } from '@app/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { ModalErrorComponent } from './modal-error/modal-error.component';
 
 @NgModule({
   imports: [
@@ -40,10 +45,18 @@ import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
     MatInputModule,
     AppRoutingModule,
     NgbPaginationModule,
-    NgbAlertModule, // must be imported as the last module as it contains the fallback route
+    NgbAlertModule,
+    ModalModule,
+    MatDialogModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:8080/api'],
+        sendAccessToken: true,
+      },
+    }), // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  declarations: [AppComponent, ChangeAssetFormComponent, ModalComponent, ModalErrorComponent],
+  providers: [], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap: [AppComponent],
   exports: [],
 })

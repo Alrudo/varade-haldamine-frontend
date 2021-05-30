@@ -1,4 +1,4 @@
-const HttpsProxyAgent = require('https-proxy-agent');
+/*const HttpsProxyAgent = require('https-proxy-agent');*/
 
 /*
  * API proxy configuration.
@@ -8,17 +8,26 @@ const HttpsProxyAgent = require('https-proxy-agent');
  */
 const proxyConfig = [
   {
-    context: ['/api', ''],
+    context: ['/api'],
     pathRewrite: { '^/api': '' },
     target: 'http://localhost:8080',
     secure: false,
+    logLevel: 'debug',
   },
+  /* {
+    context: ['/oauth2'],
+    /!* pathRewrite: { '^/api': '' -------------------/oauth2/authorization/azure /login/oauth2/code/ },*!/
+    target: 'http://localhost:4200/home',
+    secure: false,
+    changeOrigin: true,
+    logLevel: "debug",
+  },*/
 ];
 
 /*
  * Configures a corporate proxy agent for the API proxy if needed.
  */
-function setupForCorporateProxy(proxyConfig) {
+/*function setupForCorporateProxy(proxyConfig) {
   if (!Array.isArray(proxyConfig)) {
     proxyConfig = [proxyConfig];
   }
@@ -37,4 +46,5 @@ function setupForCorporateProxy(proxyConfig) {
   return proxyConfig;
 }
 
-module.exports = setupForCorporateProxy(proxyConfig);
+module.exports = setupForCorporateProxy(proxyConfig);*/
+module.exports = proxyConfig;
