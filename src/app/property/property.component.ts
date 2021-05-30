@@ -114,7 +114,10 @@ export class PropertyComponent implements OnInit {
   }
 
   checkAllOnPage(): void {
-    this.propertyService.checkAllPageAssets(this.selected).subscribe(() => this.getPage(1));
+    this.propertyService.checkAllPageAssets(this.selected).subscribe(() => {
+      this.getPage(1);
+      this.selected = [];
+    });
   }
 
   downloadInventoryExcel(): void {

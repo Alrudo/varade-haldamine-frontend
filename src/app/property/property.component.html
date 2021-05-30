@@ -15,17 +15,6 @@
           </div>
         </div>
       </div>
-      <div>
-        <button
-          type="button"
-          class="btn btn-primary"
-          *ngIf="userRole === 'KomisjoniLiige' && selected.length > 1"
-          (click)="checkAllOnPage()"
-          translate
-        >
-          Check multiple
-        </button>
-      </div>
       <p-table
         class="styled-table"
         [value]="assets | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalElements }"
@@ -37,14 +26,24 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th></th>
+            <th *ngIf="userRole !== 'ÜksuseJuht'">
+              <button
+                type="button"
+                class="btn btn-primary"
+                *ngIf="userRole === 'KomisjoniLiige' && selected.length > 1"
+                (click)="checkAllOnPage()"
+                translate
+              >
+                Check multiple
+              </button>
+            </th>
             <th *ngFor="let col of headElements" pSortableColumn="{{ col.field }}" translate>
               {{ col.header }}
             </th>
             <th>Tegevused</th>
           </tr>
           <tr class="input-row" [formGroup]="filterForm">
-            <td>
+            <td *ngIf="userRole !== 'ÜksuseJuht'">
               <input
                 *ngIf="userRole === 'KomisjoniLiige'"
                 [checked]="allChecked()"
@@ -94,7 +93,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-asset>
           <tr>
-            <td>
+            <td *ngIf="userRole !== 'ÜksuseJuht'">
               <input
                 *ngIf="userRole === 'KomisjoniLiige'"
                 [checked]="isChecked(asset)"
