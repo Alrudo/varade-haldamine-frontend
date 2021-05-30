@@ -1,12 +1,11 @@
 <div *ngIf="getRoleSessionStorage() != null" class="main">
   <div class="section-from">
-    <div class="container2"></div>
     <div class="container">
       <div class="d-flex flex-column row-table">
         <table class="table table-bordered">
           <tr>
             <td>Nimi:</td>
-            <td>{{ asset.name }}</td>
+            <td class="comment-area">{{ asset.name }}</td>
             <td><textarea #name class="comment_area"></textarea></td>
           </tr>
           <tr>
@@ -34,7 +33,7 @@
             <td>Kirjeldus :</td>
             <td *ngIf="asset.descriptionText === null; else description">-</td>
             <ng-template #description>
-              <td>{{ asset.descriptionText }}</td>
+              <td class="comment-area">{{ asset.descriptionText }}</td>
             </ng-template>
             <td><textarea #descriptionText class="comment_area"></textarea></td>
           </tr>
