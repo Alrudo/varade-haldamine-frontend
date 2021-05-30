@@ -248,7 +248,6 @@ export class AddAssetComponent implements OnInit {
 
   getRole() {
     this.authenticationService.getUserRole().subscribe((role) => {
-      // TODO review roles
       if (role !== 'Raamatupidaja') {
         // @ts-ignore
         this.router.navigate(['/home']);
