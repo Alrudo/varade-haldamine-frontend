@@ -8,7 +8,7 @@ export interface AssetInfo {
   delicateCondition: boolean;
   checked: boolean; // - null
   createdAt: Date; // - konteerimise kuupäev
-  modifiedAT: Date;
+  modifiedAt: Date;
 
   // table Worth
   price: number; // - soetus
