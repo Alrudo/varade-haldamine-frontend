@@ -13,6 +13,10 @@
             <td>{{ asset.createdAt }}</td>
           </tr>
           <tr>
+            <td>PV viimase muudatuse aeg:</td>
+            <td>{{ asset.modifiedAt | date: 'dd-MM-yyyy HH:mm:ss' }}</td>
+          </tr>
+          <tr>
             <td>Soetusmaksumus:</td>
             <td *ngIf="asset.price === null; else price">-</td>
             <ng-template #price>
