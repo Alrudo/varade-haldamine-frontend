@@ -7,9 +7,17 @@
           <button type="button" class="btn btn-primary" (click)="endInventory()" translate>End inventory</button>
         </span>
         <div class="row">
-          <div class="col"><input class="form-control" id="year-input" type="number" placeholder="Year" /></div>
-          <div>
-            <button type="button" class="btn btn-primary" (click)="downloadInventoryExcelByYear()" translate>
+          <div class="col">
+            <input class="form-control" #year id="year-input" type="number" placeholder="Year" />
+          </div>
+          <div [formGroup]="excelYearField">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="downloadInventoryExcelByYear(year.value)"
+              formControlName="excelYear"
+              translate
+            >
               Download yearly inventory Excel
             </button>
           </div>
@@ -26,7 +34,7 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th *ngIf="userRole !== 'ÜksuseJuht'">
+            <th *ngIf="userRole === 'KomisjoniLiige'">
               <button
                 type="button"
                 class="btn btn-primary"
@@ -43,7 +51,7 @@
             <th>Tegevused</th>
           </tr>
           <tr class="input-row" [formGroup]="filterForm">
-            <td *ngIf="userRole !== 'ÜksuseJuht'">
+            <td *ngIf="userRole === 'KomisjoniLiige'">
               <input
                 *ngIf="userRole === 'KomisjoniLiige'"
                 [checked]="allChecked()"
@@ -93,7 +101,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-asset>
           <tr>
-            <td *ngIf="userRole !== 'ÜksuseJuht'">
+            <td *ngIf="userRole === 'KomisjoniLiige'">
               <input
                 *ngIf="userRole === 'KomisjoniLiige'"
                 [checked]="isChecked(asset)"

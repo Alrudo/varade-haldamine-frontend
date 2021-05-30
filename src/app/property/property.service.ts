@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AssetInfo } from '@app/assetInfo';
 import { Classification } from '@app/classification';
 import { Asset } from '@app/asset';
+import { FormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -133,6 +134,11 @@ export class PropertyService {
   getInventoryExcel(): Observable<any> {
     // @ts-ignore
     return this.http.get<any>(`${this.baseUrl}/inventoryExcel`, { responseType: 'blob' });
+  }
+
+  getInventoryYearExcel(year: number): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`${this.baseUrl}/inventory/${year}`, { responseType: 'blob' });
   }
 
   getExcel(): Observable<any> {

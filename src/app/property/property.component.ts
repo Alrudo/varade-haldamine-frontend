@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyService } from './property.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Asset } from '@app/asset';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/auth';
@@ -20,6 +20,7 @@ export class PropertyComponent implements OnInit {
   filterForm: FormGroup;
   assets: Asset[] = [];
   selected: Asset[] = [];
+  excelYearField: FormGroup;
   currentPage: number;
   totalPages: number;
   totalElements: number;
@@ -47,6 +48,9 @@ export class PropertyComponent implements OnInit {
   ngOnInit() {
     this.getRole();
     this.propertyService.resetParams();
+    this.excelYearField = this.fb.group({
+      excelYear: new FormControl(null, [Validators.required]),
+    });
     this.initFilterForm();
     this.getPage(1);
     this.filterForm.valueChanges.pipe(debounceTime(800)).subscribe(() => {
@@ -139,8 +143,12 @@ export class PropertyComponent implements OnInit {
     );
   }
 
-  downloadInventoryExcelByYear(): void {
-    this.propertyService.getInventoryExcel().subscribe(
+  downloadInventoryExcelByYear(year: number): void {
+    if (this.excelYearField.invalid) {
+      this.openModal('Could not download Excel', 'Could not find inventory results.');
+      return;
+    }
+    this.propertyService.getInventoryYearExcel(year).subscribe(
       (response) => {
         const blob = new Blob([response], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
