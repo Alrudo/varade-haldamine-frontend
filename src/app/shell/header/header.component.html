@@ -1,10 +1,4 @@
 <mat-toolbar class="mat-elevation-z6 navbar" color="primary">
-  <!--  <div fxHide.gt-sm fxLayoutAlign="start center">-->
-  <!--    <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">-->
-  <!--      <mat-icon>menu</mat-icon>-->
-  <!--    </button>-->
-  <!--    <span class="title">{{ title }}</span>-->
-  <!--  </div>-->
   <div>
     <button *ngIf="getRoleSessionStorage() != null" mat-button routerLink="/home" routerLinkActive="active">
       <mat-icon>home</mat-icon>
@@ -21,7 +15,7 @@
     </button>
   </div>
   <span fxFlex></span>
-  <app-language-selector icon="true"></app-language-selector>
+  <app-language-selector *ngIf="getRoleSessionStorage() != null" icon="true"></app-language-selector>
   <button *ngIf="getRoleSessionStorage() != null" mat-icon-button [matMenuTriggerFor]="userMenu">
     <mat-icon>person</mat-icon>
   </button>
