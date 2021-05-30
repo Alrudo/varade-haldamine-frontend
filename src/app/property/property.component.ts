@@ -81,11 +81,11 @@ export class PropertyComponent implements OnInit {
   }
 
   updateAssets(asset: JSON): void {
-    this.assets = asset['content'];
-    this.currentPage = asset['pageable']['pageNumber'] + 1;
-    this.totalPages = asset['totalPages'];
-    this.totalElements = asset['totalElements'];
-    this.itemsPerPage = asset['size'];
+    this.assets = asset.content;
+    this.currentPage = asset.pageable.pageNumber + 1;
+    this.totalPages = asset.totalPages;
+    this.totalElements = asset.totalElements;
+    this.itemsPerPage = asset.size;
     this.loading = false;
   }
 
@@ -124,19 +124,33 @@ export class PropertyComponent implements OnInit {
   }
 
   downloadInventoryExcel(): void {
-    this.propertyService.getInventoryExcel().subscribe((response) => {
-      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      const url = window.URL.createObjectURL(blob);
-      window.open(url);
-    });
+    this.propertyService.getInventoryExcel().subscribe(
+      (response) => {
+        const blob = new Blob([response], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      (error) => {
+        this.openModal('Could not download Excel', 'Could not find inventory results.');
+      }
+    );
   }
 
   downloadInventoryExcelByYear(): void {
-    this.propertyService.getInventoryExcel().subscribe((response) => {
-      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      const url = window.URL.createObjectURL(blob);
-      window.open(url);
-    });
+    this.propertyService.getInventoryExcel().subscribe(
+      (response) => {
+        const blob = new Blob([response], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      (error) => {
+        this.openModal('Could not download Excel', 'Could not find inventory results.');
+      }
+    );
   }
 
   excel(): void {
@@ -158,7 +172,14 @@ export class PropertyComponent implements OnInit {
   }
 
   startInventory(): void {
-    this.propertyService.startInventory().subscribe(() => this.getPage(1));
+    this.propertyService.startInventory().subscribe(
+      (res) => {
+        this.getPage(1);
+      },
+      (error) => {
+        this.openModal('Failed to start inventory', error['error']['message']);
+      }
+    );
   }
 
   endInventory(): void {
@@ -167,16 +188,17 @@ export class PropertyComponent implements OnInit {
         this.getPage(1);
       },
       (error) => {
-        this.openModal();
+        this.openModal('Failed to end inventory', error['error']['message']);
       }
     );
   }
 
-  openModal() {
+  openModal(header: string, error: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.id = 'modal-component-hz';
-    dialogConfig.height = '350px';
+    dialogConfig.height = '250px';
     dialogConfig.width = '600px';
+    dialogConfig.data = header + ';' + error;
     this.matDialog.open(ModalErrorComponent, dialogConfig);
   }
 
